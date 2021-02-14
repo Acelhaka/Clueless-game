@@ -44,5 +44,5 @@ A player can make only one accusation during one of the games.
   4- George Risi<br/>
   5- Thomas Woltjer<br/>
   
-  References
+  References: <br/>
   Clue the Classic Edition Board Game Rules
