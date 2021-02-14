@@ -27,7 +27,7 @@ Can be placed by another player.
 A player can leave a room thorugh 1- Throwing the dice and moving out through a doorway onto the squares, heading toward another room of a choice, 2- by a secret passage without using the dice, or 3-
 Can be placed by another player.
 Players can enter the room by doors only, but cannot leave a room on the same turn.
-## Suggestion
+### Suggestions
 When a players move into a room, he should make a __Suggestion__. A "Suggestion" consists of naming a suspect, a weapon and the room into which the player is currently in. 
 After a player makes a suggestion, the other players, starting from his left side, should prove the suggestion right or wrong. if they prove it wrong, they have to show tot he player who made the suggestion the card that disproves his suggestion. For eg: If player 1 "Suggest" for Mr. Green, in his current room (assume Ballroom), with a rope; if one of the players have one of the cards mentioned, should dissprove his "Suggestion" by showing __only__ to Player 1 the cards that proves it false. 
 If no one disproves the suggestions, may have the opportunity to make an __Accusation__ or pass the turn.
