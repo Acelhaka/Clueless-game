@@ -24,6 +24,12 @@
         /// The type of update that is being sent
         /// </summary>
         public UpdateType UpdateType { get; init; }
+
+        /// <summary>
+        /// The type that UpdateObject should be deserialized as. Should match one of the types in SerializedTypes
+        /// </summary>
+        public string UpdateObjectType { get; init; } = string.Empty;
+
         /// <summary>
         /// Any information that accompanies the update. Each update type has an associated UpdateObject type, which is
         /// usually but not always the same for both frontend and backend. UpdateObject may be null if only the event

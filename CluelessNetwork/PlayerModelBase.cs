@@ -38,7 +38,7 @@ namespace CluelessNetwork
         }
 
         /// <summary>
-        /// Send an update over the network. Wrapped in a type so that a handler can be selected by the recipient. 
+        /// Send an update over the network. Wrapped in a type so that a handler can be selected by the recipient.
         /// </summary>
         /// <param name="updateObject">An object with information conveyed in the update</param>
         /// <param name="updateType">The update type</param>
@@ -48,7 +48,8 @@ namespace CluelessNetwork
                 new NetworkTransmittedUpdate
                 {
                     UpdateObject = updateObject,
-                    UpdateType = updateType
+                    UpdateType = updateType,
+                    UpdateObjectType = updateObject?.GetType().FullName ?? string.Empty
                 });
         }
 

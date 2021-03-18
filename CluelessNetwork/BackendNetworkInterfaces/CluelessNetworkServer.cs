@@ -10,7 +10,7 @@ namespace CluelessNetwork.BackendNetworkInterfaces
 {
     /// <summary>
     /// Runs a TCP listener which accetps clients, packages them into player network models, and hands them off to a
-    /// game instance. 
+    /// game instance.
     /// </summary>
     public class CluelessNetworkServer : IDisposable
     {

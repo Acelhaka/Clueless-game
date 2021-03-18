@@ -47,6 +47,7 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         {
             PushUpdate(moveActionInformation, UpdateType.MoveAction);
         }
+
         /// <summary>
         /// Send a suggestion to the server
         /// </summary>
@@ -60,6 +61,7 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         /// Subscribe to run code when a player suggestion is received
         /// </summary>
         public event Action<PlayerSuggestion>? PlayerSuggestionReceived;
+
         /// <summary>
         /// Send a suggestion response to the server
         /// </summary>
@@ -82,6 +84,7 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         /// Subscribe to run code when an accusation result is received
         /// </summary>
         public event Action<AccusationResult>? AccusationResultReceived;
+
         /// <summary>
         /// Send a selection for a suspect to the server
         /// </summary>
@@ -89,6 +92,7 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         {
             PushUpdate(suspectSelectionUpdate, UpdateType.SuspectSelection);
         }
+
         /// <summary>
         /// Subscribe to run code when a suspect selection is made by another player
         /// </summary>
@@ -106,7 +110,7 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         /// Subscribe to run code when the game is started
         /// </summary>
         public event Action<GameStartInfo>? GameStartInfoReceived;
-        
+
         /// <summary>
         /// Subscribe to run code when a player suggestion is received
         /// </summary>
