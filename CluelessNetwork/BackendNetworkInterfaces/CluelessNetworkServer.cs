@@ -49,12 +49,14 @@ namespace CluelessNetwork.BackendNetworkInterfaces
             {
                 // Start the listener
                 _tcpListener.Start();
+                Console.WriteLine($"Server started listening on port {port}");
             }
             catch (SocketException socketException)
             {
                 // Error starting the socket listener
                 // Look up Windows Sockets version 2 API error code here: https://docs.microsoft.com/en-us/windows/desktop/winsock/windows-sockets-error-codes-2
                 Console.Error.WriteLine($"Could not start TCP listener. Error code: {socketException.ErrorCode}");
+                Console.Error.WriteLine("Is another instance already running and using this port?");
                 Environment.Exit(1);
             }
         }
@@ -73,14 +75,21 @@ namespace CluelessNetwork.BackendNetworkInterfaces
             if (frontendConnection == null)
                 return;
 
+            Console.WriteLine($"Successful connection request from {client.Client.RemoteEndPoint}");
             // Create a new game instance if the connecting player indicated they are hosting
             if (frontendConnection.IsHost)
+            {
+                if (Settings.PrintNetworkDebugMessagesToConsole)
+                    Console.WriteLine(
+                        "Connection set IsHost=true. Requesting a new game instance from GameInstanceService");
                 _gameInstanceService.CreateGameInstance(frontendConnection);
+            }
 
             // Add player to an appropriate game instance
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Adding player to game instance");
             _gameInstanceService.AddPlayerToGameInstance(frontendConnection);
         }
-
 
         /// <summary>
         /// Waits for a connection, and spins up a new thread that handles the client connection
@@ -112,10 +121,16 @@ namespace CluelessNetwork.BackendNetworkInterfaces
         {
             var connectionInfo = tcpStream.ReadObject<InitialConnectionInfo>();
             if (connectionInfo == null)
+            {
                 // Could not deserialize connection info. Ignore connection request.
                 // TODO: Close connection
+                if (Settings.PrintNetworkDebugMessagesToConsole)
+                    Console.WriteLine("Did not receive InitialConnectionInfo from client");
                 return null;
+            }
 
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Received InitialConnectionInfo");
             return new BackendPlayerNetworkModel.BackendPlayerNetworkModel(tcpStream)
             {
                 IsHost = connectionInfo.IsHost

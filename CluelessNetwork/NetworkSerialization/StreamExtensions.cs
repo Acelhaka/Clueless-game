@@ -41,7 +41,7 @@ namespace CluelessNetwork.NetworkSerialization
             if (deserializedObject is NetworkTransmittedUpdate {UpdateObject: { }} dynamicUpdateWrapper)
             {
                 // In this block, we know we are wrapping data. The deserializer doesn't choose the write type by default, so we need to create a new 
-                var innerData = dynamicUpdateWrapper.UpdateObject.ToString();
+                var innerData = dynamicUpdateWrapper.UpdateObject!.ToString();
                 var innerDataType = Type.GetType(dynamicUpdateWrapper.UpdateObjectType);
                 return new NetworkTransmittedUpdate
                 {

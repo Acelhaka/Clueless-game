@@ -10,7 +10,7 @@ namespace CluelessFrontend
         {
             Console.WriteLine("Enter a hostname/IP address to connect to:");
             var hostname = Console.ReadLine();
-            Console.WriteLine("Connect as host?");
+            Console.WriteLine("Connect as host? [true/false]");
             var isHost = bool.Parse(Console.ReadLine()!);
             using var client = new CluelessNetworkClient(hostname!, isHost);
 

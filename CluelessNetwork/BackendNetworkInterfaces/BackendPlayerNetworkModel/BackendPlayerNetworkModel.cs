@@ -13,6 +13,18 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         public BackendPlayerNetworkModel(Stream tcpStream)
         {
             Initialize(tcpStream);
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+            {
+                AccusationReceived += _ => Console.WriteLine($"Server invoked {nameof(AccusationReceived)}");
+                GameStartReceived += () => Console.WriteLine($"Server invoked {nameof(GameStartReceived)}");
+                MoveActionReceived += _ => Console.WriteLine($"Server invoked {nameof(MoveActionReceived)}");
+                PlayerSuggestionReceived +=
+                    _ => Console.WriteLine($"Server invoked {nameof(PlayerSuggestionReceived)}");
+                PlayerSuggestionResponseReceived += _ =>
+                    Console.WriteLine($"Server invoked {nameof(PlayerSuggestionResponseReceived)}");
+                SuspectSelectionReceived +=
+                    _ => Console.WriteLine($"Server invoked {nameof(SuspectSelectionReceived)}");
+            }
         }
 
         /// <summary>
@@ -26,6 +38,8 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// <param name="playerOptionCollection">Object which contains player options</param>
         public void UpdatePlayerOptions(PlayerOptionCollection playerOptionCollection)
         {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending player option collection to client");
             PushUpdate(playerOptionCollection, UpdateType.PlayerOptionsUpdate);
         }
 
@@ -45,6 +59,8 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// <param name="accusationResult">The accusation result</param>
         public void SendAccusationResult(AccusationResult accusationResult)
         {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending accusation result to client");
             PushUpdate(accusationResult, UpdateType.AccusationResult);
         }
 
@@ -54,6 +70,8 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// <param name="suspectSelectionUpdate">The suspect selection update</param>
         public void SendSuspectSelectionUpdate(SuspectSelectionUpdate suspectSelectionUpdate)
         {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending suspect selection to client");
             PushUpdate(suspectSelectionUpdate, UpdateType.SuspectSelection);
         }
 
@@ -82,6 +100,8 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// <param name="playerSuggestionResponse">The player suggestion response to send</param>
         public void SendPlayerSuggestionResponse(PlayerSuggestionResponse playerSuggestionResponse)
         {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending player suggestion response to client");
             PushUpdate(playerSuggestionResponse, UpdateType.PlayerSuggestionResponse);
         }
 
@@ -96,6 +116,8 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// <param name="suggestion">The suggestion requiring a response</param>
         public void PromptResponseToSuggestion(PlayerSuggestion suggestion)
         {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending player suggestion to client");
             PushUpdate(suggestion, UpdateType.PlayerSuggestion);
         }
 

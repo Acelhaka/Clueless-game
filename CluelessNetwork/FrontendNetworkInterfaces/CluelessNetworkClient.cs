@@ -22,11 +22,29 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
             IsHost = isHost;
             _tcpClient = new TcpClient(hostname, 12321);
             Initialize(_tcpClient.GetStream());
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Server connection established");
             _tcpStream?.WriteObject(
                 new InitialConnectionInfo
                 {
                     IsHost = isHost
                 });
+            
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+            {
+                Console.WriteLine($"InitialConnectionInfo sent with IsHost={isHost}");
+
+                AccusationResultReceived +=
+                    _ => Console.WriteLine($"Client invoked {nameof(AccusationResultReceived)}");
+                GameStartInfoReceived += _ => Console.WriteLine($"Client invoked {nameof(GameStartInfoReceived)}");
+                OptionsUpdateReceived += _ => Console.WriteLine($"Client invoked {nameof(OptionsUpdateReceived)}");
+                PlayerSuggestionReceived +=
+                    _ => Console.WriteLine($"Client invoked {nameof(PlayerSuggestionReceived)}");
+                PlayerSuggestionResponseReceived += _ =>
+                    Console.WriteLine($"Client invoked {nameof(PlayerSuggestionResponseReceived)}");
+                SuspectSelectionUpdateReceived += _ =>
+                    Console.WriteLine($"Client invoked {nameof(SuspectSelectionUpdateReceived)}");
+            }
         }
 
         /// <summary>
@@ -45,6 +63,8 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         /// <param name="moveActionInformation">All the information that the server needs to know to perform the move</param>
         public void SendMoveAction(MoveActionInformation moveActionInformation)
         {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending move action to server");
             PushUpdate(moveActionInformation, UpdateType.MoveAction);
         }
 
@@ -54,6 +74,8 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         /// <param name="playerSuggestion">The suggestion to send</param>
         public void SendPlayerSuggestion(PlayerSuggestion playerSuggestion)
         {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending player suggestion to server");
             PushUpdate(playerSuggestion, UpdateType.PlayerSuggestion);
         }
 
@@ -68,6 +90,8 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         /// <param name="playerSuggestionResponse">The suggestion response to send</param>
         public void SendPlayerSuggestionResponse(PlayerSuggestionResponse playerSuggestionResponse)
         {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending player suggestion response to server");
             PushUpdate(playerSuggestionResponse, UpdateType.PlayerSuggestionResponse);
         }
 
@@ -77,6 +101,8 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         /// <param name="accusation">The accusation to send</param>
         public void SendAccusation(Accusation accusation)
         {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending accusation to server");
             PushUpdate(accusation, UpdateType.Accusation);
         }
 
@@ -90,6 +116,8 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         /// </summary>
         public void SendSuspectSelection(SuspectSelectionUpdate suspectSelectionUpdate)
         {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending suspect selection update to server");
             PushUpdate(suspectSelectionUpdate, UpdateType.SuspectSelection);
         }
 
@@ -103,6 +131,8 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         /// </summary>
         public void SendGameStartRequest()
         {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending start game request to server");
             PushUpdate(null, UpdateType.GameStart);
         }
 
