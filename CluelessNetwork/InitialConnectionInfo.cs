@@ -7,15 +7,16 @@
     public class InitialConnectionInfo
     {
         public bool IsHost { get; init; }
+        public string? Name { get; init; }
 
         public override bool Equals(object? obj)
         {
-            return obj is InitialConnectionInfo connectionInfo && connectionInfo.IsHost == IsHost;
+            return obj is InitialConnectionInfo other && (other.IsHost, Name).Equals((IsHost, Name));
         }
 
         public override int GetHashCode()
         {
-            return IsHost.GetHashCode();
+            return (IsHost, Name).GetHashCode();
         }
     }
 }

@@ -9,9 +9,19 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
     public interface IBackendPlayerNetworkModel : IPlayerNetworkModel
     {
         /// <summary>
+        /// The user's handle
+        /// </summary>
+        public string Name { get; init; }
+
+        /// <summary>
         /// Subscribe to run code when an accusation is received from the frontend for this player
         /// </summary>
         public event Action<Accusation>? AccusationReceived;
+
+        /// <summary>
+        /// Subscribe to run code when a chat message is received
+        /// </summary>
+        public event Action<ChatMessage>? ChatMessageReceived;
 
         /// <summary>
         /// Subscribe to run code when the host wants to start the game
@@ -49,6 +59,12 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// </summary>
         /// <param name="accusationResult">The accusation result</param>
         public void SendAccusationResult(AccusationResult accusationResult);
+
+        /// <summary>
+        /// Sends a chat message to everyone on the server
+        /// </summary>
+        /// <param name="message">The message</param>
+        public void SendChatMessage(ChatMessage message);
 
         /// <summary>
         /// Send game start information to this player

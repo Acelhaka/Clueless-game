@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using CluelessNetwork.NetworkSerialization;
 
 namespace CluelessNetwork
@@ -28,13 +26,13 @@ namespace CluelessNetwork
         /// Listen continuously for updates over the network. Runs forever, but provides a task for each update handler invocation
         /// </summary>
         /// <returns>An enumeration for each handler</returns>
-        public IEnumerable<Task> ListenForUpdatesContinuously()
+        public void ListenForUpdatesContinuously()
         {
             // TODO: Figure out how to stop listening
             {
-                while (true) yield return ReceiveUpdate();
+                while (true) ReceiveUpdate();
             }
-            // ReSharper disable once IteratorNeverReturns
+            // ReSharper disable once FunctionNeverReturns
         }
 
         /// <summary>
@@ -57,15 +55,12 @@ namespace CluelessNetwork
         /// Receives an update and handles it
         /// </summary>
         /// <returns>A task that completes when handling finishes</returns>
-        public Task ReceiveUpdate()
+        public void ReceiveUpdate()
         {
             var update = _tcpStream?.ReadObject<NetworkTransmittedUpdate>();
             // Handle update
             if (update != null)
-                return Task.Run(() => HandleUpdateReceived(update));
-
-            // The update could not be read, so no action is taken
-            return Task.CompletedTask;
+                HandleUpdateReceived(update);
         }
 
         /// <summary>
