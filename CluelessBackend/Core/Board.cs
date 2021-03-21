@@ -12,6 +12,7 @@ namespace CluelessBackend.Core
         int[] hallway;
 
       
+        // TODO this looks great! One question is whether we'll need to represent the hallways as nulls/nones here...
         //__________________________Board Setup________________________________
         //                  |                     |                            |
         //    Study         |        Hall         |            Lounge          |
@@ -26,9 +27,9 @@ namespace CluelessBackend.Core
 
         Room[,] rooms = new Room[3, 3]
         {
-        {new Room(1, "Study"), new Room(2, "Hall"), new Room(3,"Lounge")},
+        {new Room(1, "Study", "Kitchen"), new Room(2, "Hall"), new Room(3,"Lounge", "Conservatory")},
         {new Room(4, "Library"), new Room(5, "Billiard Room"), new Room(6, "Dining Room")},
-        {new Room(7, "Conservatory"), new Room(8, "BallRoom"), new Room(9, "Kitchen")}
+        {new Room(7, "Conservatory", "Lounge"), new Room(8, "BallRoom"), new Room(9, "Kitchen", "Study")}
         };
 
     }
