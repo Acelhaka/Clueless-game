@@ -2,3 +2,5 @@
 *.dotsettings.user
 */bin
 */obj
+
+*.vs
