@@ -16,8 +16,8 @@ namespace CluelessBackend.Core
         }
         
         string[] weaponCards = { "Rope", "Lead Pipe", "Knife", "Wrench", "Candlestick", "Revolver" };
-        string[] suspectCards = { "Colonel Mustard", "Miss Scarlet", "Professor Plum", "Mr.Green",
-                "Mrs.White", "Mrs.Peacock"};
+        string[] suspectCards = { "Colonel Mustard", "Miss Scarlet", "Professor Plum", "Mr. Green",
+                "Mrs. White", "Mrs. Peacock"};
         string[] roomCards = {"Study", "Hall", "Lounge", "Library", "Billiard Room",
         "Dining Room", "Conservatory", "Ballroom", "Kitchen"};
 

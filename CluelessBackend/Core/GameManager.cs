@@ -13,7 +13,7 @@ namespace CluelessBackend.Core
 
         }
 
-        public void assignWeaponToRooms()
+        public void AssignWeaponToRooms()
         {
 
         }
