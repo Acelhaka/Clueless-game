@@ -61,6 +61,21 @@ namespace CluelessBackend.Core
         public SUSPECT_CARDS Suspect_Cards { get; set; }
         public ROOM_CARDS Room_Cards { get; set; }
 
+        /**
+         * Another implementation for card I was thinking would be :
+         * class Card {
+         *  int cardID_
+         *  string cardName_
+         *  enum type 
+         *  
+         *  public Card (int cardID, string cardName, enum Type) {
+         *  ....
+         *  
+         *  }
+         *  
+         *  thoughts?
+        /*
+
 
     }
 
