@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CluelessBackend.Core
 {
-    class Card
+    public class Card
     {
         public enum CARD_TYPE
         {
@@ -17,7 +17,7 @@ namespace CluelessBackend.Core
 
         public enum WEAPON_CARDS
         {
-            ROPE,
+            ROPE = 0,
             LEAD_PIPE,
             KNIFE,
             WRENCH,
@@ -27,7 +27,7 @@ namespace CluelessBackend.Core
 
         public enum SUSPECT_CARDS
         {
-            COLONEL_MUSTARD,
+            COLONEL_MUSTARD = 6,
             MISSS_SCARLET,
             PREOFESSOR_PLUM,
             MR_GREEN,
@@ -37,7 +37,7 @@ namespace CluelessBackend.Core
 
         public enum ROOM_CARDS
         {
-            STUDY,
+            STUDY = 12,
             HALL,
             LOUNGE,
             LIBRARY,
@@ -61,6 +61,24 @@ namespace CluelessBackend.Core
         public SUSPECT_CARDS Suspect_Cards { get; set; }
         public ROOM_CARDS Room_Cards { get; set; }
 
+        public override string ToString()
+        {
+            string cardObject = "";
+            if (Card_Type == CARD_TYPE.WEAPON)
+            {
+                cardObject = "Card: " + Card_Type + ": " + roomCards;
+            }
+            if (Card_Type == CARD_TYPE.WEAPON)
+            {
+                cardObject = "Card: " + Card_Type + ": " + weaponCards;
+            }
+            if (Card_Type == CARD_TYPE.SUSPECT)
+            {
+                cardObject = "Card: " + Card_Type + ": " + suspectCards;
+            }
+
+            return cardObject;
+        }
 
     }
 

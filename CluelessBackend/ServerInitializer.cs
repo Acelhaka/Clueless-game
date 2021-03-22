@@ -1,4 +1,5 @@
 ﻿using CluelessNetwork.BackendNetworkInterfaces;
+using CluelessBackend.Core;
 
 namespace CluelessBackend
 {
@@ -12,6 +13,9 @@ namespace CluelessBackend
             // TODO: Start logging (not for skeletal)
 
             // Run any backend initialization logic here
+            CardDeck deck = new CardDeck();
+            deck.CreateDeckOfCards();
+            deck.ShuffleCards();
 
             // Start network server. Runs until the program is interrupted or terminated
             // TODO: Create a class implementing IGameInstanceService and assign it
