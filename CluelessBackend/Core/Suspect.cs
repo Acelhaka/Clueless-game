@@ -11,6 +11,16 @@ namespace CluelessBackend.Core
         int suspectID_;
         string suspectName_;
         string suspectColor_ = "";
+        SUSPECT suspectType_;
+        public enum SUSPECT
+        {
+            COLONEL_MUSTARD,
+            MISSS_SCARLET,
+            PREOFESSOR_PLUM,
+            MR_GREEN,
+            MRS_WHITE,
+            MRS_PEACOCK
+        }
 
         public Suspect(int suspectID, string suspectName, string suspectColor)
         {
@@ -19,5 +29,9 @@ namespace CluelessBackend.Core
             suspectColor_ = suspectColor;
         }
 
+        public Suspect(SUSPECT suspectEnum)
+        {
+            suspectType_ = suspectEnum;
+        }
     }
 }

@@ -20,9 +20,9 @@ namespace CluelessBackend.Core
         // Return true if scenario file matches the envelope
         public bool CheckScenarioFile(Card weapon, Card suspect, Card room)
         {
-           if((envelopeCards_[0].Weapon_Cards.GetType() == weapon.GetType())
-             && (envelopeCards_[1].Suspect_Cards.GetType() == suspect.GetType())
-             && (envelopeCards_[2].Room_Cards.GetType() == room.GetType()))
+            if ((envelopeCards_[0].Weapon_Cards == weapon.Weapon_Cards)
+              && (envelopeCards_[1].Suspect_Cards == suspect.Suspect_Cards)
+              && (envelopeCards_[2].Room_Cards == room.Room_Cards))
             {
                 return true;
             }

@@ -32,9 +32,18 @@ namespace CluelessBackend.Core
         {
 
         }
-        public void SpredCardsToPlayer()
+        public void SpreadCardsToPlayer(int numberOfPlayers, Player[] player, CardDeck deck)
         {
+            int cardsCount = 0;
 
+            while (cardsCount <= deck.GetDeckSize())
+            {
+                for (int i = 0; i < numberOfPlayers; i++)
+                {
+                    player[i].HandOneCard(cardsCount, deck.GetCardFromDeck(cardsCount));
+                    cardsCount++;
+                }
+            }
         }
     }
 }

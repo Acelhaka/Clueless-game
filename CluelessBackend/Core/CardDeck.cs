@@ -135,7 +135,14 @@ namespace CluelessBackend.Core
             deckSize_ -= 1;
 
         }
+        public int GetDeckSize()
+        {
+            return deckSize_;
+        }
 
-        public CardDeck cardDeck { get; set; }
+        public Card GetCardFromDeck(int index)
+        {
+            return deckOfCards_[index];
+        }
     }
 }

@@ -48,37 +48,11 @@ namespace CluelessBackend.Core
             KITCHEN
         }
 
-        // TODO:: remove these
-        string[] weaponCards = { "Rope", "Lead Pipe", "Knife", "Wrench", "Candlestick", "Revolver" };
-        string[] suspectCards = { "Colonel Mustard", "Miss Scarlet", "Professor Plum", "Mr. Green",
-                "Mrs. White", "Mrs. Peacock"};
-        string[] roomCards = {"Study", "Hall", "Lounge", "Library", "Billiard Room",
-        "Dining Room", "Conservatory", "Ballroom", "Kitchen"};
-
         // Getter and setter functions for the card enums 
         public CARD_TYPE Card_Type { get; set; }
         public WEAPON_CARDS Weapon_Cards { get; set; }
         public SUSPECT_CARDS Suspect_Cards { get; set; }
         public ROOM_CARDS Room_Cards { get; set; }
-
-        public override string ToString()
-        {
-            string cardObject = "";
-            if (Card_Type == CARD_TYPE.WEAPON)
-            {
-                cardObject = "Card: " + Card_Type + ": " + roomCards;
-            }
-            if (Card_Type == CARD_TYPE.WEAPON)
-            {
-                cardObject = "Card: " + Card_Type + ": " + weaponCards;
-            }
-            if (Card_Type == CARD_TYPE.SUSPECT)
-            {
-                cardObject = "Card: " + Card_Type + ": " + suspectCards;
-            }
-
-            return cardObject;
-        }
 
     }
 
