@@ -48,7 +48,7 @@ namespace CluelessBackend.Core
             KITHCEN
         }
 
-        // TODO:: Maybe remove this
+        // TODO:: remove these
         string[] weaponCards = { "Rope", "Lead Pipe", "Knife", "Wrench", "Candlestick", "Revolver" };
         string[] suspectCards = { "Colonel Mustard", "Miss Scarlet", "Professor Plum", "Mr. Green",
                 "Mrs. White", "Mrs. Peacock"};
