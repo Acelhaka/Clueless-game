@@ -32,5 +32,9 @@ namespace CluelessBackend.Core
         {
 
         }
+        public void SpredCardsToPlayer()
+        {
+
+        }
     }
 }

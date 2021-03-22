@@ -13,8 +13,17 @@ namespace CluelessBackend
             // TODO: Start logging (not for skeletal)
 
             // Run any backend initialization logic here
+
+            // Create deck of cards
             CardDeck deck = new CardDeck();
             deck.CreateDeckOfCards();
+            
+            // Init scenario file
+            ScenarioFile scenarioFile = new ScenarioFile();
+
+            // Place 3 random cards in the secret envelope
+            scenarioFile.PlaceCardsInEnvelope(deck);
+
             deck.ShuffleCards();
 
             // Start network server. Runs until the program is interrupted or terminated

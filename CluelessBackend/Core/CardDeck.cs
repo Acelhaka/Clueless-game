@@ -14,6 +14,8 @@ namespace CluelessBackend.Core
         // array that will store all the cards (weapons, suspects and rooms)
         private Card[] deckOfCards_;
 
+        int deckSize_;
+
         public CardDeck()
         {
             deckOfCards_ = new Card[CARD_NUMBER];
@@ -21,6 +23,8 @@ namespace CluelessBackend.Core
 
         public void CreateDeckOfCards()
         {
+            deckSize_ = CARD_NUMBER;
+
             int cardIndex = 0;
             // Add weapon cards in the deck
             foreach (WEAPON_CARDS weaponIndex in Enum.GetValues(typeof(WEAPON_CARDS)))
@@ -46,25 +50,27 @@ namespace CluelessBackend.Core
         public void ShuffleCards()
         {
             Random randomGenerator = new Random();
-            Card temp;
+            Card tempCard;
 
             for (int shuffleTimes = 0; shuffleTimes < 200; shuffleTimes++)
             {
-                for (int cardCount = 0; cardCount < CARD_NUMBER; cardCount++)
+                for (int cardCount = 0; cardCount < CARD_NUMBER - 3; cardCount++)
                 {
                     //swap the cards
                     int secondCardIndex = randomGenerator.Next(20);
-                    temp = deckOfCards_[cardCount];
+                    tempCard = deckOfCards_[cardCount];
                     deckOfCards_[cardCount] = deckOfCards_[secondCardIndex];
-                    deckOfCards_[secondCardIndex] = temp;
+                    deckOfCards_[secondCardIndex] = tempCard;
                 }
             }
 
+            Console.WriteLine("AFTER SHUFFLING CARDS");
+
             PrintDeckOfCards();
-            }
+        }
         public void PrintDeckOfCards()
         {
-            for (int i = 0; i < CARD_NUMBER; i++)
+            for (int i = 0; i < deckSize_; i++)
             {
                 if (deckOfCards_[i].Card_Type == CARD_TYPE.WEAPON)
                 {
@@ -80,6 +86,56 @@ namespace CluelessBackend.Core
                 }
             }
         }
+
+        public Card[] SelectCardsForEnvelope()
+        {
+            Random randomGenerator = new Random();
+
+            Card[] envelopeCards = new Card[3];
+            Card weaponCard;
+            Card roomCard;
+            Card suspectCard;
+
+            int weaponRandomIndex = randomGenerator.Next(6);
+            weaponCard = deckOfCards_[weaponRandomIndex];
+            envelopeCards[0] = weaponCard;
+
+            int suspectRandomIndex = randomGenerator.Next(6, 11);
+            suspectCard = deckOfCards_[suspectRandomIndex];
+            envelopeCards[1] = suspectCard;
+
+            int roomRandomIndex = randomGenerator.Next(12, 20);
+            roomCard = deckOfCards_[roomRandomIndex];
+            envelopeCards[2] = roomCard;
+
+            Console.WriteLine("BEFORE REMOVING CARDS" );
+            PrintDeckOfCards();
+
+            // remove the selected weapon card from the deck
+            RemoveSelectedCardFromDeck(weaponRandomIndex);
+
+            // remove the selected suspect card from the deck
+            RemoveSelectedCardFromDeck(suspectRandomIndex);
+
+            // remove the selected room card from the deck
+            RemoveSelectedCardFromDeck(roomRandomIndex);
+
+            Console.WriteLine("\n\nAFTER REMOVING CARDS");
+            PrintDeckOfCards();
+
+            return envelopeCards;
+        }
+
+        public void RemoveSelectedCardFromDeck(int index)
+        {
+            for (int i = index; i < deckSize_ - 1; i++)
+            {
+                deckOfCards_[i] = deckOfCards_[i + 1];
+            }
+            deckSize_ -= 1;
+
+        }
+
         public CardDeck cardDeck { get; set; }
     }
 }

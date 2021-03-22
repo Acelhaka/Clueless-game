@@ -45,7 +45,7 @@ namespace CluelessBackend.Core
             DINNING_ROOM,
             CONSERVATORY,
             BALLROOM,
-            KITHCEN
+            KITCHEN
         }
 
         // TODO:: remove these
