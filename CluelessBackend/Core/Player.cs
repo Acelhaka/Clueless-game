@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace CluelessBackend.Core
 {
-    class Player
+    public class Player : Suspect
     {
         int playerID_;
         string playerName_ = "";
+
+        SUSPECT suspectType_;
+
+        // Player starting position is in one of the hallways
+        int[,] startingPosition_ = new int[1,1];
 
         // Player can only be in one cell at a time (room/hallway)
         // Player position marked as a 2-d array of size 1x1
@@ -28,13 +33,6 @@ namespace CluelessBackend.Core
         int numberOfSuggestions_ = 0;
         bool hasSuggested_ = false;
         bool hasAccused_ = false;
-
-
-        public Player(int PlayerID, string playerName)
-        {
-            playerID_ = PlayerID;
-            playerName_ = playerName;
-        }
 
         public void MakeSuggestion()
         {
@@ -65,6 +63,16 @@ namespace CluelessBackend.Core
         public void HandOneCard(int i, Card card)
         {
             cardsInHand_[i] = card;
+        }
+
+        public SUSPECT GetSuspectType()
+        {
+            return suspectType_;
+        }
+
+        public void SetSuspectType(SUSPECT suspectType)
+        {
+            suspectType_ = suspectType;
         }
     }
 }

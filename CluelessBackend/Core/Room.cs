@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CluelessBackend.Core
 {
-    class Room
+    public class Room
     {
         public enum ROOM
         {
@@ -26,6 +26,8 @@ namespace CluelessBackend.Core
         ROOM roomEnum_;
         bool hasSecretPassage_;
         ROOM secretPassage_;
+
+        Player playerInRoom_;
 
         public Room(int roomID, string roomName)
         {
@@ -51,6 +53,11 @@ namespace CluelessBackend.Core
             }
         }
 
+        public Room()
+        {
+
+        }
+
         // TODO:: Check what is the secret passage of each room
         public void SetSecretPassage(ROOM roomType)
         {
@@ -72,6 +79,16 @@ namespace CluelessBackend.Core
             }
         }
         public ROOM RoomEnum { get; set; }
+
+
+        public Player GetPlayerInRoom()
+        {
+           return playerInRoom_;
+        }
+        public void SetPlayerInRoom(Player player)
+        {
+            playerInRoom_ = player;
+        }
 
     }
 }

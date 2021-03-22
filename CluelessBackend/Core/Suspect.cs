@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CluelessBackend.Core
 {
-    class Suspect
+    public class Suspect
     {
         int suspectID_;
         string suspectName_;
@@ -15,13 +15,17 @@ namespace CluelessBackend.Core
         public enum SUSPECT
         {
             COLONEL_MUSTARD,
-            MISSS_SCARLET,
+            MISS_SCARLET,
             PREOFESSOR_PLUM,
             MR_GREEN,
             MRS_WHITE,
             MRS_PEACOCK
         }
 
+        public Suspect()
+        {
+
+        }
         public Suspect(int suspectID, string suspectName, string suspectColor)
         {
             suspectID_ = suspectID;
