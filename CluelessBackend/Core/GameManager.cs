@@ -60,7 +60,7 @@ namespace CluelessBackend.Core
                 else if (players[i].GetSuspectType() == Suspect.SUSPECT.MR_GREEN)
                 {
                     MovePlayerToRoom(players[i], GetRoomByIndex(4, 1));
-                    Console.WriteLine("MISS_SCARLET - Starting position in cell [4,1], Hallway-11");
+                    Console.WriteLine("MR_GREEN - Starting position in cell [4,1], Hallway-11");
                 }
             }
         }
