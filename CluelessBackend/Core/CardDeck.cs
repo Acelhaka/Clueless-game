@@ -12,13 +12,14 @@ namespace CluelessBackend.Core
         const int CARD_NUMBER = 21;
 
         // array that will store all the cards (weapons, suspects and rooms)
-        private Card[] deckOfCards_;
+        // private Card[] deckOfCards_;
 
+        List<Card> deckOfCards_ = new List<Card>(CARD_NUMBER);
         int deckSize_;
 
         public CardDeck()
         {
-            deckOfCards_ = new Card[CARD_NUMBER];
+            
         }
 
         public void CreateDeckOfCards()
@@ -29,21 +30,22 @@ namespace CluelessBackend.Core
             // Add weapon cards in the deck
             foreach (WEAPON_CARDS weaponIndex in Enum.GetValues(typeof(WEAPON_CARDS)))
             {
-                deckOfCards_[cardIndex] = new Card { Card_Type = CARD_TYPE.WEAPON, Weapon_Cards = weaponIndex };
+                Card weaponCard = new Card { Card_Type = CARD_TYPE.WEAPON, Weapon_Cards = weaponIndex };
+                deckOfCards_.Add(weaponCard);
                 cardIndex++;
             }
 
             // Add suspect cards in the deck
             foreach (SUSPECT_CARDS suspectIndex in Enum.GetValues(typeof(SUSPECT_CARDS)))
             {
-                deckOfCards_[cardIndex] = new Card { Card_Type = CARD_TYPE.SUSPECT, Suspect_Cards = suspectIndex };
+                deckOfCards_.Add(new Card { Card_Type = CARD_TYPE.SUSPECT, Suspect_Cards = suspectIndex });
                 cardIndex++;
             }
 
             // Add room cards in the deck
             foreach (ROOM_CARDS roomIndex in Enum.GetValues(typeof(ROOM_CARDS)))
             {
-                deckOfCards_[cardIndex] = new Card { Card_Type = CARD_TYPE.ROOM, Room_Cards = roomIndex };
+                deckOfCards_.Add(new Card { Card_Type = CARD_TYPE.ROOM, Room_Cards = roomIndex });
                 cardIndex++;
             }
         }
@@ -74,15 +76,15 @@ namespace CluelessBackend.Core
             {
                 if (deckOfCards_[i].Card_Type == CARD_TYPE.WEAPON)
                 {
-                    Console.WriteLine(deckOfCards_[i].Weapon_Cards);
+                    Console.WriteLine(i + "-" + deckOfCards_[i].Weapon_Cards);
                 }
                 else if (deckOfCards_[i].Card_Type == CARD_TYPE.SUSPECT)
                 {
-                    Console.WriteLine(deckOfCards_[i].Suspect_Cards);
+                    Console.WriteLine(i + "-" + deckOfCards_[i].Suspect_Cards);
                 }
                 else
                 {
-                    Console.WriteLine(deckOfCards_[i].Room_Cards);
+                    Console.WriteLine(i + "-" + deckOfCards_[i].Room_Cards);
                 }
             }
         }
@@ -112,13 +114,16 @@ namespace CluelessBackend.Core
             PrintDeckOfCards();
 
             // remove the selected weapon card from the deck
-            RemoveSelectedCardFromDeck(weaponRandomIndex);
+            deckOfCards_.Remove(weaponCard);
+            deckSize_ -= 1;
 
             // remove the selected suspect card from the deck
-            RemoveSelectedCardFromDeck(suspectRandomIndex);
+            deckOfCards_.Remove(suspectCard);
+            deckSize_ -= 1;
 
             // remove the selected room card from the deck
-            RemoveSelectedCardFromDeck(roomRandomIndex);
+            deckOfCards_.Remove(roomCard);
+            deckSize_ -= 1;
 
             Console.WriteLine("\n\nAFTER REMOVING CARDS");
             PrintDeckOfCards();
@@ -126,15 +131,6 @@ namespace CluelessBackend.Core
             return envelopeCards;
         }
 
-        public void RemoveSelectedCardFromDeck(int index)
-        {
-            for (int i = index; i < deckSize_ - 1; i++)
-            {
-                deckOfCards_[i] = deckOfCards_[i + 1];
-            }
-            deckSize_ -= 1;
-
-        }
         public int GetDeckSize()
         {
             return deckSize_;

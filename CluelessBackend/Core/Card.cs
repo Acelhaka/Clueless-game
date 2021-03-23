@@ -28,8 +28,8 @@ namespace CluelessBackend.Core
         public enum SUSPECT_CARDS
         {
             COLONEL_MUSTARD = 6,
-            MISSS_SCARLET,
-            PREOFESSOR_PLUM,
+            MISS_SCARLET,
+            PROFESSOR_PLUM,
             MR_GREEN,
             MRS_WHITE,
             MRS_PEACOCK

@@ -9,11 +9,17 @@ namespace CluelessBackend.Core
 {
     class ScenarioFile : CardDeck
     {
-        Card[] envelopeCards_ = new Card[3];
+        const int NUM_CARDS_IN_ENVELOPE = 3;
+
+        Card[] envelopeCards_;
+
+        public ScenarioFile()
+        {
+            envelopeCards_ = new Card[NUM_CARDS_IN_ENVELOPE];
+        }
 
         public void PlaceCardsInEnvelope(CardDeck deck)
         {
-
             envelopeCards_ = SelectCardsForEnvelope();
         }
 
@@ -28,6 +34,32 @@ namespace CluelessBackend.Core
             }
 
             return false;
+        }
+
+        public void PrintEnvelopeCards()
+        {
+            Console.WriteLine("\nCards selected for the envelope:");
+
+            for (int i = 0; i < NUM_CARDS_IN_ENVELOPE; i++)
+            {
+                if (envelopeCards_[i].Card_Type == CARD_TYPE.WEAPON)
+                {
+                    Console.WriteLine("Weapon Card: " + envelopeCards_[i].Weapon_Cards);
+                }
+                else if (envelopeCards_[i].Card_Type == CARD_TYPE.SUSPECT)
+                {
+                    Console.WriteLine("Suspect Card: " + envelopeCards_[i].Suspect_Cards);
+                }
+                else
+                {
+                    Console.WriteLine("Room Card: " + envelopeCards_[i].Room_Cards);
+                }
+            }
+        }
+
+        public void SetEnvelopeCards(Card[] envelopeCards)
+        {
+            envelopeCards_ = envelopeCards;
         }
     }
 }
