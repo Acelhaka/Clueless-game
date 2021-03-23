@@ -26,6 +26,7 @@ namespace CluelessBackend.Core
         ROOM roomEnum_;
         bool hasSecretPassage_;
         ROOM secretPassage_;
+        bool hallway_ = true;
 
         Player playerInRoom_;
 
@@ -51,6 +52,8 @@ namespace CluelessBackend.Core
             {
                 SetSecretPassage(roomType);
             }
+
+            hallway_ = false;
         }
 
         public Room()
@@ -90,5 +93,19 @@ namespace CluelessBackend.Core
             playerInRoom_ = player;
         }
 
+        public override string ToString()
+        {
+            return "+ " + roomEnum_ + " Has secret passage = " + hasSecretPassage_ + " ";
+        }
+
+        public void PrintRoom(Room room)
+        {
+            Console.Write(roomEnum_ + " Secret passage = " + hasSecretPassage_ + " ");
+        }
+
+        public bool Gethallway()
+        {
+            return hallway_;
+        }
     }
 }

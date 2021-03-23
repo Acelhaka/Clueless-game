@@ -56,20 +56,17 @@ namespace CluelessBackend.Core
 
             for (int shuffleTimes = 0; shuffleTimes < 200; shuffleTimes++)
             {
-                for (int cardCount = 0; cardCount < CARD_NUMBER - 3; cardCount++)
+                for (int cardCount = 0; cardCount < deckSize_; cardCount++)
                 {
                     //swap the cards
-                    int secondCardIndex = randomGenerator.Next(20);
+                    int secondCardIndex = randomGenerator.Next(deckSize_);
                     tempCard = deckOfCards_[cardCount];
                     deckOfCards_[cardCount] = deckOfCards_[secondCardIndex];
                     deckOfCards_[secondCardIndex] = tempCard;
                 }
             }
-
-            Console.WriteLine("AFTER SHUFFLING CARDS");
-
-            PrintDeckOfCards();
         }
+
         public void PrintDeckOfCards()
         {
             for (int i = 0; i < deckSize_; i++)
@@ -109,9 +106,6 @@ namespace CluelessBackend.Core
             int roomRandomIndex = randomGenerator.Next(12, 20);
             roomCard = deckOfCards_[roomRandomIndex];
             envelopeCards[2] = roomCard;
-
-            Console.WriteLine("BEFORE REMOVING CARDS" );
-            PrintDeckOfCards();
 
             // remove the selected weapon card from the deck
             deckOfCards_.Remove(weaponCard);

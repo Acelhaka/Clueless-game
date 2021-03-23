@@ -1,6 +1,7 @@
 ﻿using CluelessNetwork.BackendNetworkInterfaces;
 using CluelessBackend.Core;
 using System;
+using System.Collections.Generic;
 
 namespace CluelessBackend
 {
@@ -40,8 +41,27 @@ namespace CluelessBackend
             Console.WriteLine("\nShuffling the cards before handing over to the players..");
             deck.ShuffleCards();
             deck.PrintDeckOfCards();
-           
 
+            // Initing the board
+            Board board = new Board();
+           // board.PrintBoard();
+
+            // Init players
+            List<Player> players = new List<Player>(2);
+
+            Console.WriteLine("\n\nTwo Players joined the game: ");
+            Console.WriteLine("1-MISS_SCARLET");
+            Console.WriteLine("2-MR_GREEN");
+
+            players.Add(new Player(Suspect.SUSPECT.MISS_SCARLET));
+            players.Add(new Player(Suspect.SUSPECT.MR_GREEN));
+
+            // Set players to the board
+            board.SetPlayers(players);
+            GameManager gameManager = new GameManager();
+
+           // gameManager.SpreadCardsToPlayer(2, players, deck);
+            gameManager.SetStartingPosition(2, players);
 
             // Start network server. Runs until the program is interrupted or terminated
             // TODO: Create a class implementing IGameInstanceService and assign it

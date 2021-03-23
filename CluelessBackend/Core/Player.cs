@@ -13,6 +13,11 @@ namespace CluelessBackend.Core
 
         SUSPECT suspectType_;
 
+        public Player(SUSPECT suspectType)
+        {
+            suspectType_ = suspectType;
+        }
+
         // Player starting position is in one of the hallways
         int[,] startingPosition_ = new int[1,1];
 
@@ -21,7 +26,7 @@ namespace CluelessBackend.Core
         int[,] playerCurrentPosition_ = new int[1, 1];
 
         // Stores the cards that player is holding
-        Card[] cardsInHand_;
+        List<Card> cardsInHand_;
 
         // Player movements
         bool hasMoved_;
@@ -50,11 +55,11 @@ namespace CluelessBackend.Core
             numberOfSuggestions_ = 1;
         }
 
-        public Card[] GetPlayersCards()
+        public List<Card> GetPlayersCards()
         {
             return cardsInHand_;
         }
-        public void SetPlayersCards(Card[] cardsInHand)
+        public void SetPlayersCards(List<Card> cardsInHand)
         {
             cardsInHand_ = cardsInHand;
         }
@@ -62,7 +67,7 @@ namespace CluelessBackend.Core
         // Add one card to the players hand
         public void HandOneCard(int i, Card card)
         {
-            cardsInHand_[i] = card;
+            cardsInHand_.Add(card);
         }
 
         public SUSPECT GetSuspectType()

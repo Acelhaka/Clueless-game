@@ -32,7 +32,8 @@ namespace CluelessBackend.Core
         {
             room.SetPlayerInRoom(player);
         }
-        public void SpreadCardsToPlayer(int numberOfPlayers, Player[] player, CardDeck deck)
+
+        public void SpreadCardsToPlayer(int numberOfPlayers, List<Player> players, CardDeck deck)
         {
             int cardsCount = 0;
 
@@ -40,20 +41,26 @@ namespace CluelessBackend.Core
             {
                 for (int i = 0; i < numberOfPlayers; i++)
                 {
-                    player[i].HandOneCard(cardsCount, deck.GetCardFromDeck(cardsCount));
+                    players[i].HandOneCard(cardsCount, deck.GetCardFromDeck(cardsCount));
                     cardsCount++;
                 }
             }
         }
 
-        public void SetStartingPosition(int numberOfPlayers, Player[] player)
+        public void SetStartingPosition(int numberOfPlayers, List<Player> players)
         {
             for (int i = 0; i < numberOfPlayers; i++)
             {
                 // TODO: finish for the rest of the suspects
-                if (player[i].GetSuspectType() == Suspect.SUSPECT.MISS_SCARLET)
+                if (players[i].GetSuspectType() == Suspect.SUSPECT.MISS_SCARLET)
                 {
-                    MovePlayerToRoom(player[i], GetRoomByIndex(0, 3));
+                    MovePlayerToRoom(players[i], GetRoomByIndex(0, 3));
+                    Console.WriteLine("MISS_SCARLET - Starting position in cell [0,3], Hallway-2");
+                }
+                else if (players[i].GetSuspectType() == Suspect.SUSPECT.MR_GREEN)
+                {
+                    MovePlayerToRoom(players[i], GetRoomByIndex(4, 1));
+                    Console.WriteLine("MISS_SCARLET - Starting position in cell [4,1], Hallway-11");
                 }
             }
         }
