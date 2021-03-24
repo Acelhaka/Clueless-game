@@ -81,6 +81,11 @@ namespace CluelessBackend.Core
                 secretPassage_ = ROOM.DINNING_ROOM;
             }
         }
+
+        public bool HasSecretPassage()
+        {
+            return hasSecretPassage_;
+        }
         public ROOM RoomEnum { get; set; }
 
 

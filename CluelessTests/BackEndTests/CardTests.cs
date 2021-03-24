@@ -23,6 +23,7 @@ namespace CluelessTests.BackEndTests
         public void CreateDeckOfCardsTest()
         {
             CardDeck deck = new CardDeck();
+            
             deck.CreateDeckOfCards();
             int deckSize = deck.GetDeckSize();
             // there should be a total of 21 cards in the deck (9 rooms + 6 weapons + 6 suspects)
@@ -67,6 +68,8 @@ namespace CluelessTests.BackEndTests
                     Assert.True(remainingCards.Contains(card).Equals(false));                    
                 }
             }
+
+            // TODO will need to figure out how to create a ScenarioFile object to verify correct and incorrect accusations that are made
 
 
         }
