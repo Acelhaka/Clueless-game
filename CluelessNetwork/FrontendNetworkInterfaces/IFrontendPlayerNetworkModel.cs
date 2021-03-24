@@ -14,6 +14,11 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         public event Action<AccusationResult>? AccusationResultReceived;
 
         /// <summary>
+        /// Subscribe to run code when a chat message is received
+        /// </summary>
+        public event Action<ChatMessage>? ChatMessageReceived;
+
+        /// <summary>
         /// Subscribe to run code when the game is started
         /// </summary>
         public event Action<GameStartInfo>? GameStartInfoReceived;
@@ -43,6 +48,12 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         /// </summary>
         /// <param name="accusation">The accusation to send</param>
         public void SendAccusation(Accusation accusation);
+
+        /// <summary>
+        /// Sends a chat message to everyone on the server
+        /// </summary>
+        /// <param name="message">The message</param>
+        public void SendChatMessage(ChatMessage message);
 
         /// <summary>
         /// Sends a request to the server to start the game

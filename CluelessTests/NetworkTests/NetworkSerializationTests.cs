@@ -13,7 +13,7 @@ namespace CluelessTests.NetworkTests
         [InlineData(false)]
         public void TestSendConnectionInfo(bool isHost)
         {
-            var connectionInfo = new InitialConnectionInfo {IsHost = isHost};
+            var connectionInfo = new InitialConnectionInfo {IsHost = isHost, Name = string.Empty};
             using var stream = new MemoryStream();
             stream.WriteObject(connectionInfo);
             stream.Seek(0, SeekOrigin.Begin);

@@ -65,7 +65,8 @@ namespace CluelessBackend
 
             // Start network server. Runs until the program is interrupted or terminated
             // TODO: Create a class implementing IGameInstanceService and assign it
-            IGameInstanceService gameInstanceService = null!;
+            var gameInstanceService = new GameInstanceService();
+            var unused = new ChatService(gameInstanceService);
             using var networkServer = new CluelessNetworkServer(gameInstanceService);
             while (true) networkServer.ListenForConnection();
 
