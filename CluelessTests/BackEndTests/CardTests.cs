@@ -57,7 +57,16 @@ namespace CluelessTests.BackEndTests
             Assert.True(roomFound.Equals(true));
 
             // now test that the cards from the case file are not in the regular deck that will be dealt to the players
-            
+            List<Card> remainingCards = deck.getCardDeck();
+            for (int i = 0; i < remainingCards.Count; i++)
+            {
+                for (int j = 0; j < caseFile.Length; j++)
+                {
+                    Card card = caseFile[j];
+                    // the card from the case file should never be contained in the remaining set of cards in the deck
+                    Assert.True(remainingCards.Contains(card).Equals(false));                    
+                }
+            }
 
 
         }

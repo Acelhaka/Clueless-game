@@ -134,5 +134,10 @@ namespace CluelessBackend.Core
         {
             return deckOfCards_[index];
         }
+
+        public List<Card> getCardDeck()
+        {
+            return deckOfCards_;
+        }
     }
 }
