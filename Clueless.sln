@@ -1,12 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CluelessTests", "CluelessTests\CluelessTests.csproj", "{E016F4A4-681C-412D-ADC7-84FFA30B5D19}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CluelessTests", "CluelessTests\CluelessTests.csproj", "{E016F4A4-681C-412D-ADC7-84FFA30B5D19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CluelessBackend", "CluelessBackend\CluelessBackend.csproj", "{3B5DE3B1-7574-4382-B4DE-EF924CD1D8FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CluelessBackend", "CluelessBackend\CluelessBackend.csproj", "{3B5DE3B1-7574-4382-B4DE-EF924CD1D8FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CluelessNetwork", "CluelessNetwork\CluelessNetwork.csproj", "{1DE411AB-13D6-4F5A-9717-5DB803F0BF8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CluelessNetwork", "CluelessNetwork\CluelessNetwork.csproj", "{1DE411AB-13D6-4F5A-9717-5DB803F0BF8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CluelessFrontend", "CluelessFrontend\CluelessFrontend.csproj", "{0644747D-95F2-4F51-8149-06CBAC9D29F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CluelessFrontend", "CluelessFrontend\CluelessFrontend.csproj", "{0644747D-95F2-4F51-8149-06CBAC9D29F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +33,11 @@ Global
 		{0644747D-95F2-4F51-8149-06CBAC9D29F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0644747D-95F2-4F51-8149-06CBAC9D29F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0644747D-95F2-4F51-8149-06CBAC9D29F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2BCFDBE8-EA8D-4BA7-A634-3DD1FA9C9B3D}
 	EndGlobalSection
 EndGlobal
