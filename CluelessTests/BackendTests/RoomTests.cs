@@ -27,7 +27,7 @@ namespace CluelessTests.BackEndTests
 
             //TODO i think this is broken, because this should be True...currently is returning false...
             //Assert.True(room.HasSecretPassage().Equals(true));
-            Assert.True(room.HasSecretPassage().Equals(false));
+            Assert.True(room.HasSecretPassage().Equals(false), "The room has a secret passage, but should not");
 
             // TODO add some more testing
 

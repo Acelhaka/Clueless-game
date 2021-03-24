@@ -27,7 +27,7 @@ namespace CluelessTests.BackEndTests
             deck.CreateDeckOfCards();
             int deckSize = deck.GetDeckSize();
             // there should be a total of 21 cards in the deck (9 rooms + 6 weapons + 6 suspects)
-            Assert.True(deckSize.Equals(21));
+            Assert.True(deckSize.Equals(21), "The deck size should be 21 but is not");
 
             // this test will ensure the case file generated pulls one suspect, one weapon and one room only
             Card[] caseFile = deck.SelectCardsForEnvelope();
@@ -53,9 +53,9 @@ namespace CluelessTests.BackEndTests
             }
 
             // test that each card type flag is now true after going through the case file
-            Assert.True(weaponFound.Equals(true));
-            Assert.True(suspectFound.Equals(true));
-            Assert.True(roomFound.Equals(true));
+            Assert.True(weaponFound.Equals(true), "The Weapon Type card should be found but is not");
+            Assert.True(suspectFound.Equals(true), "The Suspect Type card should be found but is not");
+            Assert.True(roomFound.Equals(true), "The Room Type card should be found but is not");
 
             // now test that the cards from the case file are not in the regular deck that will be dealt to the players
             List<Card> remainingCards = deck.getCardDeck();
@@ -65,7 +65,7 @@ namespace CluelessTests.BackEndTests
                 {
                     Card card = caseFile[j];
                     // the card from the case file should never be contained in the remaining set of cards in the deck
-                    Assert.True(remainingCards.Contains(card).Equals(false));                    
+                    Assert.True(remainingCards.Contains(card).Equals(false), "The case file card was found in the remaining deck, and should not be there");                    
                 }
             }
 
