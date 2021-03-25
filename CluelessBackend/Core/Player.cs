@@ -79,5 +79,10 @@ namespace CluelessBackend.Core
         {
             suspectType_ = suspectType;
         }
+
+        public bool IsActive()
+        {
+            return isActive_;
+        }
     }
 }
