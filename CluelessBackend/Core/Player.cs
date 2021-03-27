@@ -84,5 +84,10 @@ namespace CluelessBackend.Core
         {
             return isActive_;
         }
+
+        public void SetIsActive(bool isActive)
+        {
+            isActive_ = isActive;
+        }
     }
 }
