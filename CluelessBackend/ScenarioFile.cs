@@ -7,7 +7,7 @@ using CluelessBackend.Core;
 
 namespace CluelessBackend.Core
 {
-    class ScenarioFile : CardDeck
+    public class ScenarioFile : CardDeck
     {
         const int NUM_CARDS_IN_ENVELOPE = 3;
 

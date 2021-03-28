@@ -30,7 +30,7 @@ namespace CluelessTests.BackEndTests
         }
 
         [Fact]
-        public void TestCaseFile()
+        public void TestGenerationOfCaseFile()
         {
             CardDeck deck = new CardDeck();
             deck.CreateDeckOfCards();
@@ -73,9 +73,25 @@ namespace CluelessTests.BackEndTests
                     Assert.True(remainingCards.Contains(card).Equals(false), "The case file card was found in the remaining deck, and should not be there");                    
                 }
             }
+        }
 
-            // TODO will need to figure out how to create a ScenarioFile object to verify correct and incorrect accusations that are made
+        [Fact]
+        public void TestAccusationsOfCaseFile()
+        {
+            CardDeck deck = new CardDeck();
+            deck.CreateDeckOfCards();
             
+            // this test will ensure the case file generated pulls one suspect, one weapon and one room only
+            ScenarioFile scenarioFile = new ScenarioFile();
+            Card[] caseFile = deck.SelectCardsForEnvelope();
+            scenarioFile.SetEnvelopeCards(caseFile);
+
+            bool result = scenarioFile.CheckScenarioFile(caseFile[0], caseFile[1], caseFile[2]);
+            Assert.True(result.Equals(true));
+            
+            List<Card> remainingCards = deck.getCardDeck();
+            result = scenarioFile.CheckScenarioFile(remainingCards.ElementAt(0), remainingCards.ElementAt(1), remainingCards.ElementAt(2));
+            Assert.True(result.Equals(false));
 
 
         }
