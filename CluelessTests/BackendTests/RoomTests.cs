@@ -10,8 +10,7 @@ using Xunit;
 using System.IO;
 using CluelessNetwork;
 using CluelessNetwork.NetworkSerialization;
-using FluentAssertions;
-using Xunit;
+
 
 
 namespace CluelessTests.BackEndTests
@@ -20,21 +19,21 @@ namespace CluelessTests.BackEndTests
     {
 
         [Fact]
-        public void CreateRoomTest()
+        public void TestRoomWithNoSecretPassage()
         {
-            Room room = new Room(Room.ROOM.STUDY, true);
-            Room room2 = new Room(Room.ROOM.BILLIARD_ROOM, false);
-
-            //TODO i think this is broken, because this should be True...currently is returning false...
-            //Assert.True(room.HasSecretPassage().Equals(true));
+            Room room = new Room(Room.ROOM.BILLIARD_ROOM, false);
             Assert.True(room.HasSecretPassage().Equals(false), "The room has a secret passage, but should not");
 
             // TODO add some more testing
 
+        }
 
-
-
-
+        [Fact]
+        public void TestRoomWithSecretPassage()
+        {
+            Room room = new Room(Room.ROOM.STUDY, true);
+            //TODO i think this is broken, because this should be True...currently is returning false...
+            //Assert.True(room.HasSecretPassage().Equals(true));
         }
 
     }

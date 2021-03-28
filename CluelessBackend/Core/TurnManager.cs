@@ -16,6 +16,7 @@ namespace CluelessBackend.Core
             index_ = 0;
         }
 
+        // TODO thoughts on refactoring this method to GetCurrentPlayer() and GetNextPlayer()?
         public Player CurrentTurn()
         {
             int attempts = 0;
@@ -23,7 +24,6 @@ namespace CluelessBackend.Core
             {
                 if (index_ == players_.Count())
                 {
-                    Console.WriteLine("calling reset to go back to any players that might have been missed");
                     Reset();
                 }
 
@@ -31,24 +31,17 @@ namespace CluelessBackend.Core
                 // if the player is not active, skip their turn
                 if (!players_.ElementAt(index_).IsActive())
                 {
-                    Console.WriteLine("player at index " + index_ + " is not active, move to next player..");
                     NextTurn();
                 }
                 else
                 {
-                    Console.WriteLine("player at index " + index_ + " was found to be active, their turn!");
                     return players_.ElementAt(index_);
                 }
-
-                
                 attempts++;
-                Console.WriteLine("attempts was updated now is at " + attempts);
             }
 
-            // null represents there's no more active players left to take a turn
+            // null represents there's no more active players left to take a turn..is there a better way to return this in C#?
             return null;
-
-
         }
 
         public void NextTurn()
@@ -58,7 +51,6 @@ namespace CluelessBackend.Core
 
         public void Reset()
         {
-
             index_ = 0;
         }
 

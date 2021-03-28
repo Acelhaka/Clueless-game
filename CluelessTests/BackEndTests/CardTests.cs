@@ -10,8 +10,7 @@ using Xunit;
 using System.IO;
 using CluelessNetwork;
 using CluelessNetwork.NetworkSerialization;
-using FluentAssertions;
-using Xunit;
+
 
 
 namespace CluelessTests.BackEndTests
@@ -20,15 +19,21 @@ namespace CluelessTests.BackEndTests
     {
 
         [Fact]
-        public void CreateDeckOfCardsTest()
+        public void TestDeckSize()
         {
             CardDeck deck = new CardDeck();
-            
+
             deck.CreateDeckOfCards();
             int deckSize = deck.GetDeckSize();
             // there should be a total of 21 cards in the deck (9 rooms + 6 weapons + 6 suspects)
             Assert.True(deckSize.Equals(21), "The deck size should be 21 but is not");
+        }
 
+        [Fact]
+        public void TestCaseFile()
+        {
+            CardDeck deck = new CardDeck();
+            deck.CreateDeckOfCards();
             // this test will ensure the case file generated pulls one suspect, one weapon and one room only
             Card[] caseFile = deck.SelectCardsForEnvelope();
 
@@ -70,6 +75,7 @@ namespace CluelessTests.BackEndTests
             }
 
             // TODO will need to figure out how to create a ScenarioFile object to verify correct and incorrect accusations that are made
+            
 
 
         }
