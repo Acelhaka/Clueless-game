@@ -89,5 +89,11 @@ namespace CluelessBackend.Core
         {
             isActive_ = isActive;
         }
+
+        public bool HasActions()
+        {
+            return !hasMoved_ || !hasSuggested_ || !hasAccused_;
+
+        }
     }
 }
