@@ -79,5 +79,21 @@ namespace CluelessBackend.Core
         {
             suspectType_ = suspectType;
         }
+
+        public bool IsActive()
+        {
+            return isActive_;
+        }
+
+        public void SetIsActive(bool isActive)
+        {
+            isActive_ = isActive;
+        }
+
+        public bool HasActions()
+        {
+            return !hasMoved_ || !hasSuggested_ || !hasAccused_;
+
+        }
     }
 }
