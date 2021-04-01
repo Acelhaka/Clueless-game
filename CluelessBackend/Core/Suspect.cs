@@ -16,7 +16,7 @@ namespace CluelessBackend.Core
         {
             COLONEL_MUSTARD,
             MISS_SCARLET,
-            PREOFESSOR_PLUM,
+            PROFESSOR_PLUM,
             MR_GREEN,
             MRS_WHITE,
             MRS_PEACOCK

@@ -5,10 +5,19 @@ namespace CluelessBackend.Core
 {
     public class Board
     {
+        /// <summary>
+        /// Indicated by the rules, maximum number of player is 6
+        /// </summary>
         const int MAX_NUM_PLAYERS = 6;
 
+        /// <summary>
+        /// Players that joined the game
+        /// </summary>
         List<Player> players_;
 
+        /// <summary>
+        /// 2D array of rooms to create the board, 5x5
+        /// </summary>
         Room[,] rooms_;
 
         //_______________________________**Board Setup**______________________________
@@ -30,6 +39,7 @@ namespace CluelessBackend.Core
 
         public Board()
         {
+            // Creating board with rooms and hallways
             rooms_ = new Room[5, 5]
            {
             {new Room(Room.ROOM.STUDY, true), new Hallway(1), new Room(Room.ROOM.HALL, false),
@@ -43,16 +53,25 @@ namespace CluelessBackend.Core
             };
         }
 
+        /// <summary>
+        /// Get a room on the board by row and column index
+        /// </summary>
+        /// <param name="rowIndex"> Row index that the room is positioned at </param>
+        /// <param name="columnIndex"> Column inde that the room is positioned at </param>
+        /// <returns></returns>
         public Room GetRoomByIndex(int rowIndex, int columnIndex)
         {
             return rooms_[rowIndex, columnIndex];
         }
 
-        public void SetStartingPosition(int numberOfPlayers, List<Player> players)
+        /// <summary>
+        /// Setting starting position for each player
+        /// </summary>
+        /// <param name="players"> Set of players that joined the game and needs to be positioned in the board</param>
+        public void SePlayerstStartingPosition(List<Player> players)
         {
-            for (int i = 0; i < numberOfPlayers; i++)
+            for (int i = 0; i < players.Count; i++)
             {
-                // TODO: finish for the rest of the suspects
                 if (players[i].GetSuspectType() == Suspect.SUSPECT.MISS_SCARLET)
                 {
                     rooms_[0, 3].SetPlayerInRoom(players[i]);
@@ -65,73 +84,107 @@ namespace CluelessBackend.Core
                     players[i].SetPlayerStartingPosition(4, 1);
                     Console.WriteLine("MR_GREEN - Starting position in cell [4,1], Hallway-11");
                 }
+                else if (players[i].GetSuspectType() == Suspect.SUSPECT.COLONEL_MUSTARD)
+                {
+                    rooms_[4, 1].SetPlayerInRoom(players[i]);
+                    players[i].SetPlayerStartingPosition(1, 4);
+                    Console.WriteLine("COLONEL_MUSTARD - Starting position in cell [1,4], Hallway-5");
+                }
+                else if (players[i].GetSuspectType() == Suspect.SUSPECT.MRS_PEACOCK)
+                {
+                    rooms_[4, 1].SetPlayerInRoom(players[i]);
+                    players[i].SetPlayerStartingPosition(3, 0);
+                    Console.WriteLine("MRS_PEACOCK - Starting position in cell [3,0], Hallway-8");
+                }
+                else if (players[i].GetSuspectType() == Suspect.SUSPECT.PROFESSOR_PLUM)
+                {
+                    rooms_[4, 1].SetPlayerInRoom(players[i]);
+                    players[i].SetPlayerStartingPosition(1, 0);
+                    Console.WriteLine("PROFESSOR_PLUM - Starting position in cell [1,0], Hallway-3");
+                }
+                else if (players[i].GetSuspectType() == Suspect.SUSPECT.MRS_WHITE)
+                {
+                    rooms_[4, 1].SetPlayerInRoom(players[i]);
+                    players[i].SetPlayerStartingPosition(4, 3);
+                    Console.WriteLine("MRS_WHITE - Starting position in cell [4,3], Hallway-12");
+                }
             }
         }
 
+        /// <summary>
+        /// Move Player to room will move the player to the coordinates of the roomType
+        /// Player'c current position will also be updated to the coordinates of the room 
+        /// </summary>
+        /// <param name="player"> Player that will be moved</param>
+        /// <param name="roomType"> Room type that the player requested to move at</param>
         public void MovePlayerToRoom(Player player, Room.ROOM roomType)
         {
             if (roomType == Room.ROOM.STUDY)
             {
                 rooms_[0, 0].SetPlayerInRoom(player);
+                player.SetPlayerPosition(0, 0);
             }
             else if (roomType == Room.ROOM.HALL)
             {
                 rooms_[0, 2].SetPlayerInRoom(player);
+                player.SetPlayerPosition(0, 2);
             }
             else if (roomType == Room.ROOM.LOUNGE)
             {
                 rooms_[0, 4].SetPlayerInRoom(player);
+                player.SetPlayerPosition(0, 4);
             }
             else if (roomType == Room.ROOM.LIBRARY)
             {
                 rooms_[2, 0].SetPlayerInRoom(player);
+                player.SetPlayerPosition(2, 0);
             }
             else if (roomType == Room.ROOM.BILLIARD_ROOM)
             {
                 rooms_[2, 2].SetPlayerInRoom(player);
+                player.SetPlayerPosition(2, 2);
             }
             else if (roomType == Room.ROOM.DINNING_ROOM)
             {
                 rooms_[2, 4].SetPlayerInRoom(player);
+                player.SetPlayerPosition(2, 4);
             }
             else if (roomType == Room.ROOM.CONSERVATORY)
             {
                 rooms_[4, 0].SetPlayerInRoom(player);
+                player.SetPlayerPosition(4, 0);
             }
             else if (roomType == Room.ROOM.BALLROOM)
             {
                 rooms_[4, 2].SetPlayerInRoom(player);
+                player.SetPlayerPosition(4, 2);
             }
             else if (roomType == Room.ROOM.KITCHEN)
             {
                 rooms_[4, 4].SetPlayerInRoom(player);
+                player.SetPlayerPosition(4, 4);
             }
         }
 
+        /// <summary>
+        /// Move player to a room or hallway
+        /// </summary>
+        /// <param name="player"> player that will be moved </param>
+        /// <param name="row"> The row that the player will be positioned on the board </param>
+        /// <param name="column"> The column that the player will be positioned on the board </param>
+        public void MovePlayerToRoom(Player player, int row, int column)
+        {
+            rooms_[row, column].SetPlayerInRoom(player);
+            player.SetPlayerPosition(row, column);
+        }
+        /// <summary>
+        /// Setting players in the board
+        /// </summary>
+        /// <param name="players"> Set of the players that joined the game </param>
         public void SetPlayers(List<Player> players)
         {
             players_ = players;
         }
 
-        public void PrintBoardConstant()
-        {
-            Console.WriteLine("|_______________________________**Board Setup**______________________________");
-            Console.WriteLine("|               |             |                |            |               |");
-            Console.WriteLine("|    Study      |  Hallway-1  |      Hall      |  Hallway-2 |   Lounge      |");
-            Console.WriteLine("|_______________|_____________|________________|____________|_______________|");
-            Console.WriteLine("|               |             |                |            |               |  ");
-            Console.WriteLine("|    Hallway-3  |             |   Hallway-4    |            |   Hallway-5   |");
-            Console.WriteLine("|_______________|_____________|________________|____________|_______________|");
-            Console.WriteLine("|               |             |                |            |               |");
-            Console.WriteLine("|     Library   | Hallway-6   | Billiard Room  |  Hallway-7 |  Dining Room  |");
-            Console.WriteLine("|_______________|_____________|________________|____________|_______________|");
-            Console.WriteLine("|               |             |                |            |               | ");
-            Console.WriteLine("|    Hallway-8  |             |   Hallway-9    |            |   Hallway-10  |");
-            Console.WriteLine("|_______________|_____________|________________|____________|_______________|");
-            Console.WriteLine("|               |             |                |            |               |  ");
-            Console.WriteLine("|  Conservatory | Hallway-11  |   BallRoom     | Hallway-12 |   Kitchen     |");
-            Console.WriteLine("|_______________|_____________|________________|____________|_______________| ");                              
-
-        }
     }
 }

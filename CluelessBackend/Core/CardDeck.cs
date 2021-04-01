@@ -8,20 +8,32 @@ namespace CluelessBackend.Core
 {
     public class CardDeck : Card
     {
-        // Number of cards = 6 weapons + 6 suspects + 9 rooms
+        /// <summary>
+        /// Number of cards = 6 weapons + 6 suspects + 9 rooms 
+        /// </summary>
         const int CARD_NUMBER = 21;
 
-        // array that will store all the cards (weapons, suspects and rooms)
-        // private Card[] deckOfCards_;
-
+        /// <summary>
+        /// list of cards that will store all the cards (weapons, suspects and rooms)
+        /// </summary>
         List<Card> deckOfCards_ = new List<Card>(CARD_NUMBER);
+
+        /// <summary>
+        /// Size of the deck 
+        /// </summary>
         int deckSize_;
 
+        /// <summary>
+        /// Default card deck constructor
+        /// </summary>
         public CardDeck()
         {
             
         }
 
+        /// <summary>
+        /// Function that creates the deck of cards, made of 6 suspects, 9 rooms and 6 weapons
+        /// </summary>
         public void CreateDeckOfCards()
         {
             deckSize_ = CARD_NUMBER;
@@ -49,6 +61,10 @@ namespace CluelessBackend.Core
                 cardIndex++;
             }
         }
+
+        /// <summary>
+        /// Shuffles the cards in the deck using a random number generator
+        /// </summary>
         public void ShuffleCards()
         {
             Random randomGenerator = new Random();
@@ -68,6 +84,9 @@ namespace CluelessBackend.Core
             }
         }
 
+        /// <summary>
+        /// Prints the deck of cards, helpful for debugging 
+        /// </summary>
         public void PrintDeckOfCards()
         {
             for (int i = 0; i < deckSize_; i++)
@@ -87,6 +106,11 @@ namespace CluelessBackend.Core
             }
         }
 
+        /// <summary>
+        /// Selects randomly 3 cards for the envelope, 1 cards for each card-type
+        /// Updates the deck of cards by removing the selected cards
+        /// </summary>
+        /// <returns> An array of cards, made of 3 cards </returns>
         public Card[] SelectCardsForEnvelope()
         {
             Random randomGenerator = new Random();

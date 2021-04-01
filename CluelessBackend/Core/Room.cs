@@ -28,7 +28,10 @@ namespace CluelessBackend.Core
         ROOM secretPassage_;
         bool hallway_ = true;
 
-        Player playerInRoom_;
+        /// <summary>
+        /// Players that are currently in the room
+        /// </summary>
+        List<Player> playersInRoom_;
 
         public Room(int roomID, string roomName)
         {
@@ -89,13 +92,13 @@ namespace CluelessBackend.Core
         public ROOM RoomEnum { get; set; }
 
 
-        public Player GetPlayerInRoom()
+        public List<Player> GetPlayersInRoom()
         {
-           return playerInRoom_;
+           return playersInRoom_;
         }
         public void SetPlayerInRoom(Player player)
         {
-            playerInRoom_ = player;
+            playersInRoom_.Add(player);
         }
 
         public override string ToString()

@@ -8,8 +8,14 @@ namespace CluelessBackend.Core
 {
     class Hallway : Room   // Child of Room class
     {
+        /// <summary>
+        /// ID of each hallway in the board
+        /// </summary>
         int hallwayID_;
 
+        /// <summary>
+        /// Player that is located in the hallway
+        /// </summary>
         Player player_;
 
         public Hallway(int hallwayID)

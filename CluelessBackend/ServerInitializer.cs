@@ -64,7 +64,7 @@ namespace CluelessBackend
 
             //Console.WriteLine("\n\nSetting the players starting position....");
             gameManager.SpreadCardsToPlayer(players, deck);
-            board.SetStartingPosition(2, players);
+            board.SePlayerstStartingPosition(players);
             Console.WriteLine("\n\nIt is MISS_SCARLET turn...\nPick the room to move at:");
 
             string response = Console.ReadLine();

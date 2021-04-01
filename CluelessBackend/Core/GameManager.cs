@@ -18,11 +18,6 @@ namespace CluelessBackend.Core
 
         }
 
-        public void SetStartingPosition()
-        {
-
-        }
-
         public void StartGame()
         {
 
@@ -33,6 +28,11 @@ namespace CluelessBackend.Core
             room.SetPlayerInRoom(player);
         }
 
+        /// <summary>
+        /// Hands the cards to the players in the game
+        /// </summary>
+        /// <param name="players"> All players in the game </param>
+        /// <param name="deck"> Deck of cards that will be handed out to the players </param>
         public void SpreadCardsToPlayer(List<Player> players, CardDeck deck)
         {
             int cardsCount = 0;
@@ -47,23 +47,5 @@ namespace CluelessBackend.Core
             }
         }
 
-        public void SetStartingPosition(int numberOfPlayers, List<Player> players)
-        {
-            for (int i = 0; i < numberOfPlayers; i++)
-            {
-                // TODO: finish for the rest of the suspects
-                if (players[i].GetSuspectType() == Suspect.SUSPECT.MISS_SCARLET)
-                {
-                    // TODO maybe this should set their starting Position as well in the Player object?
-                    MovePlayerToRoom(players[i], GetRoomByIndex(0, 3));
-                    Console.WriteLine("MISS_SCARLET - Starting position in cell [0,3], Hallway-2");
-                }
-                else if (players[i].GetSuspectType() == Suspect.SUSPECT.MR_GREEN)
-                {
-                    MovePlayerToRoom(players[i], GetRoomByIndex(4, 1));
-                    Console.WriteLine("MR_GREEN - Starting position in cell [4,1], Hallway-11");
-                }
-            }
-        }
     }
 }

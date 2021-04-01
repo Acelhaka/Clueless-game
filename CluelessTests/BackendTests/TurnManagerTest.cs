@@ -25,7 +25,7 @@ namespace CluelessTests.BackEndTests
             Player p3 = new Player(Suspect.SUSPECT.MRS_PEACOCK);
             Player p4 = new Player(Suspect.SUSPECT.MRS_WHITE);
             Player p5 = new Player(Suspect.SUSPECT.MR_GREEN);
-            Player p6 = new Player(Suspect.SUSPECT.PREOFESSOR_PLUM);
+            Player p6 = new Player(Suspect.SUSPECT.PROFESSOR_PLUM);
 
             List<Player> players = new List<Player>();
             players.Add(p1);
@@ -78,7 +78,7 @@ namespace CluelessTests.BackEndTests
             Player p3 = new Player(Suspect.SUSPECT.MRS_PEACOCK);
             Player p4 = new Player(Suspect.SUSPECT.MRS_WHITE);
             Player p5 = new Player(Suspect.SUSPECT.MR_GREEN);
-            Player p6 = new Player(Suspect.SUSPECT.PREOFESSOR_PLUM);
+            Player p6 = new Player(Suspect.SUSPECT.PROFESSOR_PLUM);
 
             List<Player> players = new List<Player>();
             players.Add(p1);
@@ -125,7 +125,7 @@ namespace CluelessTests.BackEndTests
             Player p3 = new Player(Suspect.SUSPECT.MRS_PEACOCK);
             Player p4 = new Player(Suspect.SUSPECT.MRS_WHITE);
             Player p5 = new Player(Suspect.SUSPECT.MR_GREEN);
-            Player p6 = new Player(Suspect.SUSPECT.PREOFESSOR_PLUM);
+            Player p6 = new Player(Suspect.SUSPECT.PROFESSOR_PLUM);
 
             List<Player> players = new List<Player>();
             players.Add(p1);
