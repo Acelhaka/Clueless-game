@@ -48,27 +48,6 @@ namespace CluelessBackend.Core
             return rooms_[rowIndex, columnIndex];
         }
 
-        public void PrintBoard()
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    if (!rooms_[i, j].Gethallway())
-                    {
-                        rooms_[i, j].PrintRoom(rooms_[i, j]);
-                    }
-                    else
-                    {
-                        Console.Write(" Hallway ");
-                    }
-
-                }
-                Console.WriteLine();
-            }
-
-        }
-
         public void SetStartingPosition(int numberOfPlayers, List<Player> players)
         {
             for (int i = 0; i < numberOfPlayers; i++)

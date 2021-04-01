@@ -44,7 +44,6 @@ namespace CluelessBackend
 
             // Initing the board
             Board board = new Board();
-           // board.PrintBoard();
 
             // Init players
             List<Player> players = new List<Player>(2);
@@ -60,11 +59,11 @@ namespace CluelessBackend
             board.SetPlayers(players);
             GameManager gameManager = new GameManager();
 
-            Console.WriteLine("\n\nSet players to the starting position: ");
-            string response2 = Console.ReadLine();
+            //Console.WriteLine("\n\nSet players to the starting position: ");
+            //string response2 = Console.ReadLine();
 
-            Console.WriteLine("\n\nSetting the players starting position....");
-            // gameManager.SpreadCardsToPlayer(2, players, deck);
+            //Console.WriteLine("\n\nSetting the players starting position....");
+            gameManager.SpreadCardsToPlayer(players, deck);
             board.SetStartingPosition(2, players);
             Console.WriteLine("\n\nIt is MISS_SCARLET turn...\nPick the room to move at:");
 

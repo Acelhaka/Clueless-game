@@ -26,7 +26,7 @@ namespace CluelessBackend.Core
         int playerCurrentPositionCol_;
 
         // Stores the cards that player is holding
-        List<Card> cardsInHand_;
+        List<Card> cardsInHand_ = new List<Card>();
 
         // Player movements
         bool hasMoved_;

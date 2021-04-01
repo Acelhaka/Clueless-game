@@ -33,13 +33,13 @@ namespace CluelessBackend.Core
             room.SetPlayerInRoom(player);
         }
 
-        public void SpreadCardsToPlayer(int numberOfPlayers, List<Player> players, CardDeck deck)
+        public void SpreadCardsToPlayer(List<Player> players, CardDeck deck)
         {
             int cardsCount = 0;
 
-            while (cardsCount <= deck.GetDeckSize())
+            while (cardsCount < deck.GetDeckSize())
             {
-                for (int i = 0; i < numberOfPlayers; i++)
+                for (int i = 0; i < players.Count(); i++)
                 {
                     players[i].HandOneCard(cardsCount, deck.GetCardFromDeck(cardsCount));
                     cardsCount++;
