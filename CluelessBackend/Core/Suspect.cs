@@ -37,5 +37,15 @@ namespace CluelessBackend.Core
         {
             suspectType_ = suspectEnum;
         }
+
+        public void SetSuspectType(SUSPECT suspectEnum)
+        {
+            suspectType_ = suspectEnum;
+        }
+
+        public SUSPECT GetSuspectType()
+        {
+            return suspectType_;
+        }
     }
 }

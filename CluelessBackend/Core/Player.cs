@@ -11,19 +11,19 @@ namespace CluelessBackend.Core
         int playerID_;
         string playerName_ = "";
 
-        SUSPECT suspectType_;
 
         public Player(SUSPECT suspectType)
         {
-            suspectType_ = suspectType;
+            SetSuspectType(suspectType);
         }
 
         // Player starting position is in one of the hallways
-        int[,] startingPosition_ = new int[1,1];
+        int startingPositionRow_;
+        int startingPositionCol_;
 
         // Player can only be in one cell at a time (room/hallway)
-        // Player position marked as a 2-d array of size 1x1
-        int[,] playerCurrentPosition_ = new int[1, 1];
+        int playerCurrentPositionRow_;
+        int playerCurrentPositionCol_;
 
         // Stores the cards that player is holding
         List<Card> cardsInHand_;
@@ -70,14 +70,40 @@ namespace CluelessBackend.Core
             cardsInHand_.Add(card);
         }
 
-        public SUSPECT GetSuspectType()
+        public void SetPlayerStartingPosition(int row, int col)
         {
-            return suspectType_;
+            startingPositionRow_ = row;
+            startingPositionCol_ = col;
+
+            playerCurrentPositionRow_ = row;
+            playerCurrentPositionCol_ = col;
         }
 
-        public void SetSuspectType(SUSPECT suspectType)
+        public int GetPlayerPositionRow()
         {
-            suspectType_ = suspectType;
+            return playerCurrentPositionRow_;   
         }
+
+        public int GetPlayerPositionCol()
+        {
+            return playerCurrentPositionRow_;
+        }
+
+        public void SetPlayerPosition(int row, int col)
+        {
+            playerCurrentPositionRow_ = row;
+            playerCurrentPositionCol_ = col;
+        }
+   
+
+        //public SUSPECT GetSuspectType()
+        //{
+        //    return suspectType_;
+        //}
+
+        //public void SetSuspectType(SUSPECT suspectType)
+        //{
+        //    suspectType_ = suspectType;
+        //}
     }
 }

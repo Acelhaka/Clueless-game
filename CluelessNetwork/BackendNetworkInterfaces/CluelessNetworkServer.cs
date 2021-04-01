@@ -49,7 +49,7 @@ namespace CluelessNetwork.BackendNetworkInterfaces
             {
                 // Start the listener
                 _tcpListener.Start();
-                Console.WriteLine($"Server started listening on port {port}");
+                Console.WriteLine($"\n\nServer started listening on port {port}");
             }
             catch (SocketException socketException)
             {

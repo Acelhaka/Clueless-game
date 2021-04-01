@@ -19,5 +19,10 @@ namespace CluelessBackend.Core
         public Hallway()
         {
         }
+
+        void MovePlayerToHallway(Player player)
+        {
+            player_ = player;
+        }
     }
 }

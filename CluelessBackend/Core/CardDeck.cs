@@ -119,9 +119,6 @@ namespace CluelessBackend.Core
             deckOfCards_.Remove(roomCard);
             deckSize_ -= 1;
 
-            Console.WriteLine("\n\nAFTER REMOVING CARDS");
-            PrintDeckOfCards();
-
             return envelopeCards;
         }
 
