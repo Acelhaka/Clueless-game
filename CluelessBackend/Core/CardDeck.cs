@@ -54,6 +54,7 @@ namespace CluelessBackend.Core
             Random randomGenerator = new Random();
             Card tempCard;
 
+            // TODO we probably could use a shuffle call on the List and remove the need for a double nested loop. Might make our Code complexity score a little lower too...
             for (int shuffleTimes = 0; shuffleTimes < 200; shuffleTimes++)
             {
                 for (int cardCount = 0; cardCount < deckSize_; cardCount++)
@@ -130,6 +131,11 @@ namespace CluelessBackend.Core
         public Card GetCardFromDeck(int index)
         {
             return deckOfCards_[index];
+        }
+
+        public List<Card> getCardDeck()
+        {
+            return deckOfCards_;
         }
     }
 }

@@ -94,16 +94,21 @@ namespace CluelessBackend.Core
             playerCurrentPositionRow_ = row;
             playerCurrentPositionCol_ = col;
         }
-   
+      
+        public bool IsActive()
+        {
+            return isActive_;
+        }
 
-        //public SUSPECT GetSuspectType()
-        //{
-        //    return suspectType_;
-        //}
+        public void SetIsActive(bool isActive)
+        {
+            isActive_ = isActive;
+        }
 
-        //public void SetSuspectType(SUSPECT suspectType)
-        //{
-        //    suspectType_ = suspectType;
-        //}
+        public bool HasActions()
+        {
+            return !hasMoved_ || !hasSuggested_ || !hasAccused_;
+
+        }
     }
 }

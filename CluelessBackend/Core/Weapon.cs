@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace CluelessBackend.Core
 {
-    class Weapon
+    public class Weapon
     {
-        public int weaponID_;
-        public string weaponName_;
+        public int weaponID_ { get; set; }
+        public string weaponName_ { get; set; }
         public Weapon(int weaponID, string weaponName)
         {
             weaponID_ = weaponID;

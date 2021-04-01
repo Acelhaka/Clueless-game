@@ -18,6 +18,7 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
                 AccusationReceived += _ => Console.WriteLine($"Server invoked {nameof(AccusationReceived)}");
                 GameStartReceived += () => Console.WriteLine($"Server invoked {nameof(GameStartReceived)}");
                 MoveActionReceived += _ => Console.WriteLine($"Server invoked {nameof(MoveActionReceived)}");
+                ChatMessageReceived += _ => Console.WriteLine($"Server invoke {nameof(ChatMessageReceived)}");
                 PlayerSuggestionReceived +=
                     _ => Console.WriteLine($"Server invoked {nameof(PlayerSuggestionReceived)}");
                 PlayerSuggestionResponseReceived += _ =>
@@ -26,6 +27,11 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
                     _ => Console.WriteLine($"Server invoked {nameof(SuspectSelectionReceived)}");
             }
         }
+
+        /// <summary>
+        /// The user's handle
+        /// </summary>
+        public string Name { get; init; } = string.Empty;
 
         /// <summary>
         /// Indicates if this player has selected to host a game. If false, the player must join an existing instance.
@@ -42,6 +48,22 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
                 Console.WriteLine("Sending player option collection to client");
             PushUpdate(playerOptionCollection, UpdateType.PlayerOptionsUpdate);
         }
+
+        /// <summary>
+        /// Send a chat message to the connected front end
+        /// </summary>
+        /// <param name="message">The message to send</param>
+        public void SendChatMessage(ChatMessage message)
+        {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending chat message to client");
+            PushUpdate(message, UpdateType.ChatMessage);
+        }
+
+        /// <summary>
+        /// Subscribe to run code when a chat message is received from the frontend for this player
+        /// </summary>
+        public event Action<ChatMessage>? ChatMessageReceived;
 
         /// <summary>
         /// Subscribe to run code when a move action is received from the frontend for this player
@@ -152,6 +174,9 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
                     break;
                 case UpdateType.GameStart:
                     GameStartReceived?.Invoke();
+                    break;
+                case UpdateType.ChatMessage:
+                    ChatMessageReceived?.Invoke((ChatMessage) updateWrapper.UpdateObject!);
                     break;
                 // The following aren't implemented on the backend
                 case UpdateType.PlayerOptionsUpdate:

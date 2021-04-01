@@ -54,6 +54,7 @@ namespace CluelessBackend.Core
                 // TODO: finish for the rest of the suspects
                 if (players[i].GetSuspectType() == Suspect.SUSPECT.MISS_SCARLET)
                 {
+                    // TODO maybe this should set their starting Position as well in the Player object?
                     MovePlayerToRoom(players[i], GetRoomByIndex(0, 3));
                     Console.WriteLine("MISS_SCARLET - Starting position in cell [0,3], Hallway-2");
                 }

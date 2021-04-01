@@ -17,7 +17,8 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         /// </summary>
         /// <param name="hostname">The server address to connect to</param>
         /// <param name="isHost">If this client is hosting, or simply joining</param>
-        public CluelessNetworkClient(string hostname, bool isHost)
+        /// <param name="name">The user's chosen handle</param>
+        public CluelessNetworkClient(string hostname, bool isHost, string name)
         {
             IsHost = isHost;
             _tcpClient = new TcpClient(hostname, 12321);
@@ -27,9 +28,10 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
             _tcpStream?.WriteObject(
                 new InitialConnectionInfo
                 {
-                    IsHost = isHost
+                    IsHost = isHost,
+                    Name = name
                 });
-            
+
             if (Settings.PrintNetworkDebugMessagesToConsole)
             {
                 Console.WriteLine($"InitialConnectionInfo sent with IsHost={isHost}");
@@ -38,6 +40,7 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
                     _ => Console.WriteLine($"Client invoked {nameof(AccusationResultReceived)}");
                 GameStartInfoReceived += _ => Console.WriteLine($"Client invoked {nameof(GameStartInfoReceived)}");
                 OptionsUpdateReceived += _ => Console.WriteLine($"Client invoked {nameof(OptionsUpdateReceived)}");
+                ChatMessageReceived += _ => Console.WriteLine($"Server invoke {nameof(ChatMessageReceived)}");
                 PlayerSuggestionReceived +=
                     _ => Console.WriteLine($"Client invoked {nameof(PlayerSuggestionReceived)}");
                 PlayerSuggestionResponseReceived += _ =>
@@ -121,6 +124,15 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
             PushUpdate(suspectSelectionUpdate, UpdateType.SuspectSelection);
         }
 
+        public void SendChatMessage(ChatMessage message)
+        {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending chat message to server");
+            PushUpdate(message, UpdateType.ChatMessage);
+        }
+
+        public event Action<ChatMessage>? ChatMessageReceived;
+
         /// <summary>
         /// Subscribe to run code when a suspect selection is made by another player
         /// </summary>
@@ -171,6 +183,9 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
                     break;
                 case UpdateType.PlayerSuggestionResponse:
                     PlayerSuggestionResponseReceived?.Invoke((PlayerSuggestionResponse) updateWrapper.UpdateObject!);
+                    break;
+                case UpdateType.ChatMessage:
+                    ChatMessageReceived?.Invoke((ChatMessage) updateWrapper.UpdateObject!);
                     break;
                 case UpdateType.MoveAction:
                 case UpdateType.Accusation:

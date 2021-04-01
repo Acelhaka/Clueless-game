@@ -12,7 +12,8 @@
         Accusation,
         AccusationResult,
         SuspectSelection,
-        GameStart
+        GameStart,
+        ChatMessage
     }
 
     /// <summary>

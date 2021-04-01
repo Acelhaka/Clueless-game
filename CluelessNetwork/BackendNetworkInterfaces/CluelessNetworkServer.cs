@@ -89,26 +89,26 @@ namespace CluelessNetwork.BackendNetworkInterfaces
             if (Settings.PrintNetworkDebugMessagesToConsole)
                 Console.WriteLine("Adding player to game instance");
             _gameInstanceService.AddPlayerToGameInstance(frontendConnection);
+            Task.Run(frontendConnection.ListenForUpdatesContinuously);
         }
 
         /// <summary>
-        /// Waits for a connection, and spins up a new thread that handles the client connection
+        /// Waits for a connection, and starts handling it when it arrives
         /// </summary>
-        public Task ListenForConnection()
+        public void ListenForConnection()
         {
             try
             {
                 // Accept a TCP connection
                 var client = _tcpListener.AcceptTcpClient();
                 // Don't block listening for more clients while a client is connecting. Run connect handling on a separate thread.
-                return Task.Run(() => HandleClientConnect(client));
+                HandleClientConnect(client);
             }
             catch (SocketException socketException)
             {
                 // Error accepting TCP client
                 // Look up Windows Sockets version 2 API error code here: https://docs.microsoft.com/en-us/windows/desktop/winsock/windows-sockets-error-codes-2
                 Console.Error.WriteLine($"Unable to accept client. Error code: {socketException.ErrorCode}");
-                return Task.CompletedTask;
             }
         }
 
@@ -131,9 +131,15 @@ namespace CluelessNetwork.BackendNetworkInterfaces
 
             if (Settings.PrintNetworkDebugMessagesToConsole)
                 Console.WriteLine("Received InitialConnectionInfo");
+
+            // Require a name to be set
+            if (connectionInfo.Name == null)
+                return null;
+            
             return new BackendPlayerNetworkModel.BackendPlayerNetworkModel(tcpStream)
             {
-                IsHost = connectionInfo.IsHost
+                IsHost = connectionInfo.IsHost,
+                Name = connectionInfo.Name
             };
         }
 

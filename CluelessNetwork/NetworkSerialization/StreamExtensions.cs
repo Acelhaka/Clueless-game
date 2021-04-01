@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.Json;
@@ -18,14 +19,12 @@ namespace CluelessNetwork.NetworkSerialization
 	    /// <returns>An instance of the object, or null if it could not be created</returns>
 	    public static T? ReadObject<T>(this Stream stream) where T : class
         {
-            // TODO: Handle errors
-            // Because only DeserializeAsync has the signature that allows a stream, get a Task<T?> and then wait for it to complete. When it completes, return the result.
-            var sizeBuffer = new byte[sizeof(int)];
             // Get length of incoming object
+            var sizeBuffer = new byte[sizeof(int)];
             var bytesRead = 0;
+            Debug.Assert(stream.CanRead);
             while (bytesRead < sizeBuffer.Length)
                 bytesRead += stream.Read(sizeBuffer, bytesRead, sizeBuffer.Length - bytesRead);
-
             // Create a buffer for serialized data
             var serializationLength = BitConverter.ToInt32(sizeBuffer);
             var serializedDataBuffer = new byte[serializationLength];
@@ -62,13 +61,13 @@ namespace CluelessNetwork.NetworkSerialization
 	    /// <typeparam name="T">A serializable type</typeparam>
 	    public static void WriteObject<T>(this Stream stream, T value)
         {
-            // TODO: Handle errors
             var json = JsonSerializer.Serialize(value);
             var bytes = Encoding.UTF8.GetBytes(json);
             // Always send a number of bytes ahead, so the other side knows how much to read
             stream.Write(BitConverter.GetBytes(bytes.Length));
             // Send serialized data
             stream.Write(bytes);
+            stream.Flush();
         }
     }
 }

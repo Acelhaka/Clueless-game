@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace CluelessNetwork
+﻿namespace CluelessNetwork
 {
     /// <summary>
     /// Interface for both frontend and backend player network models. For interface logic that is specific to either,
@@ -19,13 +16,13 @@ namespace CluelessNetwork
         /// yielded.
         /// </summary>
         /// <returns>Tasks that handle messages from the network</returns>
-        public IEnumerable<Task> ListenForUpdatesContinuously();
+        public void ListenForUpdatesContinuously();
 
         /// <summary>
         /// Receives an update and handles it
         /// This is primarily used in testing. For the game, use
         /// </summary>
         /// <returns>A task that completes when handling finishes</returns>
-        public Task ReceiveUpdate();
+        public void ReceiveUpdate();
     }
 }
