@@ -24,7 +24,7 @@ namespace CluelessTests.BackEndTests
             Room room = new Room(Room.ROOM.BILLIARD_ROOM, false);
             Assert.True(room.HasSecretPassage().Equals(false), "The room has a secret passage, but should not");
 
-            // TODO add some more testing
+            
 
         }
 

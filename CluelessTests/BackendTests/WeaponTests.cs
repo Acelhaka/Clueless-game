@@ -29,8 +29,8 @@ namespace CluelessTests.BackEndTests
             weapon.weaponID_ = 1;
 
             // test these new values were indeed updated
-            Assert.True(weapon.weaponName_.Equals("Pipe"));
-            Assert.True(weapon.weaponID_.Equals(1));
+            Assert.True(weapon.weaponName_.Equals("Pipe"), "expected weapon name to be Pipe, but is not");
+            Assert.True(weapon.weaponID_.Equals(1), "expected weapon id to be 1, but is not");
 
         }
 
