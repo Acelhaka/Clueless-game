@@ -96,5 +96,49 @@ namespace CluelessTests.BackEndTests
 
         }
 
+        [Fact]
+        public void TestSpreadCardsToPlayer()
+        {
+            Player p1 = new Player(Suspect.SUSPECT.MISS_SCARLET);
+            Player p2 = new Player(Suspect.SUSPECT.COLONEL_MUSTARD);
+            Player p3 = new Player(Suspect.SUSPECT.MRS_PEACOCK);
+            Player p4 = new Player(Suspect.SUSPECT.MRS_WHITE);
+            Player p5 = new Player(Suspect.SUSPECT.MR_GREEN);
+            Player p6 = new Player(Suspect.SUSPECT.PROFESSOR_PLUM);
+
+            List<Player> players = new List<Player>();
+            players.Add(p1);
+            players.Add(p2);
+            players.Add(p3);
+            players.Add(p4);
+            players.Add(p5);
+            players.Add(p6);
+
+            CardDeck deck = new CardDeck();
+            deck.CreateDeckOfCards();
+
+            // first generate the case file 
+            ScenarioFile scenarioFile = new ScenarioFile();
+            Card[] caseFile = deck.SelectCardsForEnvelope();
+            scenarioFile.SetEnvelopeCards(caseFile);
+
+            // players need to be delt a hand first, so ensure that their hand to start is 0
+            Assert.True(0.Equals(p1.GetPlayersCards().Count), "player's card count was expected to be 0, but it is not");
+
+            // now assign a game manager instance and spread the remaining cards to players
+            GameManager gm = new GameManager();
+            gm.SpreadCardsToPlayer(players, deck);
+
+            // test to ensure each player gets 3 cards because the case file was generated, that would leave 18 remaining cards between 6 players
+            Assert.True(3.Equals(p1.GetPlayersCards().Count), "player's card count was expected to be 3, but it is not");
+            Assert.True(3.Equals(p2.GetPlayersCards().Count), "player's card count was expected to be 3, but it is not");
+            Assert.True(3.Equals(p3.GetPlayersCards().Count), "player's card count was expected to be 3, but it is not");
+            Assert.True(3.Equals(p4.GetPlayersCards().Count), "player's card count was expected to be 3, but it is not");
+            Assert.True(3.Equals(p5.GetPlayersCards().Count), "player's card count was expected to be 3, but it is not");
+            Assert.True(3.Equals(p6.GetPlayersCards().Count), "player's card count was expected to be 3, but it is not");
+
+
+        }
+
     }
 }
