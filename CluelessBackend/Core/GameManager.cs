@@ -41,6 +41,9 @@ namespace CluelessBackend.Core
             {
                 for (int i = 0; i < players.Count(); i++)
                 {
+                    // TODO in this inner loop, you'll need to make sure to break if cardsCount == deck.GetDeckSize()
+                    // otherwise you'll run into an array out of bounds error for cases where one player gets more cards than the other one
+                    // i.e when just 4 players are in the game, two of the players will get 5 cards, and the other players will get 4 cards
                     players[i].HandOneCard(cardsCount, deck.GetCardFromDeck(cardsCount));
                     cardsCount++;
                 }
