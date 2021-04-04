@@ -41,6 +41,11 @@ namespace CluelessBackend.Core
             {
                 for (int i = 0; i < players.Count(); i++)
                 {
+                    // if cardsCount = deckSize_ all cards have been spread out to the players
+                    if (cardsCount == deck.GetDeckSize())
+                    {
+                        break;
+                    }
                     players[i].HandOneCard(cardsCount, deck.GetCardFromDeck(cardsCount));
                     cardsCount++;
                 }

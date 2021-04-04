@@ -86,25 +86,25 @@ namespace CluelessBackend.Core
                 }
                 else if (players[i].GetSuspectType() == Suspect.SUSPECT.COLONEL_MUSTARD)
                 {
-                    rooms_[4, 1].SetPlayerInRoom(players[i]);
+                    rooms_[1, 4].SetPlayerInRoom(players[i]);
                     players[i].SetPlayerStartingPosition(1, 4);
                     Console.WriteLine("COLONEL_MUSTARD - Starting position in cell [1,4], Hallway-5");
                 }
                 else if (players[i].GetSuspectType() == Suspect.SUSPECT.MRS_PEACOCK)
                 {
-                    rooms_[4, 1].SetPlayerInRoom(players[i]);
+                    rooms_[3, 0].SetPlayerInRoom(players[i]);
                     players[i].SetPlayerStartingPosition(3, 0);
                     Console.WriteLine("MRS_PEACOCK - Starting position in cell [3,0], Hallway-8");
                 }
                 else if (players[i].GetSuspectType() == Suspect.SUSPECT.PROFESSOR_PLUM)
                 {
-                    rooms_[4, 1].SetPlayerInRoom(players[i]);
+                    rooms_[1, 0].SetPlayerInRoom(players[i]);
                     players[i].SetPlayerStartingPosition(1, 0);
                     Console.WriteLine("PROFESSOR_PLUM - Starting position in cell [1,0], Hallway-3");
                 }
                 else if (players[i].GetSuspectType() == Suspect.SUSPECT.MRS_WHITE)
                 {
-                    rooms_[4, 1].SetPlayerInRoom(players[i]);
+                    rooms_[4, 3].SetPlayerInRoom(players[i]);
                     players[i].SetPlayerStartingPosition(4, 3);
                     Console.WriteLine("MRS_WHITE - Starting position in cell [4,3], Hallway-12");
                 }

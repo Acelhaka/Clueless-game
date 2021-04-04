@@ -31,7 +31,7 @@ namespace CluelessBackend.Core
         /// <summary>
         /// Players that are currently in the room
         /// </summary>
-        List<Player> playersInRoom_;
+        List<Player> playersInRoom_ = new List<Player>();
 
         public Room(int roomID, string roomName)
         {

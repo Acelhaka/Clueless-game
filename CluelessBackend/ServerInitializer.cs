@@ -46,31 +46,23 @@ namespace CluelessBackend
             Board board = new Board();
 
             // Init players
-            List<Player> players = new List<Player>(2);
+            List<Player> players = new List<Player>(4);
 
-            Console.WriteLine("\n\nTwo Players joined the game: ");
-            Console.WriteLine("1-MISS_SCARLET");
-            Console.WriteLine("2-MR_GREEN");
             players.Add(new Player(Suspect.SUSPECT.MISS_SCARLET));
             players.Add(new Player(Suspect.SUSPECT.MR_GREEN));
+            players.Add(new Player(Suspect.SUSPECT.COLONEL_MUSTARD));
+            players.Add(new Player(Suspect.SUSPECT.MRS_WHITE));
 
-         
             // Set players to the board
             board.SetPlayers(players);
             GameManager gameManager = new GameManager();
 
-            //Console.WriteLine("\n\nSet players to the starting position: ");
-            //string response2 = Console.ReadLine();
-
-            //Console.WriteLine("\n\nSetting the players starting position....");
             gameManager.SpreadCardsToPlayer(players, deck);
             board.SePlayerstStartingPosition(players);
-            Console.WriteLine("\n\nIt is MISS_SCARLET turn...\nPick the room to move at:");
-
-            string response = Console.ReadLine();
+         
 
             // moving player to next room
-            board.MovePlayerToRoom(players[0], Room.ROOM.LOUNGE);
+    //        board.MovePlayerToRoom(players[0], Room.ROOM.LOUNGE);
 
             // Start network server. Runs until the program is interrupted or terminated
             // TODO: Create a class implementing IGameInstanceService and assign it
