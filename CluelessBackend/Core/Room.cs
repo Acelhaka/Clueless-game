@@ -64,24 +64,27 @@ namespace CluelessBackend.Core
 
         }
 
-        // TODO:: Check what is the secret passage of each room
+        /// <summary>
+        /// Sets the secret passage for the room 
+        /// </summary>
+        /// <param name="roomType"> The room type that has a secret passage </param>
         public void SetSecretPassage(ROOM roomType)
         {
             if(roomType == ROOM.STUDY)
             {
-                secretPassage_ = ROOM.DINNING_ROOM;
+                secretPassage_ = ROOM.KITCHEN;
             }
             else if(roomType == ROOM.LOUNGE)
             {
-                secretPassage_ = ROOM.LIBRARY;
+                secretPassage_ = ROOM.CONSERVATORY;
             }
             else if(roomType == ROOM.CONSERVATORY)
             {
-                secretPassage_ = ROOM.BILLIARD_ROOM;
+                secretPassage_ = ROOM.LOUNGE;
             }
             else if(roomType == ROOM.KITCHEN)
             {
-                secretPassage_ = ROOM.DINNING_ROOM;
+                secretPassage_ = ROOM.STUDY;
             }
         }
 

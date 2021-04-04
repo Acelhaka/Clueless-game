@@ -23,6 +23,11 @@ namespace CluelessBackend.Core
 
         }
 
+        /// <summary>
+        /// Function to move the player into a room
+        /// </summary>
+        /// <param name="player">Player that moves to a another room </param>
+        /// <param name="room"> Room that the player should move </param>
         public void MovePlayerToRoom(Player player, Room room)
         {
             room.SetPlayerInRoom(player);
@@ -47,7 +52,7 @@ namespace CluelessBackend.Core
                         break;
                     }
 
-                    players[i].HandOneCard(cardsCount, deck.GetCardFromDeck(cardsCount));
+                    players[i].HandOneCard(deck.GetCardFromDeck(cardsCount));
                     cardsCount++;
                 }
             }

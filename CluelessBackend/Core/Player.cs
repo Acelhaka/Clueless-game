@@ -64,8 +64,11 @@ namespace CluelessBackend.Core
             cardsInHand_ = cardsInHand;
         }
 
-        // Add one card to the players hand
-        public void HandOneCard(int i, Card card)
+        /// <summary>
+        /// Hand one card to the players when spreading cards 
+        /// </summary> 
+        /// <param name="card"> Card that is handed to the player </param>
+        public void HandOneCard(Card card)
         {
             cardsInHand_.Add(card);
         }
@@ -89,6 +92,11 @@ namespace CluelessBackend.Core
             return playerCurrentPositionRow_;
         }
 
+        /// <summary>
+        /// Updating the player current position, row and col in the board
+        /// </summary>
+        /// <param name="row"> Row in the board that is moving at, 0-4</param>
+        /// <param name="col"> Column  in the board that is moving at, 0-4</param>
         public void SetPlayerPosition(int row, int col)
         {
             playerCurrentPositionRow_ = row;
