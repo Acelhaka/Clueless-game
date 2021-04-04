@@ -99,20 +99,20 @@ namespace CluelessTests.BackEndTests
 
             Player currentPlayer = turnManager.CurrentTurn();
 
-            Assert.True(currentPlayer.Equals(p2));
+            Assert.True(currentPlayer.Equals(p2), "should be p2's turn, but is not");
             turnManager.NextTurn();
             currentPlayer = turnManager.CurrentTurn();
-            Assert.True(currentPlayer.Equals(p3));
+            Assert.True(currentPlayer.Equals(p3), "should be p3's turn, but is not");
 
             turnManager.NextTurn();
             currentPlayer = turnManager.CurrentTurn();
-            Assert.True(currentPlayer.Equals(p6));
+            Assert.True(currentPlayer.Equals(p6), "should be p6's turn, but is not");
 
             // now set the p2 to inactive so we "skip" their turn
             p2.SetIsActive(false);
             turnManager.NextTurn();
             currentPlayer = turnManager.CurrentTurn();
-            Assert.True(currentPlayer.Equals(p3));
+            Assert.True(currentPlayer.Equals(p3), "should be p3's turn, but is not");
 
         }
 

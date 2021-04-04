@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CluelessBackend.Core
 {
-    class GameManager : Board
+    public class GameManager : Board
     {
         public void InitWeapons()
         {
@@ -46,6 +46,7 @@ namespace CluelessBackend.Core
                     {
                         break;
                     }
+
                     players[i].HandOneCard(cardsCount, deck.GetCardFromDeck(cardsCount));
                     cardsCount++;
                 }
