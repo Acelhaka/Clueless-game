@@ -39,22 +39,6 @@ namespace CluelessBackend.Core
         bool hasSuggested_ = false;
         bool hasAccused_ = false;
 
-        public void MakeSuggestion()
-        {
-            Console.WriteLine("Player {playerName_} has made a suggestion");
-
-            hasSuggested_ = true;
-            numberOfSuggestions_ = 1;
-        }
-
-        public void MakeAccusation()
-        {
-            Console.WriteLine("Player {playerName_} has made an accusation");
-
-            hasAccused_ = true;
-            numberOfSuggestions_ = 1;
-        }
-
         public List<Card> GetPlayersCards()
         {
             return cardsInHand_;
@@ -117,6 +101,22 @@ namespace CluelessBackend.Core
         {
             return !hasMoved_ || !hasSuggested_ || !hasAccused_;
 
+        }
+
+        public void HasSuggested()
+        {
+            hasSuggested_ = true;
+            numberOfSuggestions_ += 1;
+        }
+
+        public void HasAccused()
+        {
+            if(hasAccused_ == true)
+            {
+                Console.WriteLine("Player {playerName_} cannot make accusations");
+                return;
+            }
+            hasAccused_ = true;
         }
     }
 }

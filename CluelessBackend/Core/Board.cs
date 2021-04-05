@@ -18,7 +18,7 @@ namespace CluelessBackend.Core
         /// <summary>
         /// 2D array of rooms to create the board, 5x5
         /// </summary>
-        Room[,] rooms_;
+        protected Room[,] rooms_;
 
         //_______________________________**Board Setup**______________________________
         //               |             |                |            |               |
@@ -111,72 +111,6 @@ namespace CluelessBackend.Core
             }
         }
 
-        /// <summary>
-        /// Move Player to room will move the player to the coordinates of the roomType
-        /// Player'c current position will also be updated to the coordinates of the room 
-        /// </summary>
-        /// <param name="player"> Player that will be moved</param>
-        /// <param name="roomType"> Room type that the player requested to move at</param>
-        public void MovePlayerToRoom(Player player, Room.ROOM roomType)
-        {
-            if (roomType == Room.ROOM.STUDY)
-            {
-                rooms_[0, 0].SetPlayerInRoom(player);
-                player.SetPlayerPosition(0, 0);
-            }
-            else if (roomType == Room.ROOM.HALL)
-            {
-                rooms_[0, 2].SetPlayerInRoom(player);
-                player.SetPlayerPosition(0, 2);
-            }
-            else if (roomType == Room.ROOM.LOUNGE)
-            {
-                rooms_[0, 4].SetPlayerInRoom(player);
-                player.SetPlayerPosition(0, 4);
-            }
-            else if (roomType == Room.ROOM.LIBRARY)
-            {
-                rooms_[2, 0].SetPlayerInRoom(player);
-                player.SetPlayerPosition(2, 0);
-            }
-            else if (roomType == Room.ROOM.BILLIARD_ROOM)
-            {
-                rooms_[2, 2].SetPlayerInRoom(player);
-                player.SetPlayerPosition(2, 2);
-            }
-            else if (roomType == Room.ROOM.DINNING_ROOM)
-            {
-                rooms_[2, 4].SetPlayerInRoom(player);
-                player.SetPlayerPosition(2, 4);
-            }
-            else if (roomType == Room.ROOM.CONSERVATORY)
-            {
-                rooms_[4, 0].SetPlayerInRoom(player);
-                player.SetPlayerPosition(4, 0);
-            }
-            else if (roomType == Room.ROOM.BALLROOM)
-            {
-                rooms_[4, 2].SetPlayerInRoom(player);
-                player.SetPlayerPosition(4, 2);
-            }
-            else if (roomType == Room.ROOM.KITCHEN)
-            {
-                rooms_[4, 4].SetPlayerInRoom(player);
-                player.SetPlayerPosition(4, 4);
-            }
-        }
-
-        /// <summary>
-        /// Move player to a room or hallway
-        /// </summary>
-        /// <param name="player"> player that will be moved </param>
-        /// <param name="row"> The row that the player will be positioned on the board </param>
-        /// <param name="column"> The column that the player will be positioned on the board </param>
-        public void MovePlayerToRoom(Player player, int row, int column)
-        {
-            rooms_[row, column].SetPlayerInRoom(player);
-            player.SetPlayerPosition(row, column);
-        }
         /// <summary>
         /// Setting players in the board
         /// </summary>

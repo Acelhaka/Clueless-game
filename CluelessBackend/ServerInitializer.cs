@@ -59,10 +59,7 @@ namespace CluelessBackend
 
             gameManager.SpreadCardsToPlayer(players, deck);
             board.SePlayerstStartingPosition(players);
-         
-
-            // moving player to next room
-            board.MovePlayerToRoom(players[0], Room.ROOM.LOUNGE);
+  
 
             // Start network server. Runs until the program is interrupted or terminated
             // TODO: Create a class implementing IGameInstanceService and assign it

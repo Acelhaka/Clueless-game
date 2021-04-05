@@ -63,7 +63,7 @@ namespace CluelessTests.BackEndTests
             Assert.True(roomFound.Equals(true), "The Room Type card should be found but is not");
 
             // now test that the cards from the case file are not in the regular deck that will be dealt to the players
-            List<Card> remainingCards = deck.getCardDeck();
+            List<Card> remainingCards = deck.GetCardDeck();
             for (int i = 0; i < remainingCards.Count; i++)
             {
                 for (int j = 0; j < caseFile.Length; j++)
@@ -89,7 +89,7 @@ namespace CluelessTests.BackEndTests
             bool result = scenarioFile.CheckScenarioFile(caseFile[0], caseFile[1], caseFile[2]);
             Assert.True(result.Equals(true));
             
-            List<Card> remainingCards = deck.getCardDeck();
+            List<Card> remainingCards = deck.GetCardDeck();
             result = scenarioFile.CheckScenarioFile(remainingCards.ElementAt(0), remainingCards.ElementAt(1), remainingCards.ElementAt(2));
             Assert.True(result.Equals(false));
 

@@ -17,7 +17,7 @@ namespace CluelessBackend.Core
         /// Player that is located in the hallway
         /// </summary>
         Player player_;
-
+        
         public Hallway(int hallwayID)
         {
             hallwayID_ = hallwayID;
