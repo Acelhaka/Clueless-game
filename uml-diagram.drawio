@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-04-05T01:00:48.821Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36" etag="oRHwbDz5c8kglfQaFm7Y" version="14.4.9" type="github">
+<mxfile host="app.diagrams.net" modified="2021-04-05T01:02:22.231Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36" etag="GAwvC_NzhIX7mz0znQOk" version="14.4.9" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Backend_design">
-    <mxGraphModel dx="3800" dy="2070" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3831" dy="1262" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -474,9 +474,6 @@
               <mxPoint x="-30" y="710" />
             </Array>
           </mxGeometry>
-        </mxCell>
-        <mxCell id="31X4af6FUvIwJoq8mnIn-38" value="SpreadCardsToPlayers()" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="-1580" y="-130" width="230" height="26" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
