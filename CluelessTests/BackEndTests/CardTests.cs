@@ -153,24 +153,20 @@ namespace CluelessTests.BackEndTests
             deck.CreateDeckOfCards();
 
             // generate the case file again to remove three cards from the deck
-            
-            //TODO comment out until bug is fixed
-            //scenarioFile = new ScenarioFile();
-            //caseFile = deck.SelectCardsForEnvelope();
-            //scenarioFile.SetEnvelopeCards(caseFile);
-            //gm = new GameManager();
-            //gm.SpreadCardsToPlayer(players, deck);
+            scenarioFile = new ScenarioFile();
+            caseFile = deck.SelectCardsForEnvelope();
+            scenarioFile.SetEnvelopeCards(caseFile);
+            gm = new GameManager();
+            gm.SpreadCardsToPlayer(players, deck);
                       
 
             // test to ensure each player gets 3 cards because the case file was generated, that would leave 18 remaining cards between 4 players
             // so two players would get 5 cards, while the other two players would get 4 cards
-            //Assert.True(5.Equals(p1.GetPlayersCards().Count), "player's card count was expected to be 5, but it is not");
-            //Assert.True(5.Equals(p2.GetPlayersCards().Count), "player's card count was expected to be 5, but it is not");
-            //Assert.True(4.Equals(p3.GetPlayersCards().Count), "player's card count was expected to be 4, but it is not");
-            //Assert.True(4.Equals(p4.GetPlayersCards().Count), "player's card count was expected to be 4, but it is not");
+            Assert.True(5.Equals(p1.GetPlayersCards().Count), "player's card count was expected to be 5, but it is not");
+            Assert.True(5.Equals(p2.GetPlayersCards().Count), "player's card count was expected to be 5, but it is not");
+            Assert.True(4.Equals(p3.GetPlayersCards().Count), "player's card count was expected to be 4, but it is not");
+            Assert.True(4.Equals(p4.GetPlayersCards().Count), "player's card count was expected to be 4, but it is not");
             
-
-
         }
 
     }
