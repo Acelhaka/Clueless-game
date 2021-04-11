@@ -58,6 +58,7 @@ namespace CluelessBackend
             GameManager gameManager = new GameManager();
 
             gameManager.SpreadCardsToPlayer(players, deck);
+            //gameManager.AssignWeaponToRooms()
             board.SePlayerstStartingPosition(players);
   
 

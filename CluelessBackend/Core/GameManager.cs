@@ -8,14 +8,46 @@ namespace CluelessBackend.Core
 {
     public class GameManager : Board
     {
+        // Instantiate random number generator.  
+        private Random random = new Random();
+        List<Weapon> weapons_ = new List<Weapon>(6);
+
+        /// <summary>
+        /// Init weapons instatiate 6 weapons and adds them the weapons_ lists
+        /// </summary>
         public void InitWeapons()
         {
-
+            foreach (Weapon.WEAPON weaponIndex in Enum.GetValues(typeof(Weapon.WEAPON)))
+            {
+                weapons_.Add(new Weapon(weaponIndex));
+            }
         }
 
-        public void AssignWeaponToRooms()
+        public void AssignWeaponToRooms(List<Weapon> weapons)
         {
+            List<int> randomList = new List<int>();
+            int myNumber = 0;
+            myNumber = random.Next(0, 6);
+            if (!randomList.Contains(myNumber))
+            {
+                randomList.Add(myNumber);
+            }
 
+            while(randomList.Count >= 6)
+            {
+                myNumber = random.Next(0, 6);
+                if (!randomList.Contains(myNumber))
+                {
+                    randomList.Add(myNumber);
+                }
+ 
+            }
+
+            
+            for(int i = 0; i < 6; ++i)
+            {
+                Console.WriteLine("Number generator for card {i} ", i);
+            }
         }
 
         public void StartGame()
@@ -148,5 +180,6 @@ namespace CluelessBackend.Core
             rooms_[row, column].SetPlayerInRoom(player);
             player.SetPlayerPosition(row, column);
         }
+
     }
 }

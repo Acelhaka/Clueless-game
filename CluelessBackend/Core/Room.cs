@@ -28,6 +28,8 @@ namespace CluelessBackend.Core
         ROOM secretPassage_;
         bool hallway_ = true;
 
+        Weapon weapon_;
+
         /// <summary>
         /// Players that are currently in the room
         /// </summary>
@@ -117,6 +119,11 @@ namespace CluelessBackend.Core
         public bool Gethallway()
         {
             return hallway_;
+        }
+
+        public void SetWeaponinRoom(Weapon weapon)
+        {
+            weapon_ = weapon;
         }
     }
 }
