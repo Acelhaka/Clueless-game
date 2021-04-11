@@ -20,17 +20,24 @@ namespace CluelessBackend.Core
             CANDLESTICK,
             REVOLVER
         }
-        public int weaponID_ { get; set; }
-        public WEAPON weaponType { get; set; }
-        public Weapon(int weaponID, WEAPON weaponType)
+
+        int weaponID_;
+        WEAPON weaponType_;
+        string weaponName_;
+
+        public string weaponName { get; set; }
+        public int weaponID { get; set; }
+        public int weaponType { get; set; }
+
+        public Weapon(int weaponID, string weaponType)
         {
-            this.weaponID_ = weaponID;
-            this.weaponType = weaponType;
+            weaponID_ = weaponID;
+            weaponName_ = weaponType;
         }
 
         public Weapon(WEAPON weaponType)
         {
-            this.weaponType = weaponType;
+            weaponType_ = weaponType;
         }
     }
 }

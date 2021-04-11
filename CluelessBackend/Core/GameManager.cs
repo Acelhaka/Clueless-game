@@ -11,6 +11,22 @@ namespace CluelessBackend.Core
         // Instantiate random number generator.  
         private Random random = new Random();
         List<Weapon> weapons_ = new List<Weapon>(6);
+        List<Suspect> suspects_ = new List<Suspect>(6);
+        Board board_;
+
+        // Create deck of cards
+        CardDeck deck_ = new CardDeck();
+
+        // Init scenario file
+        ScenarioFile scenarioFile_ = new ScenarioFile();
+
+        /// <summary>
+        /// Creating a board object
+        /// </summary>
+        public void InitBoard()
+        {
+            board_ = new Board();
+        }
 
         /// <summary>
         /// Init weapons instatiate 6 weapons and adds them the weapons_ lists
@@ -23,35 +39,62 @@ namespace CluelessBackend.Core
             }
         }
 
-        public void AssignWeaponToRooms(List<Weapon> weapons)
+        /// <summary>
+        /// Init weapons instatiate 6 weapons and adds them the weapons_ lists
+        /// </summary>
+        public void InitSuspects()
         {
-            List<int> randomList = new List<int>();
-            int myNumber = 0;
-            myNumber = random.Next(0, 6);
-            if (!randomList.Contains(myNumber))
+            foreach (Suspect.SUSPECT suspectIndex in Enum.GetValues(typeof(Suspect.SUSPECT)))
             {
-                randomList.Add(myNumber);
+                suspects_.Add(new Suspect(suspectIndex));
             }
+        }
 
-            while(randomList.Count >= 6)
-            {
-                myNumber = random.Next(0, 6);
-                if (!randomList.Contains(myNumber))
-                {
-                    randomList.Add(myNumber);
-                }
- 
-            }
+        public void AssignWeaponToRooms()
+        {
+            // Create a list of 6 random  numbers for each weapon
+            List<int> weaponRandomList = CreateUniqueListOfRandomNum(0, 6);
+            // Create a list of 3 random  numbers for row and columns of the rooms in the board
+            List<int> boardRowRandomList = CreateUniqueListOfRandomNum(0, 3);
+            List<int> boardColRandomList = CreateUniqueListOfRandomNum(0, 3);
 
-            
-            for(int i = 0; i < 6; ++i)
+            int weaponIndex = 0;
+            for(int listIndex = 0; listIndex < boardRowRandomList.Count; ++listIndex)
             {
-                Console.WriteLine("Number generator for card {i} ", i);
+                // Multiply by 2 because rooms are in row location 0,2,4 and random lists has 0,1 and 2
+                int roomRowIndex = boardRowRandomList[listIndex] * 2;
+                int roomColIndex = boardColRandomList[listIndex] * 2;
+
+                // Place a random weapon in a random room
+                rooms_[roomRowIndex, roomColIndex].SetWeaponinRoom(weapons_[weaponRandomList[weaponIndex]]);
+                weaponIndex += 1;
             }
         }
 
         public void StartGame()
         {
+            // Init board with rooms and hallways
+            InitBoard();
+            InitWeapons();
+            InitSuspects();
+
+            Console.WriteLine("Creating deck of cards...");
+            Console.WriteLine(" - 6 weapons - 6 suspects - 9 rooms - ");
+            deck_.CreateDeckOfCards();
+            deck_.PrintDeckOfCards();
+
+            // Place 3 random cards in the secret envelope
+            scenarioFile_.SetEnvelopeCards(deck_.SelectCardsForEnvelope());
+            scenarioFile_.PrintEnvelopeCards();
+
+            Console.WriteLine("\nUpdated deck after selecting 3 cards for the envelope..");
+            deck_.PrintDeckOfCards();
+
+
+            Console.WriteLine("\nShuffling the cards before handing over to the players..");
+            deck_.ShuffleCards();
+            deck_.PrintDeckOfCards();
+
 
         }
 
@@ -70,21 +113,21 @@ namespace CluelessBackend.Core
         /// </summary>
         /// <param name="players"> All players in the game </param>
         /// <param name="deck"> Deck of cards that will be handed out to the players </param>
-        public void SpreadCardsToPlayer(List<Player> players, CardDeck deck)
+        public void SpreadCardsToPlayer(List<Player> players)
         {
             int cardsCount = 0;
 
-            while (cardsCount < deck.GetDeckSize())
+            while (cardsCount < deck_.GetDeckSize())
             {
                 for (int i = 0; i < players.Count(); i++)
                 {
                     // if cardsCount = deckSize_ all cards have been spread out to the players
-                    if (cardsCount == deck.GetDeckSize())
+                    if (cardsCount == deck_.GetDeckSize())
                     {
                         break;
                     }
 
-                    players[i].HandOneCard(deck.GetCardFromDeck(cardsCount));
+                    players[i].HandOneCard(deck_.GetCardFromDeck(cardsCount));
                     cardsCount++;
                 }
             }
@@ -181,5 +224,49 @@ namespace CluelessBackend.Core
             player.SetPlayerPosition(row, column);
         }
 
+        /// <summary>
+        /// Creates a unique lists of random number from min to max (with a size of max)
+        /// Eg: CreateUniqueListOfRandomNum(0, 3), will generate a list of 3 numbers, numbers in the list will be 0,1,2, 
+        /// in a random order
+        /// </summary>
+        /// <param name="min"> Possible min number generated </param>
+        /// <param name="max"> Possible max number generated </param>
+        /// <returns></returns>
+        public List<int> CreateUniqueListOfRandomNum(int min, int max)
+        {
+            List<int> randomList = new List<int>(max);
+            int myNumber = 0;
+
+            while (true)
+            {
+                myNumber = random.Next(min, max);
+                if (!randomList.Contains(myNumber))
+                {
+                    randomList.Add(myNumber);
+                }
+                if (randomList.Count >= max)
+                {
+                    break;
+                }
+            }
+
+            // TODO: remove, just for debugging reasons its here
+            for (int i = min; i < max; ++i)
+            {
+                Console.WriteLine("Number generator for card " + randomList[i]);
+            }
+
+            return randomList;
+        }
+
+        public Board GetBoard()
+        {
+            return board_;
+        }
+
+        public void SetCardDeck(CardDeck deck)
+        {
+            deck_ = deck;
+        }
     }
 }

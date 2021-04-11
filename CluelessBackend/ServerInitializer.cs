@@ -20,30 +20,10 @@ namespace CluelessBackend
 
             // TODO:: Print statements will be removed, using to showcase the working backend logic
 
-            // Create deck of cards
-            CardDeck deck = new CardDeck();
-            Console.WriteLine("Creating deck of cards...");
-            Console.WriteLine(" - 6 weapons - 6 suspects - 9 rooms - ");
-            deck.CreateDeckOfCards();
-            deck.PrintDeckOfCards();
-            
-            // Init scenario file
-            ScenarioFile scenarioFile = new ScenarioFile();
 
-            // Place 3 random cards in the secret envelope
-            scenarioFile.SetEnvelopeCards(deck.SelectCardsForEnvelope());
-            scenarioFile.PrintEnvelopeCards();
-
-            Console.WriteLine("\nUpdated deck after selecting 3 cards for the envelope..");
-            deck.PrintDeckOfCards();
-
-
-            Console.WriteLine("\nShuffling the cards before handing over to the players..");
-            deck.ShuffleCards();
-            deck.PrintDeckOfCards();
-
-            // Initing the board
-            Board board = new Board();
+            // Start game
+            GameManager gameManager = new GameManager();
+            gameManager.StartGame();
 
             // Init players
             List<Player> players = new List<Player>(4);
@@ -54,12 +34,13 @@ namespace CluelessBackend
             players.Add(new Player(Suspect.SUSPECT.MRS_WHITE));
 
             // Set players to the board
-            board.SetPlayers(players);
-            GameManager gameManager = new GameManager();
+           gameManager.GetBoard().SetPlayers(players);
+          
 
-            gameManager.SpreadCardsToPlayer(players, deck);
-            //gameManager.AssignWeaponToRooms()
-            board.SePlayerstStartingPosition(players);
+            gameManager.SpreadCardsToPlayer(players);
+            gameManager.CreateUniqueListOfRandomNum(0, 3);
+            gameManager.AssignWeaponToRooms();
+            gameManager.GetBoard().SePlayerstStartingPosition(players);
   
 
             // Start network server. Runs until the program is interrupted or terminated

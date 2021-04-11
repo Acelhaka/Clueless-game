@@ -127,7 +127,9 @@ namespace CluelessTests.BackEndTests
 
             // now assign a game manager instance and spread the remaining cards to players
             GameManager gm = new GameManager();
-            gm.SpreadCardsToPlayer(players, deck);
+            gm.SetCardDeck(deck);
+
+            gm.SpreadCardsToPlayer(players);
 
             // test to ensure each player gets 3 cards because the case file was generated, that would leave 18 remaining cards between 6 players
             Assert.True(3.Equals(p1.GetPlayersCards().Count), "player's card count was expected to be 3, but it is not");
@@ -157,7 +159,7 @@ namespace CluelessTests.BackEndTests
             caseFile = deck.SelectCardsForEnvelope();
             scenarioFile.SetEnvelopeCards(caseFile);
             gm = new GameManager();
-            gm.SpreadCardsToPlayer(players, deck);
+            gm.SpreadCardsToPlayer(players);
                       
 
             // test to ensure each player gets 3 cards because the case file was generated, that would leave 18 remaining cards between 4 players
