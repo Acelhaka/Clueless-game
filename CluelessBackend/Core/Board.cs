@@ -5,11 +5,20 @@ namespace CluelessBackend.Core
 {
     public class Board
     {
+        /// <summary>
+        /// Indicated by the rules, maximum number of player is 6
+        /// </summary>
         const int MAX_NUM_PLAYERS = 6;
 
+        /// <summary>
+        /// Players that joined the game
+        /// </summary>
         List<Player> players_;
 
-        Room[,] rooms_;
+        /// <summary>
+        /// 2D array of rooms to create the board, 5x5
+        /// </summary>
+        protected Room[,] rooms_;
 
         //_______________________________**Board Setup**______________________________
         //               |             |                |            |               |
@@ -30,6 +39,7 @@ namespace CluelessBackend.Core
 
         public Board()
         {
+            // Creating board with rooms and hallways
             rooms_ = new Room[5, 5]
            {
             {new Room(Room.ROOM.STUDY, true), new Hallway(1), new Room(Room.ROOM.HALL, false),
@@ -43,35 +53,72 @@ namespace CluelessBackend.Core
             };
         }
 
+        /// <summary>
+        /// Get a room on the board by row and column index
+        /// </summary>
+        /// <param name="rowIndex"> Row index that the room is positioned at </param>
+        /// <param name="columnIndex"> Column inde that the room is positioned at </param>
+        /// <returns></returns>
         public Room GetRoomByIndex(int rowIndex, int columnIndex)
         {
             return rooms_[rowIndex, columnIndex];
         }
 
-        public void PrintBoard()
+        /// <summary>
+        /// Setting starting position for each player
+        /// </summary>
+        /// <param name="players"> Set of players that joined the game and needs to be positioned in the board</param>
+        public void SePlayerstStartingPosition(List<Player> players)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < players.Count; i++)
             {
-                for (int j = 0; j < 5; j++)
+                if (players[i].GetSuspectType() == Suspect.SUSPECT.MISS_SCARLET)
                 {
-                    if(!rooms_[i,j].Gethallway())
-                    {
-                        rooms_[i, j].PrintRoom(rooms_[i, j]);
-                    }
-                    else
-                    {
-                        Console.Write(" Hallway ");
-                    }
-                    
+                    rooms_[0, 3].SetPlayerInRoom(players[i]);
+                    players[i].SetPlayerStartingPosition(0, 3);
+                    Console.WriteLine("MISS_SCARLET - Starting position in cell [0,3], Hallway-2");
                 }
-                Console.WriteLine();
+                else if (players[i].GetSuspectType() == Suspect.SUSPECT.MR_GREEN)
+                {
+                    rooms_[4, 1].SetPlayerInRoom(players[i]);
+                    players[i].SetPlayerStartingPosition(4, 1);
+                    Console.WriteLine("MR_GREEN - Starting position in cell [4,1], Hallway-11");
+                }
+                else if (players[i].GetSuspectType() == Suspect.SUSPECT.COLONEL_MUSTARD)
+                {
+                    rooms_[1, 4].SetPlayerInRoom(players[i]);
+                    players[i].SetPlayerStartingPosition(1, 4);
+                    Console.WriteLine("COLONEL_MUSTARD - Starting position in cell [1,4], Hallway-5");
+                }
+                else if (players[i].GetSuspectType() == Suspect.SUSPECT.MRS_PEACOCK)
+                {
+                    rooms_[3, 0].SetPlayerInRoom(players[i]);
+                    players[i].SetPlayerStartingPosition(3, 0);
+                    Console.WriteLine("MRS_PEACOCK - Starting position in cell [3,0], Hallway-8");
+                }
+                else if (players[i].GetSuspectType() == Suspect.SUSPECT.PROFESSOR_PLUM)
+                {
+                    rooms_[1, 0].SetPlayerInRoom(players[i]);
+                    players[i].SetPlayerStartingPosition(1, 0);
+                    Console.WriteLine("PROFESSOR_PLUM - Starting position in cell [1,0], Hallway-3");
+                }
+                else if (players[i].GetSuspectType() == Suspect.SUSPECT.MRS_WHITE)
+                {
+                    rooms_[4, 3].SetPlayerInRoom(players[i]);
+                    players[i].SetPlayerStartingPosition(4, 3);
+                    Console.WriteLine("MRS_WHITE - Starting position in cell [4,3], Hallway-12");
+                }
             }
-
         }
 
+        /// <summary>
+        /// Setting players in the board
+        /// </summary>
+        /// <param name="players"> Set of the players that joined the game </param>
         public void SetPlayers(List<Player> players)
         {
             players_ = players;
         }
+
     }
 }

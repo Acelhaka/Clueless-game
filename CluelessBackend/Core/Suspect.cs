@@ -16,7 +16,7 @@ namespace CluelessBackend.Core
         {
             COLONEL_MUSTARD,
             MISS_SCARLET,
-            PREOFESSOR_PLUM,
+            PROFESSOR_PLUM,
             MR_GREEN,
             MRS_WHITE,
             MRS_PEACOCK
@@ -36,6 +36,16 @@ namespace CluelessBackend.Core
         public Suspect(SUSPECT suspectEnum)
         {
             suspectType_ = suspectEnum;
+        }
+
+        public void SetSuspectType(SUSPECT suspectEnum)
+        {
+            suspectType_ = suspectEnum;
+        }
+
+        public SUSPECT GetSuspectType()
+        {
+            return suspectType_;
         }
     }
 }

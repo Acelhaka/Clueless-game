@@ -8,6 +8,9 @@ namespace CluelessBackend.Core
 {
     public class Card
     {
+        /// <summary>
+        /// Card type enum, stores all the card types that the deck is made of
+        /// </summary>
         public enum CARD_TYPE
         {
             SUSPECT,
@@ -15,6 +18,9 @@ namespace CluelessBackend.Core
             ROOM
         }
 
+        /// <summary>
+        /// Weapon cards enum, made of 6 different cards types 
+        /// </summary>
         public enum WEAPON_CARDS
         {
             ROPE = 0,
@@ -25,6 +31,9 @@ namespace CluelessBackend.Core
             REVOLVER
         }
 
+        /// <summary>
+        /// Suspect cards enum, made of 6 suspect cards
+        /// </summary>
         public enum SUSPECT_CARDS
         {
             COLONEL_MUSTARD = 6,
@@ -35,6 +44,9 @@ namespace CluelessBackend.Core
             MRS_PEACOCK
         }
 
+        /// <summary>
+        /// Room cards type, made of 9 room cards
+        /// </summary>
         public enum ROOM_CARDS
         {
             STUDY = 12,

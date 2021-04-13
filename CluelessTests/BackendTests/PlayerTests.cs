@@ -23,6 +23,7 @@ namespace CluelessTests.BackEndTests
         {
             Player p1 = new Player(Suspect.SUSPECT.MISS_SCARLET);
             p1.SetIsActive(true);
+            
             // a newly created player should have actions to perform 
             Assert.True(p1.HasActions().Equals(true), "player has no actions when they should...");
             

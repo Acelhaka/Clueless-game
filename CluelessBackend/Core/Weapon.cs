@@ -8,12 +8,36 @@ namespace CluelessBackend.Core
 {
     public class Weapon
     {
-        public int weaponID_ { get; set; }
-        public string weaponName_ { get; set; }
-        public Weapon(int weaponID, string weaponName)
+        /// <summary>
+        /// Weapon enum, made of 6 different weapon types 
+        /// </summary>
+        public enum WEAPON
+        {
+            ROPE = 0,
+            LEAD_PIPE,
+            KNIFE,
+            WRENCH,
+            CANDLESTICK,
+            REVOLVER
+        }
+
+        int weaponID_;
+        WEAPON weaponType_;
+        string weaponName_;
+
+        public string weaponName { get; set; }
+        public int weaponID { get; set; }
+        public int weaponType { get; set; }
+
+        public Weapon(int weaponID, string weaponType)
         {
             weaponID_ = weaponID;
-            weaponName_ = weaponName;
+            weaponName_ = weaponType;
+        }
+
+        public Weapon(WEAPON weaponType)
+        {
+            weaponType_ = weaponType;
         }
     }
 }
