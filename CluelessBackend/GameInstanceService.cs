@@ -16,12 +16,18 @@ namespace CluelessBackend
             _host = host;
             _gameManager = new GameManager();
 
-            _host.GameStartReceived += _gameManager.StartGame;
+            _host.GameStartReceived += OnGameStartReceived;
         }
-        
+
+        private void OnGameStartReceived()
+        {
+            _isInGame = true;
+            _gameManager.StartGame();
+        }
+
         private readonly List<IBackendPlayerNetworkModel> _playerModels = new();
-        private bool _isInGame = false;
-        private GameManager _gameManager;
+        private bool _isInGame;
+        private readonly GameManager _gameManager;
         public bool CanAddPlayers => !_isInGame && _playerModels.Count < Board.MAX_NUM_PLAYERS;
         public void AddPlayer(IBackendPlayerNetworkModel playerNetworkModel)
         {
@@ -35,12 +41,11 @@ namespace CluelessBackend
 
         public void Dispose()
         {
-            _host.GameStartReceived -= _gameManager.StartGame;
+            _host.GameStartReceived -= OnGameStartReceived;
         }
     }
     public class GameInstanceService : IGameInstanceService
     {
-        // TODO: Make actual games, rather than lists of players
         private readonly List<IGameInstance> _gameInstances = new();
         public event Action<(IGameInstance, IBackendPlayerNetworkModel)>? PlayerAdded;
 

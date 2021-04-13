@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CluelessBackend;
 using CluelessNetwork;
 using CluelessNetwork.BackendNetworkInterfaces;
+using CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel;
 using CluelessNetwork.FrontendNetworkInterfaces;
 using CluelessNetwork.TransmittedTypes;
 using FluentAssertions;
@@ -183,5 +186,47 @@ namespace CluelessTests.NetworkTests
             }
             _sema.Release();
         }
+        
+        [Theory]
+        [InlineData(1)]
+        [InlineData(6)]
+        public async Task TestStartGame(int playerCount)
+        {
+            await _sema.WaitAsync();
+            {
+                // Create a game instance factory
+                var gameInstanceService = new GameInstanceService();
+
+                // Start server
+                using var server = new CluelessNetworkServer(gameInstanceService);
+
+                // Request connection to server
+                var clients = new List<CluelessNetworkClient>();
+                for (int i = 0; i < playerCount; i++)
+                    clients.Add(new CluelessNetworkClient("127.0.0.1", i == 0, string.Empty));
+
+                // Accept connections
+                for (int i = 0; i < playerCount; i++)
+                    server.ListenForConnection(listenContinuously: false);
+
+                var gameInstance = gameInstanceService.GetAllGameInstances().Single();
+                gameInstance.CanAddPlayers.Should().Be(playerCount != 6);
+                var backendPlayerModels = gameInstance.GetPlayerModels();
+                backendPlayerModels.Count.Should().Be(playerCount);
+                for (int i = 0; i < playerCount; i++)
+                    backendPlayerModels[i].IsHost.Should().Be(i == 0);
+                
+                clients.First().SendGameStartRequest();
+                backendPlayerModels.First().ReceiveUpdate();
+
+                gameInstance.CanAddPlayers.Should().BeFalse();
+                
+                foreach (var client in clients)
+                    client.Dispose();
+            }
+            _sema.Release();
+        }
+
+
     }
 }
