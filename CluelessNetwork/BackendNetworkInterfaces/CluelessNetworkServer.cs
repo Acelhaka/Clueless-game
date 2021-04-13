@@ -66,7 +66,7 @@ namespace CluelessNetwork.BackendNetworkInterfaces
         /// joining one
         /// </summary>
         /// <param name="client">TCP client handle for the incoming connection</param>
-        private void HandleClientConnect(TcpClient client)
+        private void HandleClientConnect(TcpClient client, bool listenContinuously)
         {
             // Get the connection info from the connecting client
             var frontendConnection = TryBuildPlayerNetworkModel(client.GetStream());
@@ -89,20 +89,21 @@ namespace CluelessNetwork.BackendNetworkInterfaces
             if (Settings.PrintNetworkDebugMessagesToConsole)
                 Console.WriteLine("Adding player to game instance");
             _gameInstanceService.AddPlayerToGameInstance(frontendConnection);
-            Task.Run(frontendConnection.ListenForUpdatesContinuously);
+            if (listenContinuously)
+                Task.Run(frontendConnection.ListenForUpdatesContinuously);
         }
 
         /// <summary>
         /// Waits for a connection, and starts handling it when it arrives
         /// </summary>
-        public void ListenForConnection()
+        public void ListenForConnection(bool listenContinuously)
         {
             try
             {
                 // Accept a TCP connection
                 var client = _tcpListener.AcceptTcpClient();
                 // Don't block listening for more clients while a client is connecting. Run connect handling on a separate thread.
-                HandleClientConnect(client);
+                HandleClientConnect(client, listenContinuously);
             }
             catch (SocketException socketException)
             {
