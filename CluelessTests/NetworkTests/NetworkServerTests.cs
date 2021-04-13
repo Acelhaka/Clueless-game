@@ -33,7 +33,7 @@ namespace CluelessTests.NetworkTests
 
                 // Connect two clients to the server
                 using var client = new CluelessNetworkClient("127.0.0.1", true, "ClientName");
-                server.ListenForConnection();
+                server.ListenForConnection(listenContinuously: false);
 
                 // Sanity check: we should have two players on the server
                 gameInstanceService.GetAllGameInstances().Single().GetPlayerModels().Count.Should().Be(1);
@@ -75,9 +75,9 @@ namespace CluelessTests.NetworkTests
 
                 // Connect two clients to the server
                 using var client1 = new CluelessNetworkClient("127.0.0.1", true, "Client 1");
-                server.ListenForConnection();
+                server.ListenForConnection(listenContinuously: false);
                 using var client2 = new CluelessNetworkClient("127.0.0.1", false, "Client 1");
-                server.ListenForConnection();
+                server.ListenForConnection(listenContinuously: false);
 
                 // Sanity check: we should have two players on the server
                 gameInstanceService.GetAllGameInstances().Single().GetPlayerModels().Count.Should().Be(2);
@@ -131,7 +131,7 @@ namespace CluelessTests.NetworkTests
                 using var client = new CluelessNetworkClient("127.0.0.1", true, string.Empty);
 
                 // Accept connection and send requests to game instance service
-                server.ListenForConnection();
+                server.ListenForConnection(listenContinuously: false);
 
                 // Verify that we asked the game instance service mock to do all the correct things 
                 gameInstanceServiceMock.Invocations.Count.Should().Be(2);
@@ -162,7 +162,7 @@ namespace CluelessTests.NetworkTests
                 using var client = new CluelessNetworkClient("127.0.0.1", true, string.Empty);
 
                 // Accept one connection and run logic
-                server.ListenForConnection();
+                server.ListenForConnection(listenContinuously: false);
 
                 var backendPlayerNetworkModel = gameInstanceService.GetAllGameInstances().Single().GetPlayerModels().Single();
                 var playerOptionCollection = new PlayerOptionCollection

@@ -47,7 +47,7 @@ namespace CluelessBackend
             var gameInstanceService = new GameInstanceService();
             var unused = new ChatService(gameInstanceService);
             using var networkServer = new CluelessNetworkServer(gameInstanceService);
-            while (true) networkServer.ListenForConnection();
+            while (true) networkServer.ListenForConnection(listenContinuously: true);
 
             // Disable warning from static code analysis. We don't expect this function to ever return.
             // ReSharper disable once FunctionNeverReturns
