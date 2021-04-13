@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CluelessBackend;
 using CluelessNetwork;
 using CluelessNetwork.BackendNetworkInterfaces;
-using CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel;
 using CluelessNetwork.FrontendNetworkInterfaces;
 using CluelessNetwork.TransmittedTypes;
 using FluentAssertions;
@@ -26,7 +23,7 @@ namespace CluelessTests.NetworkTests
             await _sema.WaitAsync();
             {
                 // Create a game instance factory
-                var gameInstanceService = new TestGameInstanceService();
+                var gameInstanceService = new GameInstanceService();
 
                 // Create a chat service
                 var unused = new ChatService(gameInstanceService);
@@ -39,8 +36,8 @@ namespace CluelessTests.NetworkTests
                 server.ListenForConnection();
 
                 // Sanity check: we should have two players on the server
-                gameInstanceService.GameInstance!.Players.Count.Should().Be(1);
-                var playerBackendModel = gameInstanceService.GameInstance!.Players.Single();
+                gameInstanceService.GetAllGameInstances().Single().GetPlayerModels().Count.Should().Be(1);
+                var playerBackendModel = gameInstanceService.GetAllGameInstances().Single().GetPlayerModels().Single();
                 var message = "Test message";
                 var clientReceivedChatMessages = 0;
 
@@ -51,7 +48,7 @@ namespace CluelessTests.NetworkTests
                 };
 
                 //  
-                client.SendChatMessage(new ChatMessage {Content = message});
+                client.SendChatMessage(new ChatMessage {Content = message, Scope = ChatMessageScope.Server});
 
                 playerBackendModel.ReceiveUpdate();
 
@@ -68,7 +65,7 @@ namespace CluelessTests.NetworkTests
             await _sema.WaitAsync();
             {
                 // Create a game instance factory
-                var gameInstanceService = new TestGameInstanceService();
+                var gameInstanceService = new GameInstanceService();
 
                 // Create a chat service
                 var unused = new ChatService(gameInstanceService);
@@ -83,12 +80,12 @@ namespace CluelessTests.NetworkTests
                 server.ListenForConnection();
 
                 // Sanity check: we should have two players on the server
-                gameInstanceService.GameInstance!.Players.Count.Should().Be(2);
+                gameInstanceService.GetAllGameInstances().Single().GetPlayerModels().Count.Should().Be(2);
                 var message = "Test message";
                 var client1ReceivedChatMessages = 0;
                 var client2ReceivedChatMessages = 0;
 
-                var playerModel1 = gameInstanceService.GameInstance!.Players.First();
+                var playerModel1 = gameInstanceService.GetAllGameInstances().Single().GetPlayerModels().First();
 
                 client1.ChatMessageReceived += delegate(ChatMessage incomingMessage)
                 {
@@ -156,7 +153,7 @@ namespace CluelessTests.NetworkTests
             await _sema.WaitAsync();
             {
                 // Create a game instance factory
-                var gameInstanceService = new TestGameInstanceService();
+                var gameInstanceService = new GameInstanceService();
 
                 // Start server
                 using var server = new CluelessNetworkServer(gameInstanceService);
@@ -167,7 +164,7 @@ namespace CluelessTests.NetworkTests
                 // Accept one connection and run logic
                 server.ListenForConnection();
 
-                var backendPlayerNetworkModel = gameInstanceService.GameInstance!.Players.Single();
+                var backendPlayerNetworkModel = gameInstanceService.GetAllGameInstances().Single().GetPlayerModels().Single();
                 var playerOptionCollection = new PlayerOptionCollection
                 {
                     AvailableOptions = new[] {"one", "two"}
@@ -185,34 +182,6 @@ namespace CluelessTests.NetworkTests
                 subject.Should().BeEquivalentTo(playerOptionCollection);
             }
             _sema.Release();
-        }
-    }
-
-    internal class TestGameInstance
-    {
-        public List<IBackendPlayerNetworkModel> Players { get; } = new();
-    }
-
-    internal class TestGameInstanceService : IGameInstanceService
-    {
-        public TestGameInstance? GameInstance { get; private set; }
-
-        public void CreateGameInstance(IBackendPlayerNetworkModel hostPlayerNetworkModel)
-        {
-            GameInstance = new TestGameInstance();
-        }
-
-        public List<List<IBackendPlayerNetworkModel>> GetAllGameInstances()
-        {
-            return new(new[] {GameInstance!.Players});
-        }
-
-        public event Action<IBackendPlayerNetworkModel>? PlayerAdded;
-
-        public void AddPlayerToGameInstance(IBackendPlayerNetworkModel playerNetworkModel)
-        {
-            GameInstance!.Players.Add(playerNetworkModel);
-            PlayerAdded?.Invoke(playerNetworkModel);
         }
     }
 }
