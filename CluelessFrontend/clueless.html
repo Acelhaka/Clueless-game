@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script>
+	function makeSuggestion() {
+		alert(1);
+	}
+	
+	function processAccusation() {
+		document.getElementById('response').innerHTML = "<center><i>Ms. Scarlet</i> in the <i>Hall</i> with the <i>Knife</i> is <b>incorrect</b></center>";
+	}
+	
+	function makeAccusation() {
+		html = "<center><table><th>Weapon</th><th>Suspect</th><th>Room</th>";
+		html += "<tr><td><button class='btn btn-dark'>Knife</button></td><td><button class='btn btn-dark'>Ms.Scarlet</button></td><td><button class='btn btn-dark' disabled>Study</button></td>";
+		html += "<tr><td><button class='btn btn-dark'>Rope</button></td><td><button class='btn btn-dark'>Prof. Plum</button></td><td><button class='btn btn-dark'>Hall</button></td>";
+		html += "<tr><td><button class='btn btn-dark'>Wrench</button></td><td><button class='btn btn-dark'>Col. Mustard</button></td><td><button class='btn btn-dark' disabled>Lounge</button></td>";
+		html += "<tr><td><button class='btn btn-dark'>CandleStick</button></td><td><button class='btn btn-dark'>Ms. Peacock</button></td><td><button class='btn btn-dark' disabled>Library</button></td>";
+		html += "<tr><td><button class='btn btn-dark'>Revolver</button></td><td><button class='btn btn-dark'>Mr. Green</button></td><td><button class='btn btn-dark' disabled>Billiards</button></td>";
+		html += "<tr><td><button class='btn btn-dark'>Pipe</button></td><td><button class='btn btn-dark'>Ms. White</button></td><td><button class='btn btn-dark' disabled>Dining</button></td>";
+		html += "<tr><td>&nbsp;</td><td>&nbsp;</td><td><button class='btn btn-dark' disabled>Conservatory</button></td>";
+		html += "<tr><td>&nbsp;</td><td>&nbsp;</td><td><button class='btn btn-dark' disabled>Ballroom</button></td>";
+		html += "<tr><td>&nbsp;</td><td>&nbsp;</td><td><button class='btn btn-dark' disabled>Kitchen</button></td>";
+		html += "<tr><td><center><button onclick='processAccusation();' class='btn btn-info'>Submit</button></center></td></tr>";
+		html += "</table></center>";
+		document.getElementById('response').innerHTML = html;		
+	}
+	
+	function moveToRoom(location) {
+		document.getElementById(location).innerHTML = "<span class='badge' style=\background-color:red; color:white;'>S</span>";
+		document.getElementById("r3").innerHTML = "";
+		
+		document.getElementById('response').innerHTML = "";
+		
+		// set the button to disable
+	}
+	
+	function move() {
+		html = "<center>";
+		html += '<button type="button" class="btn btn-dark" onclick="moveToRoom(\'r2\');">Hall</button><br/><br/>';
+		html += '<button type="button" class="btn btn-dark" onclick="moveToRoom(\'r4\');">Lounge</button><br/>';
+		html += "</center>";
+		document.getElementById('response').innerHTML = html;
+		
+	}
+	
+	</script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Clueless!</title>
+  </head>
+  <body>
+    <h1>Weclome, <font style="color:red;">player1!</font></h1>
+	
+	
+	<div class="container">
+	  <div class="row">
+		<div class="col-sm-3">
+			<div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Study</h5>
+				<center><span id="r0"></span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2">
+		<div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Hallway </h5>
+				<center><span id="r1"></span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Hall</h5>
+				<center><span id="r2"></span></center>
+			  </div>
+			</div>
+		</div>
+			
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Hallway</h5>
+				<center><span id="r3" class="badge badge-danger">S</span></center>
+			  </div>
+			</div>
+		</div>
+			
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Lounge</h5>
+				<center><span id="r4"></span></center>
+			  </div>
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-sm-3"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Hallway</h5>
+				<center><span id="r5" class="badge" style="background-color:purple; color:white;">P</span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2"></div>
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Hallway</h5>
+				<center><span id="r6"></span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2"></div>
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Hallway</h5>
+				<center><span id="r7" class="badge" style="background-color:yellow;">M</span></center>
+			  </div>
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-sm-3"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Library</h5>
+				<center><span id="r8"></span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Hallway</h5>
+				<center><span id="r9"></span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Billiards</h5>
+				<center><span id="r10"></span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Hallway</h5>
+				<center><span id="r11"></span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Dining</h5>
+				<center><span id="r12"></span></center>
+			  </div>
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-sm-3"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Hallway</h5>
+				<center><span id="r13" class="badge" style="background-color:blue; color:white;">P</span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2"></div>
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Hallway</h5>
+				<center><span id="r14"></span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2"></div>
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Hallway</h5>
+				<center><span id="r15"></span></center>
+			  </div>
+			</div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-sm-3"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Conservatory</h5>
+				<center><span id="r16"></span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Hallway</h5>
+				<center><span id="r17" class="badge" style="background-color:green; color:white;">G</span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Ballroom</h5>
+				<center><span id="r18"></span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Hallway</h5>
+				<center><span id="r19" class="badge" style="background-color:white; color:black;">W</span></center>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2"><div class="card" style="">
+			  <div class="card-body">
+				<h5 class="card-title">Kitchen</h5>
+			  </div>
+			</div>
+		</div>
+	  </div>
+	</div>
+	
+	
+	<button type="button" class="btn btn-primary" onclick="makeSuggestion();">Make Suggestion</button>
+	<button type="button" class="btn btn-info" onclick="move();">Move</button>
+	<button type="button" class="btn btn-warning" onclick="makeAccusation();">Accusation</button>
+	<button type="button" class="btn btn-danger">Quit</button>
+	
+	
+		<div>
+		
+			<center><p><b>Response</b></p></center>
+			<div id="response"></div>
+		
+		</div>
+
+	
+	
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	
+	
+	
+	
+  </body>
+</html>
