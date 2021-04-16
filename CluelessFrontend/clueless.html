@@ -7,8 +7,48 @@
 
     <script>
 
+        function generateChecklist() {
+
+            var html = "<table><th>&nbsp;</th><th><center>P1</center></th><th><center>P2</center></th><th><center>P3</center></th><th><center>P4</center></th><th><center>P5</center></th><th><center>P6</center></th></tr>";
+            var suspects = ["Miss Scarlet", "Professor Plum", "Col. Mustard", "Mrs. Peacock", "Mr. Green", "Mrs. White"];
+            var dropdown_options = "<td><select class='custom-select' id='inputGroupSelect01'><option selected>-</option><option value='1'>Y</option><option value='2'>N</option><option value='3'>?</option></select></td>";
+            for (var s in suspects) {
+                html += "<tr><td><h4>" + suspects[s] + "</h4></td>";
+
+                for (var i = 0; i < 6; i++) {
+
+                    html += dropdown_options;
+                }
+                html += "</tr>";
+            }
+            var weapons = ["Knife", "Rope", "Wrench", "CandleStick", "Revolver", "Pipe"];
+            for (var w in weapons) {
+                html += "<tr><td><h4>" + weapons[w] + "</h4></td>";
+
+                for (var i = 0; i < 6; i++) {
+
+                    html += dropdown_options;
+                }
+                html += "</tr>";
+            }
+            var rooms = ["Study", "Hall", "Lounge", "Library", "Billiards Room", "Dining Room", "Conservatory", "Ballroom", "Kitchen"];
+            for (var r in rooms) {
+                html += "<tr><td><h4>" + rooms[r] + "</h4></td>";
+
+                for (var i = 0; i < 6; i++) {
+
+                    html += dropdown_options;
+                }
+                html += "</tr>";
+            }
+
+            html += "</table>";
+            document.getElementById('checklist-placeholder').innerHTML = html;
+        }
+
         function makeSuggestion() {
-            alert(1);
+            //alert(1);
+            //generateChecklist();
         }
 
         function processAccusation() {
@@ -56,12 +96,13 @@
 
     <title>Clueless!</title>
 </head>
-<body>
+<body onload="generateChecklist();">
     <h1>Weclome, <font style="color:red;">player1!</font></h1>
 
 
-    <div class="container">
+    <div class="container" style="float:left;padding-left:20px;">
         <div class="row">
+
             <!-- background-image:url(http://clipart-library.com/img/1028420.jpg); -->
             <div class="card" style="height:120px;width:170px;">
                 <div class="card-body">
@@ -90,7 +131,7 @@
             <div class="card" style="height:120px; width:250px;">
                 <div class="card-body">
                     <h5 class="card-title"><center>Hallway</center></h5>
-                    <center><span id="r3"><span class="glyphicon glyphicon-pawn" style="color:red;font-size:30px;"></span></center>
+                    <center><span id="r3"><span class="glyphicon glyphicon-pawn" style="color:red;font-size:30px;" title="Miss Scarlet"></span></center>
                 </div>
             </div>
 
@@ -102,12 +143,14 @@
                 </div>
             </div>
 
+
+
         </div>
         <div class="row">
             <div class="card" style="height:250px; width:170px;">
                 <div class="card-body">
                     <h5 class="card-title"><center>Hallway</center></h5>
-                    <center><span class="glyphicon glyphicon-pawn" style="color:purple;font-size:30px;"></span></center>
+                    <center><span class="glyphicon glyphicon-pawn" style="color:purple;font-size:30px;" title="Professor Plum"></span></center>
                 </div>
             </div>
 
@@ -124,7 +167,7 @@
             <div class="card" style="height:250px; width:170px;">
                 <div class="card-body">
                     <h5 class="card-title"><center>Hallway</center></h5>
-                    <center><span id="r7" class="glyphicon glyphicon-pawn" style="color:yellow;font-size:30px;"></span></center>
+                    <center><span id="r7" class="glyphicon glyphicon-pawn" style="color:yellow;font-size:30px;" title="Col. Mustard"></span></center>
                 </div>
             </div>
 
@@ -170,7 +213,7 @@
             <div class="card" style="height:250px; width:170px;">
                 <div class="card-body">
                     <h5 class="card-title"><center>Hallway</center></h5>
-                    <center><span id="r13" class="glyphicon glyphicon-pawn" style="color:blue;font-size:30px;"></span></center>
+                    <center><span id="r13" class="glyphicon glyphicon-pawn" style="color:blue;font-size:30px;" title="Mrs. Peacock"></span></center>
                 </div>
             </div>
 
@@ -202,7 +245,7 @@
             <div class="card" style="height:120px; width:250px;">
                 <div class="card-body">
                     <h5 class="card-title"><center>Hallway</center></h5>
-                    <center><span id="r17" class="glyphicon glyphicon-pawn" style="color:green;font-size:30px;"></span></center>
+                    <center><span id="r17" class="glyphicon glyphicon-pawn" style="color:green;font-size:30px;" title="Mr. Green"></span></center>
                 </div>
             </div>
             <div class="card" style="height:120px;width:170px;">
@@ -215,7 +258,7 @@
             <div class="card" style="height:120px; width:250px;">
                 <div class="card-body">
                     <h5 class="card-title"><center>Hallway</center></h5>
-                    <center><span id="r19" class="glyphicon glyphicon-pawn" style="color:black;font-size:30px;"></span></center>
+                    <center><span id="r19" class="glyphicon glyphicon-pawn" style="color:black;font-size:30px;" title="Mrs. White"></span></center>
                 </div>
             </div>
 
@@ -229,21 +272,67 @@
     </div>
 
 
-    <button type="button" class="btn btn-primary" onclick="makeSuggestion();">Make Suggestion</button>
-    <button type="button" class="btn btn-info" onclick="move();">Move</button>
-    <button type="button" class="btn btn-warning" onclick="makeAccusation();">Accusation</button>
-    <button type="button" class="btn btn-danger">Quit</button>
+    <div class="container" style="">
+        <div class="row">
+            <div class="col">
 
+                <button type="button" class="btn btn-primary" onclick="makeSuggestion();">Suggest</button>
+                <button type="button" class="btn btn-info" onclick="move();">Move</button>
+                <button type="button" class="btn btn-warning" onclick="makeAccusation();">Accuse</button>
+                <button type="button" class="btn btn-danger">Quit</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Checklist
+                                </button>
+                            </h2>
+                        </div>
 
-    <div>
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div id="checklist-placeholder"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div>
 
-        <center><p><b>Response</b></p></center>
-        <div id="response"></div>
+                    <center><p><b>Response</b></p></center>
+                    <div id="response"></div>
+
+                </div>
+            </div>
+        </div>
 
     </div>
 
 
 
+
+
+
+    </div>
+
+
+
+
+    <script>
+
+
+
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
