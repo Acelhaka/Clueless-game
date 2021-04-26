@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Clue! by The Clueless Noobs</title>
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/bodymovin.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<!--Loading Screen Styles-->
+<style>
+*, ::after, ::before {
+	box-sizing: unset;
+}
+body {
+ background-color: #5ac1f1;
+ overflow: hidden !important;
+}
+
+body,
+html {
+ height: 100%;
+ width: 100%;
+ margin: 0;
+ padding: 0;
+}
+
+#animationWindow {
+ width: 50%;
+ height: 50%;
+}
+
+.loading {
+  font-size: 84px;
+  /*font-family: "Montserrat", sans-serif;*/
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-weight: 800;
+  text-align: center;
+  position:relative;
+  top:100px;
+}
+.loading span {
+  display: inline-block;
+  margin: 0 -0.05em;
+}
+
+.loading04 span {
+  animation: loading04 0.7s infinite;
+}
+.loading04 span:nth-child(1) {
+  color:rgb(99,210,243);
+}
+.loading04 span:nth-child(2) {
+  color:rgb(235,65,59);
+  animation-delay: 0.1s;
+}
+.loading04 span:nth-child(3) {
+    color:rgb(255,157,82);
+  animation-delay: 0.2s;
+}
+.loading04 span:nth-child(4) {
+    color:rgb(99,210,243);
+  animation-delay: 0.3s;
+}
+.loading04 span:nth-child(5) {
+    color:rgb(158,208,39);
+  animation-delay: 0.4s;
+}
+.loading04 span:nth-child(6) {
+    color:rgb(235,65,59);
+  animation-delay: 0.5s;
+}
+.loading04 span:nth-child(7) {
+    color:rgb(249,235,47);
+  animation-delay: 0.6s;
+}
+
+@keyframes loading04 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(15px);
+  }
+}
+@font-face {
+  font-family: 'Signatria';
+  font-style: normal;
+  font-weight: 400;
+  src: url(css/fonts/Signatria.ttf) format('truetype');
+}
+</style>
+
+
+</head>
+<body><center>
+<!-- Loading Animation -->
+<div id="animationWindow">
+<div class="loading loading04">
+    <span>L</span>
+    <span>O</span>
+    <span>A</span>
+    <span>D</span>
+    <span>I</span>
+    <span>N</span>
+    <span>G</span>
+  </div>
+
+</div>
+<script>
+//Loading Screen Animation Data
+	var animData = {
+		wrapper: document.getElementById('animationWindow'),
+		animType: 'svg',
+		loop: true,
+		prerender: true,
+		autoplay: true,
+		path: 'LEGO_loader.json'
+	};
+	var anim = bodymovin.loadAnimation(animData);
+anim.setSpeed(3.0);
+
+
+</script>
+
+<!-- Brought To You By -->
+<div id="btyb" style="display:none;"><br><br><span style="font-family:Signatria,Brush Script MT, Brush Script Std, cursive;font-size:48px;">Brought To You By</span><br><br><br><img src="img/Clueless Noobs Logo1.png" alt="The Clueless Noobs" style="width: 16%;min-width: 200px;" /><br><br><br><img src="img/html5-badge-h-solo.png" alt="Powered By HTML5" /></div>
+</center>
+
+<nav role="navigation">
+  <div id="menuToggle" style="display:none;">
+    <!--
+    A fake / hidden checkbox is used as click reciever,
+    so you can use the :checked selector on it.
+    -->
+    <input id="menuCheckbox" type="checkbox" />
+
+    <!--
+    Some spans to act as a hamburger.
+
+    They are acting like a real hamburger,
+    not that McDonalds stuff.
+    -->
+    <span></span>
+    <span></span>
+    <span></span>
+
+    <!--
+    Too bad the menu has to be inside of the button
+    but hey, it's pure CSS magic.
+    -->
+    <ul id="menu">
+    <img style="width: 150px;" src="img/Clue-Logo-1.png">
+      <a href="javascript:loadGame('return');"><li>Back To Game</li></a>
+      <a href="javascript:audioToggle();"><li><i class="bi bi-volume-up-fill" style="font-size:1.2rem"></i><i class="bi bi-volume-mute-fill" style="font-size:1.2rem;display:none;"></i> Music On/Off</li></a>
+      <a href="javascript:fullpage_api.silentMoveTo('game', 3);credit('out');"><li>Instructions</li></a>
+      <a href="javascript:credit('in');"><li>Credits</li></a>
+      <a href="javascript:exit();"><li>Exit Game</li></a>
+      <a href="https://github.com/CluelessNoob1/Clueless-Game" target="_blank"><li><i class="bi bi-github"></i></li></a>
+    </ul>
+  </div>
+</nav>
+
+
+<link rel="stylesheet" type="text/css" href="css/menu.css" />
+<link rel="stylesheet" type="text/css" href="css/hamburger.css" />
+<link rel="stylesheet" type="text/css" href="css/fullpage.min.css" />
+<script type="text/javascript" src="js/fullpage.min.js"></script>
+
+<div id="fullpage" style="display:none;">
+    <div class="section">
+    <!--slide 0 - Menu-->
+        <div class="slide"><center>
+        <img src="img/Clue-Logo-1.png" alt="Clueless Noob Logo" style="width:300px"/>
+            <div id="allthethings">
+  <div id="left"></div>
+	<div id="host"><p>HOST GAME</p></div>
+  <div id="join"><p>JOIN GAME</p></div>
+  <div id="instructions"><p>INSTRUCTIONS</p></div>
+  <div id="credits"><p>CREDITS</p></div>
+  <div id="right"></div>
+
+  <div id="audioButton"><i class="bi bi-volume-up-fill" style="font-size:1.2rem;color:#FFF;"></i><i class="bi bi-volume-mute-fill" style="font-size:1.2rem;color:#FFF;display:none;"></i></div>
+  <div id="circle"></div>
+</div>
+        </center></div>
+
+        <!--slide 1 - playerName-->
+        <div class="slide">
+            <div class="container-fluid">
+
+
+
+
+
+<center>
+    <div class="col-sm-6" style="text-align:left;">
+    <span class="display-4">Player Options</span><br><br><br><br><br>
+     <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">Player Name:</span>
+  </div>
+  <input id="playerName" type="text" class="form-control" placeholder="Choose A Player Name" aria-label="Choose A Player Name" aria-describedby="basic-addon1">
+  <div class="input-group-append">
+    <a class="btn btn btn-success" type="button" href="javascript:loadGame()">Start Game</a>
+  </div>
+</div>
+<br>
+<div id="optionsError" class="alert alert-danger" role="alert" style="display:none;"></div>
+<br><br><a href="javascript:fullpage_api.silentMoveTo('game', 0);"><i class="bi bi-arrow-left-circle" style="font-size:2.5rem"></i></a>
+    </div>
+    </center>
+
+
+</div>
+        </div>
+
+        <!--slide 2 - Game-->
+        <div class="slide">
+            <div class="container-fluid">
+
+
+
+
+<div class="row">
+    <div class="col col-lg-2" style="display: flex;align-items: center;height: 100vh;padding:0">
+      <div class="msger">
+<!--  <header class="msger-header">
+    <div class="msger-header-title">
+      <i class="fas fa-comment-alt"></i> Event Log & Chat
+    </div>
+    <div class="msger-header-options">
+      <span><i class="fas fa-cog"></i></span>
+    </div>
+  </header>-->
+
+  <main class="msger-chat">
+
+  </main>
+
+  <form class="msger-inputarea">
+    <input type="text" class="msger-input" placeholder="Enter your message...">
+    <button type="submit" class="msger-send-btn">Send</button>
+  </form>
+</div>
+    </div>
+    <div class="col-md-auto" style="padding:0">
+      <img id="board" src="img/board.jpg" alt="Clue Board Game Loading..." />
+    </div>
+    <div class="col">
+    <center>
+    <br><br><br>
+     <span class="display-4" style="color:red;font-size:3rem">Miss Scarlet's Turn</span><br>
+    <img src="img/characters/MrsPeacock.png" alt="Mrs Peacock" style="max-width:143px" /> <img src="img/rooms/Kitchen.png" alt="Kitchen" style="max-width:143px" /> <img src="img/weapons/Dagger.png" alt="Dagger" style="max-width:143px"/>
+
+     <span style="position:absolute;bottom:20px;left:0;width:100%">
+     <table style="text-align: center;"><tr><td><span class="display-4">Move</span></td><td style="padding-left: 40px;"><span class="display-4">Action</span></td></tr>
+     <tr><td>
+     <nav class="d-pad">
+    <a class="up" href="#"></a>
+    <a class="right" href="#"></a>
+    <a class="down" href="#"></a>
+    <a class="left" href="#"></a>
+  </nav>
+    </td>
+
+    <td style="padding-left: 40px;"><span class="btn btn-warning">Suggestion</span><br><br><span class="btn btn-danger">Accusation</span><br><br><b class="btn btn-primary">End Turn</b></td></tr></table>
+
+
+     </span>
+     </center>
+    </div>
+  </div>
+
+
+</div>
+        </div>
+
+        <!--slide 3 - Instructions-->
+        <div class="slide" id="instruct" style="cursor:pointer;">
+        <style>
+.instTitle {
+  text-align: center;
+  font-size: 80px;
+  transform: skewY(-10deg);
+  letter-spacing: 4px;
+  word-spacing: -8px;
+  color: tomato;
+  text-shadow:
+    -1px -1px 0 firebrick,
+    -2px -2px 0 firebrick,
+    -3px -3px 0 firebrick,
+    -4px -4px 0 firebrick,
+    -5px -5px 0 firebrick,
+    -6px -6px 0 firebrick,
+    -7px -7px 0 firebrick,
+    -8px -8px 0 firebrick
+}
+</style>
+<center>
+        <h1 class="instTitle">INSTRUCTIONS</h1>
+<br><br><br><br>
+    <h1>Rules of the game</h1>
+<p>Each player starts in a colored pawn on the board, and uses it throughout the game. First player, selected randomly, rolls the dice and moves first. <br/>
+After first player moved, the second player to the left (clockwise rotation) takes the turn. Each player can move forward, backward and crowisse through the hallway (squares) but never diagonally.</p>
+<h1>Moving into a room</h1>
+<p>A player can enter in a room thorugh 1- Throwing the dice and moving along the squares, 2- by a secret passage without using the dice, or 3-
+Can be placed by another player.</p>
+<h1>Leaving a room</h1>
+<p>A player can leave a room thorugh 1- Throwing the dice and moving out through a doorway onto the squares, heading toward another room of a choice, 2- by a secret passage without using the dice, or 3-
+Can be placed by another player.<br>
+Players can enter the room by doors only, but cannot leave a room on the same turn.</p>
+<h1>Suggestions</h1>
+<p>When a players move into a room, he should make a __Suggestion__. A "Suggestion" consists of naming a suspect, a weapon and the room into which the player is currently in.
+After a player makes a suggestion, the other players, starting from his left side, should prove the suggestion right or wrong. if they prove it wrong, they have to show tot he player who made the suggestion the card that disproves his suggestion. For eg: If player 1 "Suggest" for Mr. Green, in his current room (assume Ballroom), with a rope; if one of the players have one of the cards mentioned, should dissprove his "Suggestion" by showing __only__ to Player 1 the cards that proves it false.
+If no one disproves the suggestions, may have the opportunity to make an __Accusation__ or pass the turn.</p>
+<h1>Accusation</h1>
+<p>If a player thinks that he knows all the clue cards, he can on his turn make an "Accusation" He states the names of the three CLUE cards. If the accusation is correct, he wins the game, if not he continues the game with no rights to make another accusation. He cannot win the game anymore, but remains in the game as a player to contradict Suggestions made by other players. <br/>
+A player can make only one accusation during one of the games.</p>
+</center>
+        </div>
+
+        <!--slide 4 Credits-->
+        <div class="slide" style="background:#000;cursor:pointer;" id="creds">
+             <div id="fly-in" style="display:none;">
+<div><span>Developed By</span>The Clueless Noobs</div>
+<div><span>Project Managers</span>Brendan Dunne<br>Beth Drucker</div>
+<div><span>Frontend Engineers</span>Beth Drucker<br>George Risi</div>
+<div><span>Backend Engineers</span>Amarilda Dyrmishi<br>Brendan Dunne</div>
+<div><span>Network Engineers</span>Thomas Woltjer<br>Amarilda Dyrmishi</div>
+<div><span>Presenters</span>George Risi<br>Thomas Woltjer</div>
+</div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+//Initialize menu music
+var audioMenu = new Audio('loading.mp3');
+audioMenu.loop = true;
+//Once all files loaded
+//Animations leading to menu
+$( document ).ready(function() {
+    audioMenu.play();
+    $('#animationWindow').delay(1000).fadeOut('slow');
+    $('#btyb').delay(1500).fadeIn('slow').delay(2500).fadeOut('slow');
+    $('#fullpage').delay(5300).fadeIn('fast');
+
+
+    setTimeout(function(){
+    resize();console.log("in");
+    }, 1000);
+});
+//Initiallize UI Holder
+ $('#fullpage').fullpage({
+		autoScrolling: false,
+		fitToSection: false,
+        licenseKey: '8B9C1B3D-0BE34581-8BABA527-40F5F0D1',
+        anchors: ['game'],
+        controlArrows: false
+	});
+//Menu button actions
+$( "#host" ).on( "click", function() { fullpage_api.silentMoveTo('game', 1); });
+$( "#join" ).on( "click", function() { fullpage_api.silentMoveTo('game', 1); });
+$( "#instructions" ).on( "click", function() { fullpage_api.silentMoveTo('game', 3); } );
+$( "#instruct" ).on( "click", function() { fullpage_api.silentMoveTo('game', 0); } );
+$( "#credits" ).on( "click", function() { credit('in') });
+$( "#creds" ).on( "click", function() { credit('home') } );
+
+$( "#audioButton" ).on( "click", function() { audioToggle() } );
+
+var playerName;
+
+function loadGame(type){
+    playerName = $('#playerName').val();
+    if (playerName != ''){
+    fullpage_api.silentMoveTo('game', 2); audioMenu.pause(); audioMenu = new Audio('game.mp3'); audioMenu.play(); audioMenu.loop = true;
+     $('#fly-in').css('display', 'none');
+     $('#menuToggle').css('display', '');
+
+     if (type == 'return'){
+     $('#menuCheckbox').prop('checked', false); // Unchecks it
+     } else {
+     appendMessage(BOT_NAME,BOT_IMG,'left','Hi, welcome to Clue! Waiting for other players. 😄');
+     appendMessage(playerName,PERSON_IMG,'right','Just Joined The Game. Hi Everyone!');
+     }
+
+     } else {
+     $('#optionsError').css('display', '');
+     $('#optionsError').html('A Player Name Is Required.');
+     }
+}
+
+function credit(type){
+    if (type == 'in'){
+    audioMenu.pause(); audioMenu = new Audio('credits.mp3'); audioMenu.play(); audioMenu.loop = true;
+    fullpage_api.silentMoveTo('game', 4); $('#fly-in').css('display', '');
+    } else if (type == 'out'){
+    audioMenu.pause(); audioMenu = new Audio('game.mp3'); audioMenu.play(); audioMenu.loop = true;
+    $('#fly-in').css('display', 'none');
+    } else if (type == 'home'){
+    audioMenu.pause(); audioMenu = new Audio('loading.mp3'); audioMenu.play(); audioMenu.loop = true;
+    fullpage_api.silentMoveTo('game', 0); $('#fly-in').css('display', 'none');
+    }
+}
+
+function exit(){
+    audioMenu.pause(); audioMenu = new Audio('loading.mp3'); audioMenu.play(); audioMenu.loop = true;
+    fullpage_api.silentMoveTo('game', 0);credit('out');
+    $('#menuToggle').css('display', 'none');
+}
+
+function audioToggle() {
+if(audioMenu.paused) {audioMenu.play(); $('.bi-volume-up-fill').css('display',''); $('.bi-volume-mute-fill').css('display','none');} else {audioMenu.pause(); $('.bi-volume-up-fill').css('display','none'); $('.bi-volume-mute-fill').css('display','');}
+}
+
+//Makes sure the game board always fills the screen from top to buttom
+function resize(){
+var height = $(window).height();
+    var heightpx = height + 'px';
+    $('#board').css('height', heightpx);
+    $('#menu').css('height', heightpx);
+}
+$(window).on('resize',function() {
+    var height = $(window).height();
+    var heightpx = height + 'px';
+    $('#board').css('height', heightpx);
+    $('#menu').css('height', heightpx);
+})
+
+
+//Event & Chat Box
+const msgerForm = get(".msger-inputarea");
+const msgerInput = get(".msger-input");
+const msgerChat = get(".msger-chat");
+
+const BOT_MSGS = [
+  "Hi, how are you?",
+  "Ohh... I can't understand what you trying to say. Sorry!",
+  "I like to play games... But I don't know how to play!",
+  "Sorry if my answers are not relevant. :))"
+];
+
+// Icons made by Freepik from www.flaticon.com
+const BOT_IMG = "img/327779.svg";
+//const PERSON_IMG = "img/145867.svg";
+const PERSON_IMG = "";
+const BOT_NAME = "SERVER";
+//const PERSON_NAME = playerName;
+
+
+msgerForm.addEventListener("submit", event => {
+  event.preventDefault();
+
+  const msgText = msgerInput.value;
+  if (!msgText) return;
+
+  appendMessage(playerName, PERSON_IMG, "right", msgText);
+  msgerInput.value = "";
+
+  botResponse();
+});
+
+function appendMessage(name, img, side, text) {
+  //   Simple solution for small apps
+
+  var msgHTML = '';
+  if (img != ''){
+  msgHTML = `
+    <div class="msg ${side}-msg">
+      <div class="msg-img" style="background-image: url(${img})"></div>
+
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name">${name}</div>
+          <div class="msg-info-time">${formatDate(new Date())}</div>
+        </div>
+
+        <div class="msg-text">${text}</div>
+      </div>
+    </div>
+  `;
+  } else {
+
+  msgHTML = `
+    <div class="msg ${side}-msg">
+
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name">${name}</div>
+          <div class="msg-info-time">${formatDate(new Date())}</div>
+        </div>
+
+        <div class="msg-text">${text}</div>
+      </div>
+    </div>
+  `;
+
+  }
+  msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+  msgerChat.scrollTop += 500;
+}
+
+function botResponse() {
+  const r = random(0, BOT_MSGS.length - 1);
+  const msgText = BOT_MSGS[r];
+  const delay = msgText.split(" ").length * 100;
+
+  setTimeout(() => {
+    appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+  }, delay);
+}
+
+// Utils
+function get(selector, root = document) {
+  return root.querySelector(selector);
+}
+
+function formatDate(date) {
+  const h = "0" + date.getHours();
+  const m = "0" + date.getMinutes();
+
+  return `${h.slice(-2)}:${m.slice(-2)}`;
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+</script>
+<link rel="stylesheet" href="css/bootstrap-icons.css">
+<link rel="stylesheet" type="text/css" href="css/msger.css">
+<link rel="stylesheet" type="text/css" href="css/dpad.css">
+</body>
+</html>
