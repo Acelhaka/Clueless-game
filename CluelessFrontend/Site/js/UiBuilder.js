@@ -150,3 +150,44 @@ function generateBoard() {
 	document.getElementById('gameboard').innerHTML = html;
 	
 }
+
+function generateChecklist() {
+	
+		var html = "<table><th>&nbsp;</th><th><center>P1</center></th><th><center>P2</center></th><th><center>P3</center></th><th><center>P4</center></th><th><center>P5</center></th><th><center>P6</center></th></tr>";
+		var suspects = ["Miss Scarlet", "Professor Plum", "Col. Mustard", "Mrs. Peacock", "Mr. Green", "Mrs. White"];
+		var dropdown_options = "<td><select class='custom-select' id='inputGroupSelect01'><option selected>-</option><option value='1'>Y</option><option value='2'>N</option><option value='3'>?</option></select></td>";
+		for (var s in suspects){
+			html += "<tr><td><h5>" + suspects[s] + "</h5></td>";
+			
+			for (var i =0; i < 6; i++) {
+			
+				html += dropdown_options;
+			}
+			html += "</tr>";
+		}
+		var weapons = ["Knife", "Rope", "Wrench", "CandleStick", "Revolver", "Pipe"];
+		for (var w in weapons){
+			html += "<tr><td><h5>" + weapons[w] + "</h5></td>";
+			
+			for (var i =0; i < 6; i++) {
+			
+				html += dropdown_options;
+			}
+			html += "</tr>";
+		}
+		var rooms = ["Study", "Hall", "Lounge", "Library", "Billiards Room", "Dining Room", "Conservatory", "Ballroom", "Kitchen"];
+		for (var r in rooms){
+			html += "<tr><td><h5>" + rooms[r] + "</h5></td>";
+			
+			for (var i =0; i < 6; i++) {
+			
+				html += dropdown_options;
+			}
+			html += "</tr>";
+		}
+		
+		html += "</table>";
+		document.getElementById('checklist-placeholder').innerHTML = html;
+}
+	
+	
