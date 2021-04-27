@@ -1,98 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Clue! by The Clueless Noobs</title>
-  <script src="js/jquery-3.6.0.min.js"></script>
-  <script src="js/bodymovin.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-<!--Loading Screen Styles-->
-<style>
-*, ::after, ::before {
-	box-sizing: unset;
-}
-body {
- background-color: #5ac1f1;
- overflow: hidden !important;
-}
+    <meta charset="UTF-8">
+    <title>Clue! by The Clueless Noobs</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/bodymovin.min.js"></script>
+    <script src="js/UiBuilder.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <!--Loading Screen Styles-->
+    <style>
+        *, ::after, ::before {
+            box-sizing: unset;
+        }
 
-body,
-html {
- height: 100%;
- width: 100%;
- margin: 0;
- padding: 0;
-}
+        body {
+            background-color: #5ac1f1;
+            overflow: hidden !important;
+        }
 
-#animationWindow {
- width: 50%;
- height: 50%;
-}
+        body,
+        html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
-.loading {
-  font-size: 84px;
-  /*font-family: "Montserrat", sans-serif;*/
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
-  font-weight: 800;
-  text-align: center;
-  position:relative;
-  top:100px;
-}
-.loading span {
-  display: inline-block;
-  margin: 0 -0.05em;
-}
+        #animationWindow {
+            width: 50%;
+            height: 50%;
+        }
 
-.loading04 span {
-  animation: loading04 0.7s infinite;
-}
-.loading04 span:nth-child(1) {
-  color:rgb(99,210,243);
-}
-.loading04 span:nth-child(2) {
-  color:rgb(235,65,59);
-  animation-delay: 0.1s;
-}
-.loading04 span:nth-child(3) {
-    color:rgb(255,157,82);
-  animation-delay: 0.2s;
-}
-.loading04 span:nth-child(4) {
-    color:rgb(99,210,243);
-  animation-delay: 0.3s;
-}
-.loading04 span:nth-child(5) {
-    color:rgb(158,208,39);
-  animation-delay: 0.4s;
-}
-.loading04 span:nth-child(6) {
-    color:rgb(235,65,59);
-  animation-delay: 0.5s;
-}
-.loading04 span:nth-child(7) {
-    color:rgb(249,235,47);
-  animation-delay: 0.6s;
-}
+        .loading {
+            font-size: 84px;
+            /*font-family: "Montserrat", sans-serif;*/
+            font-family: "Comic Sans MS", "Comic Sans", cursive;
+            font-weight: 800;
+            text-align: center;
+            position: relative;
+            top: 100px;
+        }
 
-@keyframes loading04 {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(15px);
-  }
-}
-@font-face {
-  font-family: 'Signatria';
-  font-style: normal;
-  font-weight: 400;
-  src: url(css/fonts/Signatria.ttf) format('truetype');
-}
-</style>
+            .loading span {
+                display: inline-block;
+                margin: 0 -0.05em;
+            }
+
+        .loading04 span {
+            animation: loading04 0.7s infinite;
+        }
+
+            .loading04 span:nth-child(1) {
+                color: rgb(99,210,243);
+            }
+
+            .loading04 span:nth-child(2) {
+                color: rgb(235,65,59);
+                animation-delay: 0.1s;
+            }
+
+            .loading04 span:nth-child(3) {
+                color: rgb(255,157,82);
+                animation-delay: 0.2s;
+            }
+
+            .loading04 span:nth-child(4) {
+                color: rgb(99,210,243);
+                animation-delay: 0.3s;
+            }
+
+            .loading04 span:nth-child(5) {
+                color: rgb(158,208,39);
+                animation-delay: 0.4s;
+            }
+
+            .loading04 span:nth-child(6) {
+                color: rgb(235,65,59);
+                animation-delay: 0.5s;
+            }
+
+            .loading04 span:nth-child(7) {
+                color: rgb(249,235,47);
+                animation-delay: 0.6s;
+            }
+
+        @keyframes loading04 {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(15px);
+            }
+        }
+
+        @font-face {
+            font-family: 'Signatria';
+            font-style: normal;
+            font-weight: 400;
+            src: url(css/fonts/Signatria.ttf) format('truetype');
+        }
+    </style>
 
 
 </head>
-<body><center>
+<body onload="generateBoard();"><center>
 <!-- Loading Animation -->
 <div id="animationWindow">
 <div class="loading loading04">
@@ -244,7 +256,8 @@ anim.setSpeed(3.0);
 </div>
     </div>
     <div class="col-md-auto" style="padding:0">
-      <img id="board" src="img/board.jpg" alt="Clue Board Game Loading..." />
+        <div id="gameboard">game board goes here...</div>
+      
     </div>
     <div class="col">
     <center>
