@@ -6,6 +6,7 @@
     <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/bodymovin.min.js"></script>
     <script src="js/UiBuilder.js"></script>
+    <script src="js/SocketLib.js"></script>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <!--Loading Screen Styles-->
     <style>
@@ -104,7 +105,7 @@
 
 
 </head>
-<body onload="generateBoard(); generateChecklist();"><center>
+<body onload="generateBoard(); generateChecklist(); generateMovePad();"><center>
 <!-- Loading Animation -->
 <div id="animationWindow">
 <div class="loading loading04">
@@ -276,11 +277,11 @@ anim.setSpeed(3.0);
      <span style="position:absolute;bottom:20px;left:0;width:100%">
      <table style="text-align: center;"><tr><td><span class="display-4">Move</span></td><td style="padding-left: 40px;"><span class="display-4">Action</span></td></tr>
      <tr><td>
-     <nav class="d-pad">
-    <a class="up" href="#"></a>
-    <a class="right" href="#"></a>
-    <a class="down" href="#"></a>
-    <a class="left" href="#"></a>
+     <nav class="d-pad" id="dpad">
+    <a class="up" href="#" id="upPad"></a>
+    <a class="right" href="#" id="rightPad" ></a>
+    <a class="down" href="#" id="downPad" ></a>
+    <a class="left" href="#" id="leftPad" ></a>
   </nav>
     </td>
 

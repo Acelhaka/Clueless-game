@@ -189,5 +189,14 @@ function generateChecklist() {
 		html += "</table>";
 		document.getElementById('checklist-placeholder').innerHTML = html;
 }
+
+// TODO eventually pass in the locations that player can move to
+function generateMovePad() {
+	html = '<a class="up" href="#" id="upPad" title="N/A"></a>' +
+		   '<a class="right" href="#" id="rightPad" title="Lounge"></a>' +
+		   '<a class="down" href="#" id="downPad" title="N/A"></a>' +
+		   '<a class="left" href="#" id="leftPad" title="Hall"></a>';
+	document.getElementById('dpad').innerHTML = html;
+}
 	
 	
