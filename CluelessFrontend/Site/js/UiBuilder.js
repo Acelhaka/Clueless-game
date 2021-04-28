@@ -1,33 +1,57 @@
+var location_to_ids = { "Study":"location_r0", 
+						"Hallway-r1": "location_r1",
+						"Hall": "location_r2",
+						"Hallway-r3": "location_r3",
+					    "Lounge": "location_r4",
+						"Hallway-r5": "location_r5",
+						"Hallway-r6": "location_r6",
+						"Hallway-r7": "location_r7",
+						"Library": "location_r8",
+						"Hallway-r9": "location_r9",
+						"Billards": "location_r10",
+						"Hallway-11": "location_r11",
+						"Dinning": "location_r12",
+						"Hallway-13": "location_r13",
+						"Hallway-14": "location_r14",
+						"Hallway-15": "location_r15",
+						"Conservatory": "location_r16",
+						"Hallway-17": "location_r17",
+						"Ballroom": "location_r18",
+						"Hallway-19": "location_r19",
+						"Hallway-20": "location_r20"};
+						
+						
+
 function generateBoard() {
 
 	var html = '<div class="container" style="float:left;padding-left:20px;">' +
 					// ROW 1 of the board
 					' <div class="row"> ' +
-						'<div class="card" title="Study" style="background-image:url(img/board-images/study.png); height:120px;width:170px;">' +
+						'<div id="location_r0" class="card" title="Study" style="background-image:url(img/board-images/study.png); height:120px;width:170px;">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title" style=""><center></center></h5>' +
 									'<center><span id="r0"></span></center>' +
 							'</div>'+
 						'</div>' +
-						'<div class="card" title="Hallway" style="height:120px; width:250px; background-image:url(img/board-images/hallway-tile.png);">' +
+						'<div id="location_r1" class="card" title="Hallway" style="height:120px; width:250px; background-image:url(img/board-images/hallway-tile.png);">' +
 							'<div class="card-body">' +
 								' <h5 class="card-title"><center></center></h5> ' +
 								' <center><span id="r1"></span></center> ' +
 							'</div>' +
 						'</div>' +
-						'<div class="card" title="Hall" style="background-image:url(img/board-images/hall.png); height:120px;width:170px;">' +
+						'<div id="location_r2" class="card" title="Hall" style="background-image:url(img/board-images/hall.png); height:120px;width:170px;">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>'+
 								'<center><span id="r2"></span></center>' +
 							'</div>' +
 						'</div>' +
-						'<div class="card" title="Hallway" style="height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
+						'<div id="location_r3" class="card" title="Hallway" style="height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>' +
 								'<center><span id="r3"><span title="Miss Scarlet"><img src="img/characterIcons/MissScarlet.PNG"></span></center>' +
 							'</div>' +
 						'</div>' +
-						'<div class="card" title="Lounge" style="background-image:url(img/board-images/lounge.png); height:120px;width:170px;">' +
+						'<div id="location_r4" class="card" title="Lounge" style="background-image:url(img/board-images/lounge.png); height:120px;width:170px;">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>' +
 								'<center><span id="r4"></span></center>' +
@@ -36,13 +60,13 @@ function generateBoard() {
 					'</div>' +
 					// ROW 2 of the board
 					'<div class="row">' +
-						'<div class="card" title="Hallway" style="height:250px; width:170px;background-image:url(img/board-images/hallway-tile.png);">' +
+						'<div id="location_r5" class="card" title="Hallway" style="height:250px; width:170px;background-image:url(img/board-images/hallway-tile.png);">' +
 							'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
-							'<center><span title="Professor Plum"><img src="img/characterIcons/ProfessorPlum.PNG"></span></center>' +
+							'<center><span id="r5" title="Professor Plum"><img src="img/characterIcons/ProfessorPlum.PNG"></span></center>' +
 						'</div>' +
 					'</div>' +
-					'<div  style="height:250px; width:250px;">&nbsp;</div>' +
+					'<div  id="location_r6" style="height:250px; width:250px;">&nbsp;</div>' +
 					'<div class="card" title="Hallway" style="height:250px; width:170px;background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
@@ -50,7 +74,7 @@ function generateBoard() {
 						'</div>' +
 					'</div>' +
 					'<div  style="height:120px; width:250px;">&nbsp;</div>' +
-					'<div class="card" title="Hallway" style="height:250px; width:170px;background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div id="location_r7" class="card" title="Hallway" style="height:250px; width:170px;background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r7" title="Col. Mustard"><img src="img/characterIcons/ColonelMustard.PNG"></span></center>' +
@@ -59,31 +83,31 @@ function generateBoard() {
 				'</div>' +
 					// ROW 3 of the board
 					'<div class="row">' +
-						'<div class="card" title="Library" style="background-image:url(img/board-images/library.png); height:120px;width:170px;">' +
+						'<div id="location_r8" class="card" title="Library" style="background-image:url(img/board-images/library.png); height:120px;width:170px;">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r8"></span></center>' +
 						'</div>' +
 					'</div>' +
-					'<div class="card" title="Hallway" style="height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div id="location_r9" class="card" title="Hallway" style="height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r9"></span></center>' +
 						'</div>'+
 					'</div>'+
-					'<div class="card" title="Billiards" style="background-image:url(img/board-images/billiards.png); height:120px;width:170px;">' +
+					'<div id="location_r10" class="card" title="Billiards" style="background-image:url(img/board-images/billiards.png); height:120px;width:170px;">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r10"></span></center>' +
 						'</div>' +
 					'</div>' +
-					'<div class="card" title="Hallway" style="height:120px; width:250px; background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div id="location_r11" class="card" title="Hallway" style="height:120px; width:250px; background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r11"></span></center>' +
 						'</div>' +
 					'</div>' +
-					'<div class="card" title="Dinning" style="height:120px;width:170px;background-image:url(img/board-images/dinning.png);">' +
+					'<div id="location_r12" class="card" title="Dinning" style="height:120px;width:170px;background-image:url(img/board-images/dinning.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r12"></span></center>' +
@@ -92,21 +116,21 @@ function generateBoard() {
 				'</div>' +
 				// ROW 4 of the board
 				'<div class="row">' +
-					'<div class="card" title="Hallway" style="height:250px; width:170px; background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div id="location_r13" class="card" title="Hallway" style="height:250px; width:170px; background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 								'<center><span id="r13" title="Mrs. Peacock"><img src="img/characterIcons/MrsPeacock.PNG"></span></center>' +
 							'</div>'+
 						'</div>'+
 					'<div style="height:120px; width:250px;">&nbsp;</div>' +
-						'<div class="card" title="Hallway" style="height:250px; width:170px; background-image:url(img/board-images/hallway-tile.png);">' +
+						'<div id="location_r14" class="card" title="Hallway" style="height:250px; width:170px; background-image:url(img/board-images/hallway-tile.png);">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>' +
 								'<center><span id="r14"></span></center>' +
 							'</div>' +
 						'</div>' +
 					'<div  style="height:120px; width:250px;">&nbsp;</div>' +
-						'<div class="card" title="Hallway" style="height:250px; width:170px; background-image:url(img/board-images/hallway-tile.png);">' +
+						'<div id="location_r15" class="card" title="Hallway" style="height:250px; width:170px; background-image:url(img/board-images/hallway-tile.png);">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>' +
 								'<center><span id="r15"></span></center>' +
@@ -115,34 +139,34 @@ function generateBoard() {
 					'</div>' +
 				//ROW 5
 				'<div class="row">' +
-					'<div class="card" title="Conservatory" style="height:120px;width:170px;background-image:url(img/board-images/conservatory.png);">' +
+					'<div id="location_r16" class="card" title="Conservatory" style="height:120px;width:170px;background-image:url(img/board-images/conservatory.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r16"></span></center>' +
 						'</div>' +
 					'</div>' +
 		
-					'<div class="card" title="Hallway" style="height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div id="location_r17" class="card" title="Hallway" style="height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r17" title="Mr. Green"><img src="img/characterIcons/ReverendGreen.PNG"></span></center>' +
 						'</div>' +
 					'</div>' +
-				'<div class="card" title="Ballroom" style="height:120px;width:170px;background-image:url(img/board-images/ballroom.png);">' +
+				'<div id="location_r18" class="card" title="Ballroom" style="height:120px;width:170px;background-image:url(img/board-images/ballroom.png);">' +
 					'<div class="card-body">' +
 						'<h5 class="card-title"><center></center></h5>' +
 						'<center><span id="r18"></span></center>' +
 					'</div>' +
 				'</div>' +
-				'<div class="card" title="Hallway" style=";height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
+				'<div id="location_r19" class="card" title="Hallway" style=";height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
 					'<div class="card-body">' +
 						'<h5 class="card-title"><center></center></h5>' +
 						'<center><span id="r19" title="Mrs. White"><img src="img/characterIcons/MrsWhite.PNG"></span></center>' +
 					'</div>' +
 				'</div>' +
-				'<div class="card" title="Kitchen" style="height:120px;width:170px;background-image:url(img/board-images/kitchen.png);">' +
+				'<div id="location_r20" class="card" title="Kitchen" style="height:120px;width:170px;background-image:url(img/board-images/kitchen.png);">' +
 					'<div class="card-body">' +
-						'<h5 class="card-title"><center></center></h5>' +
+						'<h5 class="card-title"><center><span id="r20"></span></center></h5>' +
 					'</div>' +
 				'</div>' +
 			'</div>' +
@@ -193,10 +217,26 @@ function generateChecklist() {
 // TODO eventually pass in the locations that player can move to
 function generateMovePad() {
 	html = '<a class="up" href="#" id="upPad" title="N/A"></a>' +
-		   '<a class="right" href="#" id="rightPad" title="Lounge"></a>' +
+		   '<a class="right" href="#" id="rightPad" title="Lounge" onmouseover=highlightRoom(\'Lounge\'); onmouseout=unhighlightRoom(\'Lounge\');></a>' +
 		   '<a class="down" href="#" id="downPad" title="N/A"></a>' +
-		   '<a class="left" href="#" id="leftPad" title="Hall"></a>';
+		   '<a class="left" href="#" id="leftPad" title="Hall" onmouseover=highlightRoom(\'Hall\'); onmouseout=unhighlightRoom(\'Hall\');></a>';
 	document.getElementById('dpad').innerHTML = html;
 }
+
+//location_r0 -> study
+function highlightRoom(room) {
 	
+	if (room in location_to_ids) {
+		document.getElementById(location_to_ids[room]).style.cssText += "opacity: 0.4;filter: alpha(opacity=40);";
+	}
+}
+
+function unhighlightRoom(room) {
+	
+	if (room in location_to_ids) {
+		originalCss = document.getElementById(location_to_ids[room]).style.cssText;
+		document.getElementById(location_to_ids[room]).style.cssText = originalCss.replace("opacity: 0.4;","");
+	}
+	
+}
 	
