@@ -20,6 +20,14 @@ var location_to_ids = { "Study":"location_r0",
 						"Hallway-19": "location_r19",
 						"Hallway-20": "location_r20"};
 						
+
+var weapons_to_links = { "CANDLESTICK": "img/weaponIcons/Candlestick.PNG",
+						 "KNIFE": "img/weaponIcons/Dagger.PNG",
+						 "PIPE": "img/weaponIcons/LeadPipe.PNG",
+						 "REVOLVER": "img/weaponIcons/Revolver.PNG",
+						 "ROPE": "img/weaponIcons/Rope.PNG",
+						 "SPANNER": "img/weaponIcons/Spanner.PNG"};
+						
 						
 
 function generateBoard() {
@@ -30,7 +38,10 @@ function generateBoard() {
 						'<div id="location_r0" class="card" title="Study" style="background-image:url(img/board-images/study.png); height:120px;width:170px;">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title" style=""><center></center></h5>' +
-									'<center><span id="r0"></span></center>' +
+									// TODO need to add a suspect and weapon section to each location so weapons and suspects can get assigned to the location (hallways dont need weapons though)
+									'<center><p style="float:top;" id="r0_suspects"></p>' +
+									'<p style="float:bottom;" id="r0_weapons"></p>'+
+									'</center>' +
 							'</div>'+
 						'</div>' +
 						'<div id="location_r1" class="card" title="Hallway" style="height:120px; width:250px; background-image:url(img/board-images/hallway-tile.png);">' +
@@ -228,6 +239,10 @@ function highlightRoom(room) {
 	
 	if (room in location_to_ids) {
 		document.getElementById(location_to_ids[room]).style.cssText += "opacity: 0.4;filter: alpha(opacity=40);";
+		
+		// testing out how the suspects and weapons look on the location
+		//document.getElementById('r0_weapons').innerHTML = "<img width=30 height=30 src='img/weaponIcons/Candlestick.PNG' title='Candlestick'>";
+		//document.getElementById('r0_suspects').innerHTML = "<img width=30 height=30 src='img/weaponIcons/Candlestick.PNG' title='Candlestick'><img width=30 height=30 src='img/weaponIcons/Candlestick.PNG' title='Candlestick'>";
 	}
 }
 
