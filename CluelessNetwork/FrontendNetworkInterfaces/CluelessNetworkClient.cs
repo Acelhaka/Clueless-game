@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Net.WebSockets;
 using CluelessNetwork.NetworkSerialization;
 using CluelessNetwork.TransmittedTypes;
 
@@ -10,7 +11,7 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
     /// </summary>
     public class CluelessNetworkClient : PlayerModelBase, IFrontendPlayerNetworkModel
     {
-        private readonly TcpClient _tcpClient;
+        private readonly WebSocket _webSocket;
 
         /// <summary>
         /// Creates a network client and connects to a clueless server
@@ -21,16 +22,16 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         public CluelessNetworkClient(string hostname, bool isHost, string name)
         {
             IsHost = isHost;
-            _tcpClient = new TcpClient(hostname, 12321);
-            Initialize(_tcpClient.GetStream());
-            if (Settings.PrintNetworkDebugMessagesToConsole)
-                Console.WriteLine("Server connection established");
-            _tcpStream?.WriteObject(
-                new InitialConnectionInfo
-                {
-                    IsHost = isHost,
-                    Name = name
-                });
+            // _tcpClient = new TcpClient(hostname, 12321);
+            // Initialize(_tcpClient.GetStream());
+            // if (Settings.PrintNetworkDebugMessagesToConsole)
+            //     Console.WriteLine("Server connection established");
+            // _tcpStream?.WriteObject(
+            //     new InitialConnectionInfo
+            //     {
+            //         IsHost = isHost,
+            //         Name = name
+            //     });
 
             if (Settings.PrintNetworkDebugMessagesToConsole)
             {
@@ -201,7 +202,7 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         public override void Dispose()
         {
             base.Dispose();
-            _tcpClient.Dispose();
+            // _tcpClient.Dispose();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
 using CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel;
 using CluelessNetwork.NetworkSerialization;
@@ -12,17 +13,12 @@ namespace CluelessNetwork.BackendNetworkInterfaces
     /// Runs a TCP listener which accetps clients, packages them into player network models, and hands them off to a
     /// game instance.
     /// </summary>
-    public class CluelessNetworkServer : IDisposable
+    public class CluelessNetworkServer
     {
         /// <summary>
         /// A service implemented on the backend to handle game instances
         /// </summary>
         private readonly IGameInstanceService _gameInstanceService;
-
-        /// <summary>
-        /// TCP socket wrapper
-        /// </summary>
-        private readonly TcpListener _tcpListener;
 
         /// <summary>
         /// Private constructor ensures that the server can only be created from inside this class
@@ -31,34 +27,6 @@ namespace CluelessNetwork.BackendNetworkInterfaces
         public CluelessNetworkServer(IGameInstanceService gameInstanceService)
         {
             _gameInstanceService = gameInstanceService;
-            // TODO: Create configuration scheme for defining custom port number
-            const int port = 12321;
-            try
-            {
-                // Create a listener to accept incoming connections with
-                _tcpListener = new TcpListener(IPAddress.Any, port);
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                // Port was outside of acceptable ranges
-                Console.Error.WriteLine($"Invalid port number: {port}");
-                Environment.Exit(1);
-            }
-
-            try
-            {
-                // Start the listener
-                _tcpListener.Start();
-                Console.WriteLine($"\n\nServer started listening on port {port}");
-            }
-            catch (SocketException socketException)
-            {
-                // Error starting the socket listener
-                // Look up Windows Sockets version 2 API error code here: https://docs.microsoft.com/en-us/windows/desktop/winsock/windows-sockets-error-codes-2
-                Console.Error.WriteLine($"Could not start TCP listener. Error code: {socketException.ErrorCode}");
-                Console.Error.WriteLine("Is another instance already running and using this port?");
-                Environment.Exit(1);
-            }
         }
 
         /// <summary>
@@ -66,16 +34,15 @@ namespace CluelessNetwork.BackendNetworkInterfaces
         /// joining one
         /// </summary>
         /// <param name="client">TCP client handle for the incoming connection</param>
-        private void HandleClientConnect(TcpClient client, bool listenContinuously)
+        private void HandleClientConnect(WebSocket client, bool listenContinuously)
         {
             // Get the connection info from the connecting client
-            var frontendConnection = TryBuildPlayerNetworkModel(client.GetStream());
+            var frontendConnection = TryBuildPlayerNetworkModel(client);
             // If a frontend connection object could not be built, ignore incoming connection
             //TODO log this
             if (frontendConnection == null)
                 return;
 
-            Console.WriteLine($"Successful connection request from {client.Client.RemoteEndPoint}");
             // Create a new game instance if the connecting player indicated they are hosting
             if (frontendConnection.IsHost)
             {
@@ -94,33 +61,13 @@ namespace CluelessNetwork.BackendNetworkInterfaces
         }
 
         /// <summary>
-        /// Waits for a connection, and starts handling it when it arrives
-        /// </summary>
-        public void ListenForConnection(bool listenContinuously)
-        {
-            try
-            {
-                // Accept a TCP connection
-                var client = _tcpListener.AcceptTcpClient();
-                // Don't block listening for more clients while a client is connecting. Run connect handling on a separate thread.
-                HandleClientConnect(client, listenContinuously);
-            }
-            catch (SocketException socketException)
-            {
-                // Error accepting TCP client
-                // Look up Windows Sockets version 2 API error code here: https://docs.microsoft.com/en-us/windows/desktop/winsock/windows-sockets-error-codes-2
-                Console.Error.WriteLine($"Unable to accept client. Error code: {socketException.ErrorCode}");
-            }
-        }
-
-        /// <summary>
         /// Try to build a player network model from a tcp stream. Receives initial connection info.
         /// </summary>
         /// <param name="tcpStream">A stream to build the model from</param>
         /// <returns>A player network model, or null if the connection info couldn't be deserialized</returns>
-        private static IBackendPlayerNetworkModel? TryBuildPlayerNetworkModel(Stream tcpStream)
+        private static IBackendPlayerNetworkModel? TryBuildPlayerNetworkModel(WebSocket webSocket)
         {
-            var connectionInfo = tcpStream.ReadObject<InitialConnectionInfo>();
+            var connectionInfo = webSocket.ReadObject<InitialConnectionInfo>();
             if (connectionInfo == null)
             {
                 // Could not deserialize connection info. Ignore connection request.
@@ -137,19 +84,11 @@ namespace CluelessNetwork.BackendNetworkInterfaces
             if (connectionInfo.Name == null)
                 return null;
             
-            return new BackendPlayerNetworkModel.BackendPlayerNetworkModel(tcpStream)
+            return new BackendPlayerNetworkModel.BackendPlayerNetworkModel(webSocket)
             {
                 IsHost = connectionInfo.IsHost,
                 Name = connectionInfo.Name
             };
-        }
-
-        /// <summary>
-        /// Frees resources used by this instances
-        /// </summary>
-        public void Dispose()
-        {
-            _tcpListener.Stop();
         }
     }
 }

@@ -1,15 +1,27 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CluelessNetwork.NetworkSerialization
 {
+	public static class TaskExtensions
+	{
+		public static T WaitForResult<T>(this Task<T> task) where T : class
+		{
+			task.Wait();
+			return task.Result;
+		}
+	}
+
 	/// <summary>
 	/// Contains custom logic for streams
 	/// </summary>
-	public static class StreamExtensions
+	public static class WebSocketExtensions
     {
 	    /// <summary>
 	    /// Attempts to read a serialized object from the stream, convert it, and return it
@@ -17,23 +29,11 @@ namespace CluelessNetwork.NetworkSerialization
 	    /// <param name="stream">The stream to read from</param>
 	    /// <typeparam name="T">The type of object to deserialize</typeparam>
 	    /// <returns>An instance of the object, or null if it could not be created</returns>
-	    public static T? ReadObject<T>(this Stream stream) where T : class
+	    public static T? ReadObject<T>(this WebSocket webSocket) where T : class
         {
-            // Get length of incoming object
-            var sizeBuffer = new byte[sizeof(int)];
-            var bytesRead = 0;
-            Debug.Assert(stream.CanRead);
-            while (bytesRead < sizeBuffer.Length)
-                bytesRead += stream.Read(sizeBuffer, bytesRead, sizeBuffer.Length - bytesRead);
-            // Create a buffer for serialized data
-            var serializationLength = BitConverter.ToInt32(sizeBuffer);
-            var serializedDataBuffer = new byte[serializationLength];
-            // Get data from the stream
-            bytesRead = 0;
-            while (bytesRead < serializationLength)
-                bytesRead += stream.Read(serializedDataBuffer, bytesRead, serializationLength - bytesRead);
             // Deserialize data into an object
-            var json = Encoding.UTF8.GetString(serializedDataBuffer);
+            var buffer = new byte[1024 * 1024];
+            var json = webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None).WaitForResult().ToString();
 
             // Deserialize the wrapped type correctly using reflection
             var deserializedObject = JsonSerializer.Deserialize<T>(json);
@@ -59,15 +59,11 @@ namespace CluelessNetwork.NetworkSerialization
 	    /// <param name="stream">The stream to write UTF-8 data to</param>
 	    /// <param name="value">An object to serialize and write</param>
 	    /// <typeparam name="T">A serializable type</typeparam>
-	    public static void WriteObject<T>(this Stream stream, T value)
-        {
-            var json = JsonSerializer.Serialize(value);
-            var bytes = Encoding.UTF8.GetBytes(json);
-            // Always send a number of bytes ahead, so the other side knows how much to read
-            stream.Write(BitConverter.GetBytes(bytes.Length));
-            // Send serialized data
-            stream.Write(bytes);
-            stream.Flush();
-        }
+	    public static void WriteObject<T>(this WebSocket webSocket, T value)
+	    {
+		    var json = JsonSerializer.Serialize(value);
+		    var bytes = Encoding.UTF8.GetBytes(json);
+		    webSocket.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None).Wait();
+	    }
     }
 }

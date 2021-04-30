@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net.WebSockets;
 using CluelessNetwork.TransmittedTypes;
 
 namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
@@ -9,10 +10,10 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// <summary>
         /// Create a backend player network mode using a communication stream with the frontend
         /// </summary>
-        /// <param name="tcpStream">A stream to communicate with the frontend for this player</param>
-        public BackendPlayerNetworkModel(Stream tcpStream)
+        /// <param name="webSocket">A stream to communicate with the frontend for this player</param>
+        public BackendPlayerNetworkModel(WebSocket webSocket)
         {
-            Initialize(tcpStream);
+            Initialize(webSocket);
             if (Settings.PrintNetworkDebugMessagesToConsole)
             {
                 AccusationReceived += _ => Console.WriteLine($"Server invoked {nameof(AccusationReceived)}");
