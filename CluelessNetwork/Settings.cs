@@ -4,6 +4,6 @@ namespace CluelessNetwork
 {
     public static class Settings
     {
-        public static readonly bool PrintNetworkDebugMessagesToConsole = Debugger.IsAttached;
+        public static readonly bool PrintNetworkDebugMessagesToConsole = true;
     }
 }

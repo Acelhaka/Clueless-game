@@ -6,13 +6,69 @@
     #output span { color: blue; }
     #output span.error { color: red; }
 </style>
-<h2>WebSocket Test</h2>
+<h2>Clueless WebSocket Test</h2>
+<h4>Sample objects (copy and paste into box below)</h4>
+<p>
+InitialConnectionInfo (to be sent immediately after connecting): <br>
+<pre>{"IsHost":true,"Name":"ClientName"}</pre>
+</p>
+<p>
+    Chat message:<br>
+    <pre>{"UpdateType":8,"UpdateObjectType":"CluelessNetwork.TransmittedTypes.ChatMessage","UpdateObject":{"Content":"Message content","SenderName":null,"Scope":0}}</pre>
+</p>
+<p>
+    Start game (from host):<br>
+    <pre>{"UpdateType":7,"UpdateObjectType":null,"UpdateObject":null}</pre>
+</p>
+<p>
+    All messages to the server except InitialConnectionInfo require an UpdateType, UpdateObjectType, and UpdateObject. 
+    UpdateType values:
+    <pre>
+    public enum UpdateType
+    {
+        PlayerOptionsUpdate,
+        MoveAction,
+        PlayerSuggestion,
+        PlayerSuggestionResponse,
+        Accusation,
+        AccusationResult,
+        SuspectSelection,
+        GameStart,
+        ChatMessage
+    }</pre>
+    Each of these update types has a corresponding class with properties which should line up with the JSON. The C# code for these types is found in the CluelessNetwork/TransmittedTypes folder. For example, our ChatMessage class (JSON example above) looks like this: 
+    <pre>
+    public enum ChatMessageScope
+    {
+        Game,
+        Server
+    }
+    
+    /// <summary>
+    /// Represents a chat message
+    /// </summary>
+    public class ChatMessage
+    {
+        /// <summary>
+        /// The chat message content
+        /// </summary>
+        public string Content { get; init; } = string.Empty;
+        
+        /// <summary>
+        /// The chat sender name. Does not need to be set by the client. Set by the server when broadcasting.
+        /// </summary>
+        public string? SenderName { get; init; } = default;
+
+        public ChatMessageScope Scope { get; init; }
+    }
+    </pre>
+    Some messages are bidirectional, others are not. See the CluelessNetwork/FrontendNetworkInterfaces/IFrontendPlayerNetworkModel.cs file to see which messages the frontend should send, and which ones it should receive. 
+</p>
+<hr>
 <textarea cols=60 rows=6></textarea>
 <button>send</button>
 <div id=output></div>
 <script>
-    // http://www.websocket.org/echo.html
-
     var button = document.querySelector("button"),
         output = document.querySelector("#output"),
         textarea = document.querySelector("textarea"),
@@ -24,7 +80,6 @@
 
     websocket.onopen = function (e) {
         writeToScreen("CONNECTED");
-        doSend("WebSocket rocks");
     };
 
     websocket.onclose = function (e) {

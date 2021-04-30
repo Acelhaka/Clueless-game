@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CluelessNetwork.NetworkSerialization
 {
@@ -70,4 +73,13 @@ namespace CluelessNetwork.NetworkSerialization
             stream.Flush();
         }
     }
+	
+	public static class TaskExtensions
+	{
+		public static T WaitForResult<T>(this Task<T> task)
+		{
+			task.Wait();
+			return task.Result;
+		}
+	}
 }
