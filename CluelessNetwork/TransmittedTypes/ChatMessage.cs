@@ -1,5 +1,11 @@
 ﻿namespace CluelessNetwork.TransmittedTypes
 {
+    public enum ChatMessageScope
+    {
+        Game,
+        Server
+    }
+    
     /// <summary>
     /// Represents a chat message
     /// </summary>
@@ -13,6 +19,8 @@
         /// <summary>
         /// The chat sender name. Does not need to be set by the client. Set by the server when broadcasting.
         /// </summary>
-        public string? SenderName { get; set; } = default;
+        public string? SenderName { get; init; } = default;
+
+        public ChatMessageScope Scope { get; init; }
     }
 }

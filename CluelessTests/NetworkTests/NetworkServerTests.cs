@@ -26,7 +26,7 @@ namespace CluelessTests.NetworkTests
             await _sema.WaitAsync();
             {
                 // Create a game instance factory
-                var gameInstanceService = new TestGameInstanceService();
+                var gameInstanceService = new GameInstanceService();
 
                 // Create a chat service
                 var unused = new ChatService(gameInstanceService);
@@ -36,11 +36,11 @@ namespace CluelessTests.NetworkTests
 
                 // Connect two clients to the server
                 using var client = new CluelessNetworkClient("127.0.0.1", true, "ClientName");
-                server.ListenForConnection();
+                server.ListenForConnection(listenContinuously: false);
 
                 // Sanity check: we should have two players on the server
-                gameInstanceService.GameInstance!.Players.Count.Should().Be(1);
-                var playerBackendModel = gameInstanceService.GameInstance!.Players.Single();
+                gameInstanceService.GetAllGameInstances().Single().GetPlayerModels().Count.Should().Be(1);
+                var playerBackendModel = gameInstanceService.GetAllGameInstances().Single().GetPlayerModels().Single();
                 var message = "Test message";
                 var clientReceivedChatMessages = 0;
 
@@ -51,7 +51,7 @@ namespace CluelessTests.NetworkTests
                 };
 
                 //  
-                client.SendChatMessage(new ChatMessage {Content = message});
+                client.SendChatMessage(new ChatMessage {Content = message, Scope = ChatMessageScope.Server});
 
                 playerBackendModel.ReceiveUpdate();
 
@@ -68,7 +68,7 @@ namespace CluelessTests.NetworkTests
             await _sema.WaitAsync();
             {
                 // Create a game instance factory
-                var gameInstanceService = new TestGameInstanceService();
+                var gameInstanceService = new GameInstanceService();
 
                 // Create a chat service
                 var unused = new ChatService(gameInstanceService);
@@ -78,17 +78,17 @@ namespace CluelessTests.NetworkTests
 
                 // Connect two clients to the server
                 using var client1 = new CluelessNetworkClient("127.0.0.1", true, "Client 1");
-                server.ListenForConnection();
+                server.ListenForConnection(listenContinuously: false);
                 using var client2 = new CluelessNetworkClient("127.0.0.1", false, "Client 1");
-                server.ListenForConnection();
+                server.ListenForConnection(listenContinuously: false);
 
                 // Sanity check: we should have two players on the server
-                gameInstanceService.GameInstance!.Players.Count.Should().Be(2);
+                gameInstanceService.GetAllGameInstances().Single().GetPlayerModels().Count.Should().Be(2);
                 var message = "Test message";
                 var client1ReceivedChatMessages = 0;
                 var client2ReceivedChatMessages = 0;
 
-                var playerModel1 = gameInstanceService.GameInstance!.Players.First();
+                var playerModel1 = gameInstanceService.GetAllGameInstances().Single().GetPlayerModels().First();
 
                 client1.ChatMessageReceived += delegate(ChatMessage incomingMessage)
                 {
@@ -134,7 +134,7 @@ namespace CluelessTests.NetworkTests
                 using var client = new CluelessNetworkClient("127.0.0.1", true, string.Empty);
 
                 // Accept connection and send requests to game instance service
-                server.ListenForConnection();
+                server.ListenForConnection(listenContinuously: false);
 
                 // Verify that we asked the game instance service mock to do all the correct things 
                 gameInstanceServiceMock.Invocations.Count.Should().Be(2);
@@ -156,7 +156,7 @@ namespace CluelessTests.NetworkTests
             await _sema.WaitAsync();
             {
                 // Create a game instance factory
-                var gameInstanceService = new TestGameInstanceService();
+                var gameInstanceService = new GameInstanceService();
 
                 // Start server
                 using var server = new CluelessNetworkServer(gameInstanceService);
@@ -165,9 +165,9 @@ namespace CluelessTests.NetworkTests
                 using var client = new CluelessNetworkClient("127.0.0.1", true, string.Empty);
 
                 // Accept one connection and run logic
-                server.ListenForConnection();
+                server.ListenForConnection(listenContinuously: false);
 
-                var backendPlayerNetworkModel = gameInstanceService.GameInstance!.Players.Single();
+                var backendPlayerNetworkModel = gameInstanceService.GetAllGameInstances().Single().GetPlayerModels().Single();
                 var playerOptionCollection = new PlayerOptionCollection
                 {
                     AvailableOptions = new[] {"one", "two"}
@@ -186,33 +186,47 @@ namespace CluelessTests.NetworkTests
             }
             _sema.Release();
         }
-    }
-
-    internal class TestGameInstance
-    {
-        public List<IBackendPlayerNetworkModel> Players { get; } = new();
-    }
-
-    internal class TestGameInstanceService : IGameInstanceService
-    {
-        public TestGameInstance? GameInstance { get; private set; }
-
-        public void CreateGameInstance(IBackendPlayerNetworkModel hostPlayerNetworkModel)
+        
+        [Theory]
+        [InlineData(1)]
+        [InlineData(6)]
+        public async Task TestStartGame(int playerCount)
         {
-            GameInstance = new TestGameInstance();
+            await _sema.WaitAsync();
+            {
+                // Create a game instance factory
+                var gameInstanceService = new GameInstanceService();
+
+                // Start server
+                using var server = new CluelessNetworkServer(gameInstanceService);
+
+                // Request connection to server
+                var clients = new List<CluelessNetworkClient>();
+                for (int i = 0; i < playerCount; i++)
+                    clients.Add(new CluelessNetworkClient("127.0.0.1", i == 0, string.Empty));
+
+                // Accept connections
+                for (int i = 0; i < playerCount; i++)
+                    server.ListenForConnection(listenContinuously: false);
+
+                var gameInstance = gameInstanceService.GetAllGameInstances().Single();
+                gameInstance.CanAddPlayers.Should().Be(playerCount != 6);
+                var backendPlayerModels = gameInstance.GetPlayerModels();
+                backendPlayerModels.Count.Should().Be(playerCount);
+                for (int i = 0; i < playerCount; i++)
+                    backendPlayerModels[i].IsHost.Should().Be(i == 0);
+                
+                clients.First().SendGameStartRequest();
+                backendPlayerModels.First().ReceiveUpdate();
+
+                gameInstance.CanAddPlayers.Should().BeFalse();
+                
+                foreach (var client in clients)
+                    client.Dispose();
+            }
+            _sema.Release();
         }
 
-        public List<List<IBackendPlayerNetworkModel>> GetAllGameInstances()
-        {
-            return new(new[] {GameInstance!.Players});
-        }
 
-        public event Action<IBackendPlayerNetworkModel>? PlayerAdded;
-
-        public void AddPlayerToGameInstance(IBackendPlayerNetworkModel playerNetworkModel)
-        {
-            GameInstance!.Players.Add(playerNetworkModel);
-            PlayerAdded?.Invoke(playerNetworkModel);
-        }
     }
 }

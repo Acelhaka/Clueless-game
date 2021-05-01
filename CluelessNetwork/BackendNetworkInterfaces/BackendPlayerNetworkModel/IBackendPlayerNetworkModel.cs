@@ -89,5 +89,10 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// </summary>
         /// <param name="playerOptionCollection"></param>
         public void UpdatePlayerOptions(PlayerOptionCollection playerOptionCollection);
+
+        /// <summary>
+        /// Disconnects the player from the server
+        /// </summary>
+        void Disconnect();
     }
 }

@@ -20,7 +20,7 @@
 
         /// <summary>
         /// Receives an update and handles it
-        /// This is primarily used in testing. For the game, use
+        /// This is primarily used in testing. For the game, use ListenForUpdatesContinuously
         /// </summary>
         /// <returns>A task that completes when handling finishes</returns>
         public void ReceiveUpdate();

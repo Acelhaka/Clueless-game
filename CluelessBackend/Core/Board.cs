@@ -8,7 +8,7 @@ namespace CluelessBackend.Core
         /// <summary>
         /// Indicated by the rules, maximum number of player is 6
         /// </summary>
-        const int MAX_NUM_PLAYERS = 6;
+       public const int MAX_NUM_PLAYERS = 6;
 
         /// <summary>
         /// Players that joined the game

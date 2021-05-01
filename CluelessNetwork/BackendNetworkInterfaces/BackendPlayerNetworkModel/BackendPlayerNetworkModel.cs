@@ -49,6 +49,12 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
             PushUpdate(playerOptionCollection, UpdateType.PlayerOptionsUpdate);
         }
 
+        // TODO: Implement disconnect logic
+        public void Disconnect()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Send a chat message to the connected front end
         /// </summary>

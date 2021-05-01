@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using CluelessNetwork.BackendNetworkInterfaces;
 using CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel;
 using CluelessNetwork.TransmittedTypes;
@@ -25,10 +27,10 @@ namespace CluelessBackend
         /// <summary>
         /// When a player is added to the server, listen for messages from that player
         /// </summary>
-        /// <param name="playerModel">The player added</param>
-        private void OnPlayerAdded(IBackendPlayerNetworkModel playerModel)
+        /// <param name="playerAdded">The player added</param>
+        private void OnPlayerAdded((IGameInstance gameInstance, IBackendPlayerNetworkModel playerModel) playerAdded)
         {
-            playerModel.ChatMessageReceived += message => PlayerModelOnChatMessageReceived(message, playerModel);
+            playerAdded.playerModel.ChatMessageReceived += message => PlayerModelOnChatMessageReceived(message, playerAdded.playerModel);
         }
 
         /// <summary>
@@ -39,7 +41,14 @@ namespace CluelessBackend
         private void PlayerModelOnChatMessageReceived(ChatMessage message,
             IBackendPlayerNetworkModel sender)
         {
-            var allPlayers = _gameInstanceService.GetAllGameInstances().SelectMany(x => x);
+            var gameInstancesToSendTo = message.Scope switch
+                {
+                    ChatMessageScope.Game => new[] { _gameInstanceService.GetGameInstanceFromPlayer(sender) },
+                    ChatMessageScope.Server => (IList<IGameInstance>)_gameInstanceService.GetAllGameInstances(),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                
+            var allPlayers = gameInstancesToSendTo.SelectMany(x => x.GetPlayerModels());
             foreach (var player in allPlayers)
                 player.SendChatMessage(new ChatMessage {Content = message.Content, SenderName = sender.Name});
         }
