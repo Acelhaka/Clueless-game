@@ -5,7 +5,7 @@ using CluelessNetwork.BackendNetworkInterfaces;
 using CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel;
 using CluelessNetwork.TransmittedTypes;
 
-namespace CluelessBackend
+namespace CluelessBackend.GlobalServices
 {
     /// <summary>
     /// Receives and sends chat messages to the correct recipients

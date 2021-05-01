@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Net.Sockets;
-using CluelessNetwork.NetworkSerialization;
 using CluelessNetwork.TransmittedTypes;
+using CluelessNetwork.Websockets;
 
 namespace CluelessNetwork.FrontendNetworkInterfaces
 {
@@ -10,8 +9,6 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
     /// </summary>
     public class CluelessNetworkClient : PlayerModelBase, IFrontendPlayerNetworkModel
     {
-        private readonly TcpClient _tcpClient;
-
         /// <summary>
         /// Creates a network client and connects to a clueless server
         /// </summary>
@@ -21,11 +18,11 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
         public CluelessNetworkClient(string hostname, bool isHost, string name)
         {
             IsHost = isHost;
-            _tcpClient = new TcpClient(hostname, 12321);
-            Initialize(_tcpClient.GetStream());
+            const int port = 32123;
+            _websocket = new ClientWebsocketWrapper($"ws://{hostname}:{port}/ws");
             if (Settings.PrintNetworkDebugMessagesToConsole)
                 Console.WriteLine("Server connection established");
-            _tcpStream?.WriteObject(
+            _websocket?.WriteObject(
                 new InitialConnectionInfo
                 {
                     IsHost = isHost,
@@ -167,25 +164,25 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
             switch (updateWrapper.UpdateType)
             {
                 case UpdateType.PlayerOptionsUpdate:
-                    OptionsUpdateReceived?.Invoke((PlayerOptionCollection) updateWrapper.UpdateObject!);
+                    OptionsUpdateReceived?.Invoke((PlayerOptionCollection)updateWrapper.UpdateObject!);
                     break;
                 case UpdateType.PlayerSuggestion:
-                    PlayerSuggestionReceived?.Invoke((PlayerSuggestion) updateWrapper.UpdateObject!);
+                    PlayerSuggestionReceived?.Invoke((PlayerSuggestion)updateWrapper.UpdateObject!);
                     break;
                 case UpdateType.SuspectSelection:
-                    SuspectSelectionUpdateReceived?.Invoke((SuspectSelectionUpdate) updateWrapper.UpdateObject!);
+                    SuspectSelectionUpdateReceived?.Invoke((SuspectSelectionUpdate)updateWrapper.UpdateObject!);
                     break;
                 case UpdateType.GameStart:
-                    GameStartInfoReceived?.Invoke((GameStartInfo) updateWrapper.UpdateObject!);
+                    GameStartInfoReceived?.Invoke((GameStartInfo)updateWrapper.UpdateObject!);
                     break;
                 case UpdateType.AccusationResult:
-                    AccusationResultReceived?.Invoke((AccusationResult) updateWrapper.UpdateObject!);
+                    AccusationResultReceived?.Invoke((AccusationResult)updateWrapper.UpdateObject!);
                     break;
                 case UpdateType.PlayerSuggestionResponse:
-                    PlayerSuggestionResponseReceived?.Invoke((PlayerSuggestionResponse) updateWrapper.UpdateObject!);
+                    PlayerSuggestionResponseReceived?.Invoke((PlayerSuggestionResponse)updateWrapper.UpdateObject!);
                     break;
                 case UpdateType.ChatMessage:
-                    ChatMessageReceived?.Invoke((ChatMessage) updateWrapper.UpdateObject!);
+                    ChatMessageReceived?.Invoke((ChatMessage)updateWrapper.UpdateObject!);
                     break;
                 case UpdateType.MoveAction:
                 case UpdateType.Accusation:
@@ -193,15 +190,6 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
                         $"The frontend has no implementation for update type: {updateWrapper}");
                 default: throw new ArgumentOutOfRangeException();
             }
-        }
-
-        /// <summary>
-        /// Free resources used by this instance
-        /// </summary>
-        public override void Dispose()
-        {
-            base.Dispose();
-            _tcpClient.Dispose();
         }
     }
 }

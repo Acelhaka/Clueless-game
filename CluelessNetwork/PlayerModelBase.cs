@@ -1,6 +1,5 @@
 ﻿using System;
-using System.IO;
-using CluelessNetwork.NetworkSerialization;
+using CluelessNetwork.Websockets;
 
 namespace CluelessNetwork
 {
@@ -9,7 +8,7 @@ namespace CluelessNetwork
     /// </summary>
     public abstract class PlayerModelBase : IDisposable
     {
-        protected Stream? _tcpStream;
+        protected IWebsocket? _websocket;
 
         /// <summary>
         /// Runs when an update is received over the network
@@ -17,9 +16,9 @@ namespace CluelessNetwork
         /// <param name="updateWrapper"></param>
         protected abstract void HandleUpdateReceived(NetworkTransmittedUpdate updateWrapper);
 
-        protected void Initialize(Stream tcpStream)
+        protected void Initialize(IWebsocket websocket)
         {
-            _tcpStream = tcpStream;
+            _websocket = websocket;
         }
 
         /// <summary>
@@ -42,7 +41,7 @@ namespace CluelessNetwork
         /// <param name="updateType">The update type</param>
         protected void PushUpdate(object? updateObject, UpdateType updateType)
         {
-            _tcpStream?.WriteObject(
+            _websocket?.WriteObject(
                 new NetworkTransmittedUpdate
                 {
                     UpdateObject = updateObject,
@@ -57,18 +56,18 @@ namespace CluelessNetwork
         /// <returns>A task that completes when handling finishes</returns>
         public void ReceiveUpdate()
         {
-            var update = _tcpStream?.ReadObject<NetworkTransmittedUpdate>();
+            var update = _websocket?.ReadObject<NetworkTransmittedUpdate>();
             // Handle update
             if (update != null)
                 HandleUpdateReceived(update);
         }
 
         /// <summary>
-        /// Clean up resources used
+        /// Close websocket
         /// </summary>
         public virtual void Dispose()
         {
-            _tcpStream?.Dispose();
+            _websocket?.Dispose();
         }
     }
 }
