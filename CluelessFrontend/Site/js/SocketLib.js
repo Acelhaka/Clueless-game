@@ -17,7 +17,16 @@
 		//document.getElementById("msg").value = "";
 		//showMessage(e.data);
 		var data = JSON.parse(e.data);
-		appendMessage(data["UpdateObject"]["SenderName"], "img/327779.svg", "left", data["UpdateObject"]["Content"]);
+
+		// this means ChatMessage and thus, append the message to the chat log in the interface
+		if (data["UpdateType"] == 8) {
+			appendMessage(data["UpdateObject"]["SenderName"], "img/327779.svg", "left", data["UpdateObject"]["Content"]);
+			generateCards(["SCARLET", "KNIFE", "STUDY"]);
+		} else if (data["UpdateType"] == 7) {
+			console.log("Game Start!....need to update the player cards....");
+			generateCards(["SCARLET", "KNIFE", "STUDY"]);
+        }
+		
 		return e.data;
 	};
 
@@ -61,7 +70,7 @@ this.sendMessage = function () {
 
 
 /*
-var cards = [];
+
 
 
 function getPossibleMoves() {

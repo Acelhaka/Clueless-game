@@ -21,14 +21,59 @@ var location_to_ids = { "Study":"location_r0",
 						"Hallway-20": "location_r20"};
 						
 
-var weapons_to_links = { "CANDLESTICK": "img/weaponIcons/Candlestick.PNG",
-						 "KNIFE": "img/weaponIcons/Dagger.PNG",
-						 "PIPE": "img/weaponIcons/LeadPipe.PNG",
-						 "REVOLVER": "img/weaponIcons/Revolver.PNG",
-						 "ROPE": "img/weaponIcons/Rope.PNG",
-						 "SPANNER": "img/weaponIcons/Spanner.PNG"};
-						
-						
+var weapons_token_to_links = {
+		"CANDLESTICK": { "src": "img/weaponIcons/Candlestick.PNG", "alt": "Candlestick" },
+		"KNIFE": { "src": "img/weaponIcons/Dagger.PNG", "alt": "Dagger" },
+		"PIPE": { "src": "img/weaponIcons/LeadPipe.PNG", "alt": "Pipe" },
+		"REVOLVER": { "src": "img/weaponIcons/Revolver.PNG", "alt": "Revolver" },
+		"ROPE": { "src": "img/weaponIcons/Rope.PNG", "alt": "Rope" },
+		"SPANNER": { "src": "img/weaponIcons/Spanner.PNG", "alt": "Spanner" }
+};
+
+var weapons_to_links = {
+	"CANDLESTICK": { "src": "img/weapons/Candlestick.PNG", "alt": "Candlestick" },
+	"KNIFE": { "src": "img/weapons/Dagger.PNG", "alt": "Dagger" },
+	"PIPE": { "src": "img/weapons/LeadPipe.PNG", "alt": "Pipe" },
+	"REVOLVER": { "src": "img/weapons/Revolver.PNG", "alt": "Revolver" },
+	"ROPE": { "src": "img/weapons/Rope.PNG", "alt": "Rope" },
+	"SPANNER": { "src": "img/weapons/Spanner.PNG", "alt": "Spanner" }
+};
+
+var suspects_to_links = {
+	"SCARLET": { "src": "img/characters/MissScarlet.png", "alt": "Miss Scarlet" },
+	"MUSTARD": { "src": "img/characters/ColnelMustard.png", "alt": "Colonel Mustard" },
+	"PEACOCK": { "src": "img/characters/MrsPeakcock.png", "alt": "Mrs Peacock" },
+	"WHITE": { "src": "img/characters/MrsWhite.png", "alt": "Mrs White" },
+	"PLUM": { "src": "img/characters/ProfessorPlum.png", "alt": "Professor Plum" },
+	"GREEN": { "src": "img/characters/ReverendGreen.png", "alt": "Mr Green" }
+};
+
+var room_to_links = {
+	"BALLROOM": { "src": "img/rooms/Ballroom.png", "alt": "Ballroom" },
+	"BILLARD": { "src": "img/rooms/BillardRoom.png", "alt": "Billard Room" },
+	"CONSERVATORY": { "src": "img/rooms/Conservatory.png", "alt": "Conservatory" },
+	"DINNING": { "src": "img/rooms/DinningRoom.png", "alt": "Dinning Room" },
+	"HALL": { "src": "img/rooms/Hall.png", "alt": "Hall" },
+	"KITCHEN": { "src": "img/rooms/Kithcen.png", "alt": "Kitchen" },
+	"LIBRARY": { "src": "img/rooms/Library.png", "alt": "Library" },
+	"LOUNGE": { "src": "img/rooms/Lounge.png", "alt": "Lounge" },
+	"STUDY": { "src": "img/rooms/Study.png", "alt": "Study" }
+};
+
+var cards_to_links = Object.assign({}, room_to_links, suspects_to_links, weapons_to_links);
+
+
+function generateCards(cards) {
+	var html = "<p>";
+	console.log("cards_to_links = ", cards_to_links);
+	console.log("cards = ", cards);
+	for (var c in cards) {
+		console.log("c = ", c);
+		html += "<img src='" + cards_to_links[cards[c]].src + "' title='" + cards_to_links[cards[c]].alt + "' alt='" + cards_to_links[cards[c]].alt + "' style='max-width:143px;'/>";
+	}
+	html += "</p>";
+	document.getElementById("playerCards").innerHTML = html;
+}						
 
 function generateBoard() {
 
