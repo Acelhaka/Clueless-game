@@ -1,3 +1,4 @@
+
 	wsUri = "ws://127.0.0.1:32123/ws";
 	websocket = new WebSocket(wsUri);
 
@@ -48,7 +49,12 @@
 		//websocket.send();
 		doSend(JSON.stringify({ "UpdateType": 7, "UpdateObjectType": null, "UpdateObject": null }));
 
-};
+	};
+
+	this.endTurn = function () {
+		console.log("sending endTurn request to the server....");
+		doSend(JSON.stringify({ "UpdateType": 9, "UpdateObjectType": null, "UpdateObject": null }));
+	};
 
 
 this.sendMessage = function () {
@@ -60,6 +66,8 @@ this.sendMessage = function () {
 	//console.log("msgr-input = ", get(".msger-inputarea"));
 
 }
+
+
 
 	
 
