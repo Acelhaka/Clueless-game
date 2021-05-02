@@ -254,4 +254,10 @@ function unhighlightRoom(room) {
 	}
 	
 }
+
+
+function suggestion_popup() {
+	
+	
+}
 	
