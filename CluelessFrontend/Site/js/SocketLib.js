@@ -23,9 +23,12 @@
 		if (data["UpdateType"] == 8) {
 			appendMessage(data["UpdateObject"]["SenderName"], "img/327779.svg", "left", data["UpdateObject"]["Content"]);
 			generateCards(["SCARLET", "KNIFE", "STUDY"]);
+			// TOOD add this from the server similar to the cards provided
+			generateWeaponTokens("");
 		} else if (data["UpdateType"] == 7) {
-			console.log("Game Start!....need to update the player cards....");
-			generateCards(["SCARLET", "KNIFE", "STUDY"]);
+			console.log("Game Start!....need to update the player cards....and set the weapon to room mapping");
+			//generateCards(["SCARLET", "KNIFE", "STUDY"]);
+			
         }
 		
 		return e.data;
@@ -52,7 +55,8 @@
 	};
 
 	this.endTurn = function () {
-		console.log("sending endTurn request to the server....");
+		//console.log("sending endTurn request to the server....");
+		//generateWeaponTokens();
 		doSend(JSON.stringify({ "UpdateType": 9, "UpdateObjectType": null, "UpdateObject": null }));
 	};
 

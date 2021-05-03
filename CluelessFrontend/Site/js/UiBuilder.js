@@ -18,7 +18,7 @@ var location_to_ids = { "Study":"location_r0",
 						"Hallway-17": "location_r17",
 						"Ballroom": "location_r18",
 						"Hallway-19": "location_r19",
-						"Hallway-20": "location_r20"};
+						"Kitchen": "location_r20"};
 						
 
 var weapons_token_to_links = {
@@ -98,7 +98,9 @@ function generateBoard() {
 						'<div id="location_r2" class="card" title="Hall" style="background-image:url(img/board-images/hall.png); height:120px;width:170px;">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>'+
-								'<center><span id="r2"></span></center>' +
+								'<center><p style="float:top;" id="r2_suspects"></p>' +
+								'<p style="float:bottom;" id="r2_weapons"></p>' +
+								'</center>' +
 							'</div>' +
 						'</div>' +
 						'<div id="location_r3" class="card" title="Hallway" style="height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
@@ -110,7 +112,9 @@ function generateBoard() {
 						'<div id="location_r4" class="card" title="Lounge" style="background-image:url(img/board-images/lounge.png); height:120px;width:170px;">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>' +
-								'<center><span id="r4"></span></center>' +
+								'<center><p style="float:top;" id="r4_suspects"></p>' +
+								'<p style="float:bottom;" id="r4_weapons"></p>' +
+								'</center>' +
 							'</div>' +
 						'</div>' +
 					'</div>' +
@@ -142,7 +146,9 @@ function generateBoard() {
 						'<div id="location_r8" class="card" title="Library" style="background-image:url(img/board-images/library.png); height:120px;width:170px;">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
-							'<center><span id="r8"></span></center>' +
+							'<center><p style="float:top;" id="r8_suspects"></p>' +
+							'<p style="float:bottom;" id="r8_weapons"></p>' +
+							'</center>' +
 						'</div>' +
 					'</div>' +
 					'<div id="location_r9" class="card" title="Hallway" style="height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
@@ -154,7 +160,9 @@ function generateBoard() {
 					'<div id="location_r10" class="card" title="Billiards" style="background-image:url(img/board-images/billiards.png); height:120px;width:170px;">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
-							'<center><span id="r10"></span></center>' +
+							'<center><p style="float:top;" id="r10_suspects"></p>' +
+							'<p style="float:bottom;" id="r10_weapons"></p>' +
+							'</center>' +
 						'</div>' +
 					'</div>' +
 					'<div id="location_r11" class="card" title="Hallway" style="height:120px; width:250px; background-image:url(img/board-images/hallway-tile.png);">' +
@@ -166,7 +174,9 @@ function generateBoard() {
 					'<div id="location_r12" class="card" title="Dinning" style="height:120px;width:170px;background-image:url(img/board-images/dinning.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
-							'<center><span id="r12"></span></center>' +
+							'<center><p style="float:top;" id="r12_suspects"></p>' +
+							'<p style="float:bottom;" id="r12_weapons"></p>' +
+							'</center>' +
 						'</div>' +
 					'</div>' +
 				'</div>' +
@@ -198,7 +208,9 @@ function generateBoard() {
 					'<div id="location_r16" class="card" title="Conservatory" style="height:120px;width:170px;background-image:url(img/board-images/conservatory.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
-							'<center><span id="r16"></span></center>' +
+							'<center><p style="float:top;" id="r16_suspects"></p>' +
+									'<p style="float:bottom;" id="r16_weapons"></p>' +
+							'</center>' +
 						'</div>' +
 					'</div>' +
 		
@@ -211,7 +223,9 @@ function generateBoard() {
 				'<div id="location_r18" class="card" title="Ballroom" style="height:120px;width:170px;background-image:url(img/board-images/ballroom.png);">' +
 					'<div class="card-body">' +
 						'<h5 class="card-title"><center></center></h5>' +
-						'<center><span id="r18"></span></center>' +
+						'<center><p style="float:top;" id="r18_suspects"></p>' +
+						'<p style="float:bottom;" id="r18_weapons"></p>' +
+						'</center>' +
 					'</div>' +
 				'</div>' +
 				'<div id="location_r19" class="card" title="Hallway" style=";height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
@@ -222,7 +236,10 @@ function generateBoard() {
 				'</div>' +
 				'<div id="location_r20" class="card" title="Kitchen" style="height:120px;width:170px;background-image:url(img/board-images/kitchen.png);">' +
 					'<div class="card-body">' +
-						'<h5 class="card-title"><center><span id="r20"></span></center></h5>' +
+					'<h5 class="card-title"><center><span id="r20"></span></center></h5>' +
+					'<center><p style="float:top;" id="r20_suspects"></p>' +
+					'<p style="float:bottom;" id="r20_weapons"></p>' +
+					'</center>' +
 					'</div>' +
 				'</div>' +
 			'</div>' +
@@ -303,6 +320,28 @@ function unhighlightRoom(room) {
 
 function suggestion_popup() {
 	
+	
+}
+
+function generateWeaponTokens(rooms) {
+	// TODO once we get the server response, we can loop through what the server responds with...
+	rooms_to_weapons = {
+		"Ballroom": "CANDLESTICK",
+		"Billards": "KNIFE",
+		"Conservatory": "PIPE",
+		"Dinning": "REVOLVER",
+		"Hall": "ROPE",
+		"Kitchen": "SPANNER"
+	}
+	//console.log("inside generate weapon tokens..");
+	for (var r in rooms_to_weapons) {
+		//console.log("r = ", r);
+		if (r in location_to_ids) {
+			document.getElementById(location_to_ids[r]).innerHTML = "<span title='" + weapons_token_to_links[rooms_to_weapons[r]].alt +
+																	"'><img height='25px' width=25px' src = '" + weapons_token_to_links[rooms_to_weapons[r]].src + "'></span > ";
+        }
+
+    }
 	
 }
 	
