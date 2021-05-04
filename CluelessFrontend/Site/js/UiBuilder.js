@@ -357,6 +357,25 @@ function suspectSelectionDropdown() {
 
 }
 
+function getSuspectValueName() {
+	val = document.getElementById('playerSuspectValue').value;
+	//console.log("playerSuspectValue = ", document.getElementById('playerSuspectValue').value);
+	var name = "";
+	if (val == 0)
+		name = "Col. Mustard";
+	else if (val == 1)
+		name = "Miss Scarlet";
+	else if (val == 2)
+		name = "Professor Plum";
+	else if (val == 3)
+		name = "Mr. Green";
+	else if (val == 4)
+		name = "Mrs. White";
+	else if (val == 5)
+		name = "Mrs. Peacock";
+	return name;
+}
+
 function updatePlayerSuspectValue(val) {
 	document.getElementById('playerSuspectValue').value = val;
 	//console.log("playerSuspectValue = ", document.getElementById('playerSuspectValue').value);

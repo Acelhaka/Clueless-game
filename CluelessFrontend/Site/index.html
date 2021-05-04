@@ -466,7 +466,8 @@
                         $('#menuCheckbox').prop('checked', false); // Unchecks it
                     } else {
                         appendMessage(BOT_NAME, BOT_IMG, 'left', 'Hi, welcome to Clue! Waiting for other players. 😄');
-                        appendMessage(playerName, PERSON_IMG, 'right', 'Just Joined The Game. Hi Everyone!');
+                        var suspectName = getSuspectValueName();
+                        appendMessage(playerName, PERSON_IMG, 'right', 'Just Joined The Game as <b>' + suspectName + '</b>. Hi Everyone!');
                     }
 
                 } else {
