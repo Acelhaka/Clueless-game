@@ -443,30 +443,40 @@
             playerName = $('#playerName').val();
             console.log("player name = ", playerName);
             console.log("isHost is, ", isHost);
-            if (isHost) {
-                // TODO add function1 somewhere
-                document.getElementById('startButton').innerHTML = "<center><span class='btn btn-success' onclick='startGame();'>Start Game</span></center>";
-            }
-            if (playerName != '') {
-               
-                
-                //TODO add the websocket query back to the server/network
-                fullpage_api.silentMoveTo('game', 2); audioMenu.pause(); audioMenu = new Audio('game.mp3'); audioMenu.play(); audioMenu.loop = true;
-                connectToServer(isHost,playerName);
-                $('#fly-in').css('display', 'none');
-                $('#menuToggle').css('display', '');
 
-                if (type == 'return') {
-                    $('#menuCheckbox').prop('checked', false); // Unchecks it
-                } else {
-                    appendMessage(BOT_NAME, BOT_IMG, 'left', 'Hi, welcome to Clue! Waiting for other players. 😄');
-                    appendMessage(playerName, PERSON_IMG, 'right', 'Just Joined The Game. Hi Everyone!');
-                }
-
-            } else {
+            if (document.getElementById('playerSuspectValue').value === undefined || document.getElementById('playerSuspectValue').value === null || document.getElementById('playerSuspectValue').value === '') {
                 $('#optionsError').css('display', '');
-                $('#optionsError').html('A Player Name Is Required.');
+                $('#optionsError').html('A Suspect Is Required.');
             }
+            else {
+                if (isHost) {
+                    // TODO add function1 somewhere
+                    document.getElementById('startButton').innerHTML = "<center><span class='btn btn-success' onclick='startGame();'>Start Game</span></center>";
+                }
+                if (playerName != '') {
+
+
+                    //TODO add the websocket query back to the server/network
+                    fullpage_api.silentMoveTo('game', 2); audioMenu.pause(); audioMenu = new Audio('game.mp3'); audioMenu.play(); audioMenu.loop = true;
+                    connectToServer(isHost, playerName);
+                    $('#fly-in').css('display', 'none');
+                    $('#menuToggle').css('display', '');
+
+                    if (type == 'return') {
+                        $('#menuCheckbox').prop('checked', false); // Unchecks it
+                    } else {
+                        appendMessage(BOT_NAME, BOT_IMG, 'left', 'Hi, welcome to Clue! Waiting for other players. 😄');
+                        appendMessage(playerName, PERSON_IMG, 'right', 'Just Joined The Game. Hi Everyone!');
+                    }
+
+                } else {
+                    $('#optionsError').css('display', '');
+                    $('#optionsError').html('A Player Name Is Required.');
+                }
+            }
+            
+
+            
         }
 
         function credit(type) {
