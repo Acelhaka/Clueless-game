@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel;
+using CluelessNetwork.TransmittedTypes;
 
 namespace CluelessBackend.Core
 {
@@ -44,7 +46,7 @@ namespace CluelessBackend.Core
         /// </summary>
         public void InitSuspects()
         {
-            foreach (Suspect.SUSPECT suspectIndex in Enum.GetValues(typeof(Suspect.SUSPECT)))
+            foreach (SUSPECT suspectIndex in Enum.GetValues(typeof(SUSPECT)))
             {
                 suspects_.Add(new Suspect(suspectIndex));
             }
@@ -71,8 +73,16 @@ namespace CluelessBackend.Core
             }
         }
 
-        public void StartGame()
+        public void StartGame(
+            List<IBackendPlayerNetworkModel> networkPlayerModels,
+            Dictionary<IBackendPlayerNetworkModel, SUSPECT> suspectSelections)
         {
+            // Init players
+            List<Player> players = new List<Player>();
+
+            foreach (var playerModel in networkPlayerModels)
+                players.Add(new Player(suspectSelections[playerModel]));
+
             // Init board with rooms and hallways
             InitBoard();
             InitWeapons();
@@ -94,8 +104,65 @@ namespace CluelessBackend.Core
             Console.WriteLine("\nShuffling the cards before handing over to the players..");
             deck_.ShuffleCards();
             deck_.PrintDeckOfCards();
+            
+            // Set players to the board
+            GetBoard().SetPlayers(players);
+            SpreadCardsToPlayer(players);
+            CreateUniqueListOfRandomNum(0, 3);
+            AssignWeaponToRooms();
+            GetBoard().SePlayerstStartingPosition(players);
 
 
+            // Send to all players:
+            // - The mapping of weapons to rooms
+            // Send to each individual player:
+            // - Their cards
+            // Send to the player who goes first:
+            // - Miss Scarlet
+            var roomWeaponMap = new Dictionary<Room, Weapon>();
+            foreach (var room in rooms_)
+            {
+                if (room.Gethallway() || room.GetWeaponInRoom() == null)
+                    continue;
+                roomWeaponMap[room] = room.GetWeaponInRoom();
+            }
+            foreach (var client in networkPlayerModels)
+            {
+                var player = players.Single(gamePlayer => gamePlayer.GetSuspectType() == suspectSelections[client]);
+                var gameStartInfo = new GameStartInfo
+                {
+                    RoomWeaponMap = TransformRoomWeaponMapForJson(roomWeaponMap),
+                    Cards = player.GetPlayersCards().Select(GetNumberFromCard).ToList(),
+                    GoesFirst = player.GetSuspectType() == SUSPECT.MISS_SCARLET
+                };
+                client.SendGameStartInfo(gameStartInfo);
+            }
+        }
+
+        private static int GetNumberFromCard(Card card)
+        {
+            switch (card.Card_Type)
+            {
+                case Card.CARD_TYPE.SUSPECT:
+                    return (int)card.Suspect_Cards;
+                case Card.CARD_TYPE.WEAPON:
+                    return (int)card.Weapon_Cards;
+                case Card.CARD_TYPE.ROOM:
+                    return (int)card.Room_Cards;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        
+        private static List<(int, int)> TransformRoomWeaponMapForJson(Dictionary<Room, Weapon> toTransform)
+        {
+            var rtn = new List<(int, int)>();
+            foreach (var pair in toTransform)
+            {
+                rtn.Add(((int)pair.Key.RoomEnum, (int)pair.Value.weaponType));
+            }
+
+            return rtn;
         }
 
         /// <summary>

@@ -125,5 +125,10 @@ namespace CluelessBackend.Core
         {
             weapon_ = weapon;
         }
+
+        public Weapon GetWeaponInRoom()
+        {
+            return weapon_;
+        }
     }
 }

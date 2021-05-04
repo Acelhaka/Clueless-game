@@ -10,7 +10,7 @@ using Xunit;
 using System.IO;
 using CluelessNetwork;
 using CluelessNetwork.NetworkSerialization;
-
+using CluelessNetwork.TransmittedTypes;
 
 
 namespace CluelessTests.BackEndTests
@@ -21,7 +21,7 @@ namespace CluelessTests.BackEndTests
         [Fact]
         public void TestPlayer()
         {
-            Player p1 = new Player(Suspect.SUSPECT.MISS_SCARLET);
+            Player p1 = new Player(SUSPECT.MISS_SCARLET);
             p1.SetIsActive(true);
             
             // a newly created player should have actions to perform 

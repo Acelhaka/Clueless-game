@@ -1,49 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CluelessBackend.Core;
 using CluelessNetwork.BackendNetworkInterfaces;
 using CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel;
 
 namespace CluelessBackend
 {
-    public class GameInstance : IGameInstance, IDisposable
-    {
-        private readonly IBackendPlayerNetworkModel _host;
-
-        public GameInstance(IBackendPlayerNetworkModel host)
-        {
-            _host = host;
-            _gameManager = new GameManager();
-
-            _host.GameStartReceived += OnGameStartReceived;
-        }
-
-        private void OnGameStartReceived()
-        {
-            _isInGame = true;
-            _gameManager.StartGame();
-        }
-
-        private readonly List<IBackendPlayerNetworkModel> _playerModels = new();
-        private bool _isInGame;
-        private readonly GameManager _gameManager;
-        public bool CanAddPlayers => !_isInGame && _playerModels.Count < Board.MAX_NUM_PLAYERS;
-        public void AddPlayer(IBackendPlayerNetworkModel playerNetworkModel)
-        {
-            _playerModels.Add(playerNetworkModel);
-        }
-
-        public List<IBackendPlayerNetworkModel> GetPlayerModels()
-        {
-            return _playerModels;
-        }
-
-        public void Dispose()
-        {
-            _host.GameStartReceived -= OnGameStartReceived;
-        }
-    }
     public class GameInstanceService : IGameInstanceService
     {
         private readonly List<IGameInstance> _gameInstances = new();

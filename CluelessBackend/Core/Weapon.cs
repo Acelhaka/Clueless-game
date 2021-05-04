@@ -29,12 +29,6 @@ namespace CluelessBackend.Core
         public int weaponID { get; set; }
         public int weaponType { get; set; }
 
-        public Weapon(int weaponID, string weaponType)
-        {
-            weaponID_ = weaponID;
-            weaponName_ = weaponType;
-        }
-
         public Weapon(WEAPON weaponType)
         {
             weaponType_ = weaponType;
