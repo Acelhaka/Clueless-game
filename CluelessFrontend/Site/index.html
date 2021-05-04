@@ -106,7 +106,7 @@
 
 
 </head>
-<body onload="generateBoard(); generateChecklist(); generateMovePad();">
+<body onload="generateBoard(); generateChecklist(); generateMovePad(); suspectSelectionDropdown();">
     <center>
         <!-- Loading Animation -->
         <div id="animationWindow">
@@ -220,6 +220,8 @@
                                 <div class="input-group-append">
                                     <a class="btn btn btn-success" type="button" href="javascript:loadGame()">Start Game</a>
                                 </div>
+                                <div id="pickSuspectDropdown"></div>
+                                <input id="playerSuspectValue" hidden/><span id="playerSuspectName"></span>
                             </div>
                             <br>
                             <div id="optionsError" class="alert alert-danger" role="alert" style="display:none;"></div>

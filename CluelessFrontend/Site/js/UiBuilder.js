@@ -48,6 +48,15 @@ var suspects_to_links = {
 	"GREEN": { "src": "img/characters/ReverendGreen.png", "alt": "Mr Green" }
 };
 
+var suspectsTokens_to_links = {
+	"SCARLET": { "src": "img/characterIcons/MissScarlet.png", "alt": "Miss Scarlet" },
+	"MUSTARD": { "src": "img/characterIcons/ColonelMustard.png", "alt": "Colonel Mustard" },
+	"PEACOCK": { "src": "img/characterIcons/MrsPeacock.png", "alt": "Mrs Peacock" },
+	"WHITE": { "src": "img/characterIcons/MrsWhite.png", "alt": "Mrs White" },
+	"PLUM": { "src": "img/characterIcons/ProfessorPlum.png", "alt": "Professor Plum" },
+	"GREEN": { "src": "img/characterIcons/ReverendGreen.png", "alt": "Mr Green" }
+};
+
 var room_to_links = {
 	"BALLROOM": { "src": "img/rooms/Ballroom.png", "alt": "Ballroom" },
 	"BILLARD": { "src": "img/rooms/BillardRoom.png", "alt": "Billard Room" },
@@ -317,6 +326,56 @@ function unhighlightRoom(room) {
 	
 }
 
+function suspectSelectionDropdown() {
+	/* the backend stores this os an enum so use the value as numbers
+	 * COLNEL_MUSTARD	= 0
+	   MISS_SCARLET	= 1
+	   PROFESSOR_PLUM	= 2
+	   MR_GREEN	= 3
+	   MRS_WHITE	= 4
+	   MRS_PEACOCK	= 5
+	*/
+	// send updateType: 6, UpdateObjectType: SuspectSelectionUpdate PlayerName, no scope needed
+	//playerSuspectValue
+	// include a dropdown in the host / lobby to allow them to select which suspect they want to run // send gameType of 6 (SuspectSelection) 
+	var html = "<div class='btn-group'>" +
+					"<button type='button' class='btn btn-info'>Select Suspect</button>" +
+					"<button type='button' class='btn btn-info dropdown-toggle dropdown-toggle-split' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
+					"<span class='sr-only'>Toggle Dropdown</span></button>" + 
+					"<div class='dropdown-menu'>" +
+						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(0);'>Colnel Mustard</a>" +
+						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(1);'>Miss Scarlet</a>" +
+						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(2);'>Professor Plum</a>" +
+						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(3);'>Mr Green</a>" +
+						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(4);'>Mrs White</a>" +
+						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(5);'>Mrs Peacock</a>" +
+					"</div>" +
+				"</div>"
+
+	document.getElementById('pickSuspectDropdown').innerHTML = html;
+	
+
+}
+
+function updatePlayerSuspectValue(val) {
+	document.getElementById('playerSuspectValue').value = val;
+	//console.log("playerSuspectValue = ", document.getElementById('playerSuspectValue').value);
+	var name = "";
+	if (val == 0)
+		name = suspectsTokens_to_links["MUSTARD"];
+	else if (val == 1)
+		name = suspectsTokens_to_links["SCARLET"]; 
+	else if (val == 2)
+		name = suspectsTokens_to_links["PLUM"]; 
+	else if (val == 3)
+		name = suspectsTokens_to_links["GREEN"]; 
+	else if (val == 4)
+		name = suspectsTokens_to_links["WHITE"]; 
+	else if (val == 5)
+		name = suspectsTokens_to_links["PEACOCK"];
+
+	document.getElementById('playerSuspectName').innerHTML = "<img src='"+ name.src + "' title='" + name.alt +"'/>";
+}
 
 function suggestion_popup() {
 	

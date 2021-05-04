@@ -46,6 +46,8 @@
 	this.connectToServer = function(host, name) {
 		//console.log(JSON.stringify({ 'IsHost': host, 'Name': name }));
 		doSend(JSON.stringify({ 'IsHost': host, 'Name': name }));
+		sendSuspectSelection();
+		
 	};
 
 	this.startGame = function() {
@@ -54,11 +56,17 @@
 
 	};
 
+	this.sendSuspectSelection = function () {
+		val = document.getElementById('playerSuspectValue').value;
+		doSend(JSON.stringify({ "UpdateType": 6, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.SuspectSelectionUpdate", "UpdateObject": { "SuspectSelected": val, "PlayerName": null } }));
+		//
+	}
+
 	this.endTurn = function () {
 		//console.log("sending endTurn request to the server....");
 		//generateWeaponTokens();
 		doSend(JSON.stringify({ "UpdateType": 9, "UpdateObjectType": null, "UpdateObject": null }));
-	};
+};
 
 
 this.sendMessage = function () {
