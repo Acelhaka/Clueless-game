@@ -1,4 +1,3 @@
-
 	wsUri = "ws://127.0.0.1:32123/ws";
 	websocket = new WebSocket(wsUri);
 
@@ -22,9 +21,7 @@
 		// this means ChatMessage and thus, append the message to the chat log in the interface
 		if (data["UpdateType"] == 8) {
 			appendMessage(data["UpdateObject"]["SenderName"], "img/327779.svg", "left", data["UpdateObject"]["Content"]);
-			generateCards(["SCARLET", "KNIFE", "STUDY"]);
-			// TOOD add this from the server similar to the cards provided
-			generateWeaponTokens("");
+			
 		} else if (data["UpdateType"] == 7) {
 			console.log("Game Start!....need to update the player cards....and set the weapon to room mapping");
 			//generateCards(["SCARLET", "KNIFE", "STUDY"]);
@@ -53,11 +50,17 @@
 	this.startGame = function() {
 		//websocket.send();
 		doSend(JSON.stringify({ "UpdateType": 7, "UpdateObjectType": null, "UpdateObject": null }));
+		generateCards(["SCARLET", "KNIFE", "STUDY", "BILLARD", "WHITE", "PLUM"]);
+		// TOOD add this from the server similar to the cards provided
+		generateWeaponTokens("");
+		// erase the start game button since it was already pressed
+		document.getElementById('startGameButtonId').innerHTML = "";
 
 	};
 
 	this.sendSuspectSelection = function () {
-		val = getSuspectValueName();
+		//val = document.getElementById('playerSuspectValue').value;
+    val = getSuspectValueName();
 		doSend(JSON.stringify({ "UpdateType": 6, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.SuspectSelectionUpdate", "UpdateObject": { "SuspectSelected": val, "PlayerName": null } }));
 		//
 	}
@@ -135,6 +138,3 @@ function init() {
 	
 }
 */
-
-
-

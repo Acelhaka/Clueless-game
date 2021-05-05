@@ -1,4 +1,4 @@
-var location_to_ids = { "Study":"location_r0",
+var location_to_ids = { "Study":"location_r0", 
 						"Hallway-r1": "location_r1",
 						"Hall": "location_r2",
 						"Hallway-r3": "location_r3",
@@ -78,7 +78,7 @@ function generateCards(cards) {
 	console.log("cards = ", cards);
 	for (var c in cards) {
 		console.log("c = ", c);
-		html += "<img src='" + cards_to_links[cards[c]].src + "' title='" + cards_to_links[cards[c]].alt + "' alt='" + cards_to_links[cards[c]].alt + "' style='max-width:143px;'/>";
+		html += "<img class='zoom' src='" + cards_to_links[cards[c]].src + "' title='" + cards_to_links[cards[c]].alt + "' height=100px; width:100px; alt='" + cards_to_links[cards[c]].alt + "'/>";
 	}
 	html += "</p>";
 	document.getElementById("playerCards").innerHTML = html;
@@ -129,21 +129,21 @@ function generateBoard() {
 					'</div>' +
 					// ROW 2 of the board
 					'<div class="row">' +
-						'<div id="location_r5" class="card vertHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
+						'<div id="location_r5" class="card vertHall" title="Hallway" background-image:url(img/board-images/hallway-tile.png);">' +
 							'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r5" title="Professor Plum"><img src="img/characterIcons/ProfessorPlum.PNG"></span></center>' +
 						'</div>' +
 					'</div>' +
 					'<div  id="location_r6" class="fillHall" style="">&nbsp;</div>' +
-					'<div class="card vertHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div class="card vertHall" title="Hallway" background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r6"></span></center>' +
 						'</div>' +
 					'</div>' +
-					'<div class="fillHall">&nbsp;</div>' +
-					'<div id="location_r7" class="card vertHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div  class="fillHall">&nbsp;</div>' +
+					'<div id="location_r7" class="card vertHall" title="Hallway" background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r7" title="Col. Mustard"><img src="img/characterIcons/ColonelMustard.PNG"></span></center>' +
@@ -323,8 +323,9 @@ function unhighlightRoom(room) {
 		originalCss = document.getElementById(location_to_ids[room]).style.cssText;
 		document.getElementById(location_to_ids[room]).style.cssText = originalCss.replace("opacity: 0.4;","");
 	}
-
+	
 }
+
 /* No longer needed?
 function suspectSelectionDropdown() {
 	/* the backend stores this os an enum so use the value as numbers
@@ -334,8 +335,7 @@ function suspectSelectionDropdown() {
 	   MR_GREEN	= 3
 	   MRS_WHITE	= 4
 	   MRS_PEACOCK	= 5
-	*/
-    /*
+	
 	// send updateType: 6, UpdateObjectType: SuspectSelectionUpdate PlayerName, no scope needed
 	//playerSuspectValue
 	// include a dropdown in the host / lobby to allow them to select which suspect they want to run // send gameType of 6 (SuspectSelection) 
@@ -354,13 +354,12 @@ function suspectSelectionDropdown() {
 				"</div>"
 
 	document.getElementById('pickSuspectDropdown').innerHTML = html;
-	
-
 }
 */
 
 function getSuspectValueName() {
-	radiosPlayerSelect = document.getElementsByName('playerSelect');
+	//val = document.getElementById('playerSuspectValue').value;
+  radiosPlayerSelect = document.getElementsByName('playerSelect');
 	//console.log("playerSuspectValue = ", document.getElementById('playerSuspectValue').value);
 	var name = "";
 	if (radiosPlayerSelect[0].checked)
@@ -397,8 +396,8 @@ function updatePlayerSuspectValue(val) {
 		name = suspectsTokens_to_links["PEACOCK"];
 
 	document.getElementById('playerSuspectName').innerHTML = "<img src='"+ name.src + "' title='" + name.alt +"'/>";
-}
-*/
+}*/
+
 function suggestion_popup() {
 	
 	
