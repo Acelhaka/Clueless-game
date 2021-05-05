@@ -86,10 +86,10 @@ function generateCards(cards) {
 
 function generateBoard() {
 
-	var html = '<div class="container" style="float:left;padding-left:20px;">' +
+	var html = '<div class="container" style="float:left;">' +
 					// ROW 1 of the board
 					' <div class="row"> ' +
-						'<div id="location_r0" class="card" title="Study" style="background-image:url(img/board-images/study.png); height:120px;width:170px;">' +
+						'<div id="location_r0" class="card room" title="Study" style="background-image:url(img/board-images/study.png);">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title" style=""><center></center></h5>' +
 									// TODO need to add a suspect and weapon section to each location so weapons and suspects can get assigned to the location (hallways dont need weapons though)
@@ -98,13 +98,13 @@ function generateBoard() {
 									'</center>' +
 							'</div>'+
 						'</div>' +
-						'<div id="location_r1" class="card" title="Hallway" style="height:120px; width:250px; background-image:url(img/board-images/hallway-tile.png);">' +
+						'<div id="location_r1" class="card horizHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
 							'<div class="card-body">' +
 								' <h5 class="card-title"><center></center></h5> ' +
 								' <center><span id="r1"></span></center> ' +
 							'</div>' +
 						'</div>' +
-						'<div id="location_r2" class="card" title="Hall" style="background-image:url(img/board-images/hall.png); height:120px;width:170px;">' +
+						'<div id="location_r2" class="card room" title="Hall" style="background-image:url(img/board-images/hall.png);">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>'+
 								'<center><p style="float:top;" id="r2_suspects"></p>' +
@@ -112,13 +112,13 @@ function generateBoard() {
 								'</center>' +
 							'</div>' +
 						'</div>' +
-						'<div id="location_r3" class="card" title="Hallway" style="height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
+						'<div id="location_r3" class="card horizHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>' +
 								'<center><span id="r3"><span title="Miss Scarlet"><img src="img/characterIcons/MissScarlet.PNG"></span></center>' +
 							'</div>' +
 						'</div>' +
-						'<div id="location_r4" class="card" title="Lounge" style="background-image:url(img/board-images/lounge.png); height:120px;width:170px;">' +
+						'<div id="location_r4" class="card room" title="Lounge" style="background-image:url(img/board-images/lounge.png);">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>' +
 								'<center><p style="float:top;" id="r4_suspects"></p>' +
@@ -129,21 +129,21 @@ function generateBoard() {
 					'</div>' +
 					// ROW 2 of the board
 					'<div class="row">' +
-						'<div id="location_r5" class="card" title="Hallway" style="height:250px; width:170px;background-image:url(img/board-images/hallway-tile.png);">' +
+						'<div id="location_r5" class="card vertHall" title="Hallway" background-image:url(img/board-images/hallway-tile.png);">' +
 							'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r5" title="Professor Plum"><img src="img/characterIcons/ProfessorPlum.PNG"></span></center>' +
 						'</div>' +
 					'</div>' +
-					'<div  id="location_r6" style="height:250px; width:250px;">&nbsp;</div>' +
-					'<div class="card" title="Hallway" style="height:250px; width:170px;background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div  id="location_r6" class="fillHall" style="">&nbsp;</div>' +
+					'<div class="card vertHall" title="Hallway" background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r6"></span></center>' +
 						'</div>' +
 					'</div>' +
-					'<div  style="height:120px; width:250px;">&nbsp;</div>' +
-					'<div id="location_r7" class="card" title="Hallway" style="height:250px; width:170px;background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div  class="fillHall">&nbsp;</div>' +
+					'<div id="location_r7" class="card vertHall" title="Hallway" background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r7" title="Col. Mustard"><img src="img/characterIcons/ColonelMustard.PNG"></span></center>' +
@@ -152,7 +152,7 @@ function generateBoard() {
 				'</div>' +
 					// ROW 3 of the board
 					'<div class="row">' +
-						'<div id="location_r8" class="card" title="Library" style="background-image:url(img/board-images/library.png); height:120px;width:170px;">' +
+						'<div id="location_r8" class="card room" title="Library" style="background-image:url(img/board-images/library.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><p style="float:top;" id="r8_suspects"></p>' +
@@ -160,13 +160,13 @@ function generateBoard() {
 							'</center>' +
 						'</div>' +
 					'</div>' +
-					'<div id="location_r9" class="card" title="Hallway" style="height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div id="location_r9" class="card horizHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r9"></span></center>' +
 						'</div>'+
 					'</div>'+
-					'<div id="location_r10" class="card" title="Billiards" style="background-image:url(img/board-images/billiards.png); height:120px;width:170px;">' +
+					'<div id="location_r10" class="card room" title="Billiards" style="background-image:url(img/board-images/billiards.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><p style="float:top;" id="r10_suspects"></p>' +
@@ -174,13 +174,13 @@ function generateBoard() {
 							'</center>' +
 						'</div>' +
 					'</div>' +
-					'<div id="location_r11" class="card" title="Hallway" style="height:120px; width:250px; background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div id="location_r11" class="card horizHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r11"></span></center>' +
 						'</div>' +
 					'</div>' +
-					'<div id="location_r12" class="card" title="Dinning" style="height:120px;width:170px;background-image:url(img/board-images/dinning.png);">' +
+					'<div id="location_r12" class="card room" title="Dinning" style="background-image:url(img/board-images/dinning.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><p style="float:top;" id="r12_suspects"></p>' +
@@ -191,21 +191,21 @@ function generateBoard() {
 				'</div>' +
 				// ROW 4 of the board
 				'<div class="row">' +
-					'<div id="location_r13" class="card" title="Hallway" style="height:250px; width:170px; background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div id="location_r13" class="card vertHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 								'<center><span id="r13" title="Mrs. Peacock"><img src="img/characterIcons/MrsPeacock.PNG"></span></center>' +
 							'</div>'+
 						'</div>'+
-					'<div style="height:120px; width:250px;">&nbsp;</div>' +
-						'<div id="location_r14" class="card" title="Hallway" style="height:250px; width:170px; background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div class="fillHall">&nbsp;</div>' +
+						'<div id="location_r14" class="card vertHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>' +
 								'<center><span id="r14"></span></center>' +
 							'</div>' +
 						'</div>' +
-					'<div  style="height:120px; width:250px;">&nbsp;</div>' +
-						'<div id="location_r15" class="card" title="Hallway" style="height:250px; width:170px; background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div class="fillHall">&nbsp;</div>' +
+						'<div id="location_r15" class="card vertHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>' +
 								'<center><span id="r15"></span></center>' +
@@ -214,7 +214,7 @@ function generateBoard() {
 					'</div>' +
 				//ROW 5
 				'<div class="row">' +
-					'<div id="location_r16" class="card" title="Conservatory" style="height:120px;width:170px;background-image:url(img/board-images/conservatory.png);">' +
+					'<div id="location_r16" class="card room" title="Conservatory" style="background-image:url(img/board-images/conservatory.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><p style="float:top;" id="r16_suspects"></p>' +
@@ -223,13 +223,13 @@ function generateBoard() {
 						'</div>' +
 					'</div>' +
 		
-					'<div id="location_r17" class="card" title="Hallway" style="height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div id="location_r17" class="card horizHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r17" title="Mr. Green"><img src="img/characterIcons/ReverendGreen.PNG"></span></center>' +
 						'</div>' +
 					'</div>' +
-				'<div id="location_r18" class="card" title="Ballroom" style="height:120px;width:170px;background-image:url(img/board-images/ballroom.png);">' +
+				'<div id="location_r18" class="card room" title="Ballroom" style="background-image:url(img/board-images/ballroom.png);">' +
 					'<div class="card-body">' +
 						'<h5 class="card-title"><center></center></h5>' +
 						'<center><p style="float:top;" id="r18_suspects"></p>' +
@@ -237,13 +237,13 @@ function generateBoard() {
 						'</center>' +
 					'</div>' +
 				'</div>' +
-				'<div id="location_r19" class="card" title="Hallway" style=";height:120px; width:250px;background-image:url(img/board-images/hallway-tile.png);">' +
+				'<div id="location_r19" class="card horizHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
 					'<div class="card-body">' +
 						'<h5 class="card-title"><center></center></h5>' +
 						'<center><span id="r19" title="Mrs. White"><img src="img/characterIcons/MrsWhite.PNG"></span></center>' +
 					'</div>' +
 				'</div>' +
-				'<div id="location_r20" class="card" title="Kitchen" style="height:120px;width:170px;background-image:url(img/board-images/kitchen.png);">' +
+				'<div id="location_r20" class="card room" title="Kitchen" style="background-image:url(img/board-images/kitchen.png);">' +
 					'<div class="card-body">' +
 					'<h5 class="card-title"><center><span id="r20"></span></center></h5>' +
 					'<center><p style="float:top;" id="r20_suspects"></p>' +
@@ -326,6 +326,7 @@ function unhighlightRoom(room) {
 	
 }
 
+/* No longer needed?
 function suspectSelectionDropdown() {
 	/* the backend stores this os an enum so use the value as numbers
 	 * COLNEL_MUSTARD	= 0
@@ -334,7 +335,7 @@ function suspectSelectionDropdown() {
 	   MR_GREEN	= 3
 	   MRS_WHITE	= 4
 	   MRS_PEACOCK	= 5
-	*/
+	
 	// send updateType: 6, UpdateObjectType: SuspectSelectionUpdate PlayerName, no scope needed
 	//playerSuspectValue
 	// include a dropdown in the host / lobby to allow them to select which suspect they want to run // send gameType of 6 (SuspectSelection) 
@@ -353,29 +354,30 @@ function suspectSelectionDropdown() {
 				"</div>"
 
 	document.getElementById('pickSuspectDropdown').innerHTML = html;
-	
-
 }
+*/
 
 function getSuspectValueName() {
-	val = document.getElementById('playerSuspectValue').value;
+	//val = document.getElementById('playerSuspectValue').value;
+  radiosPlayerSelect = document.getElementsByName('playerSelect');
 	//console.log("playerSuspectValue = ", document.getElementById('playerSuspectValue').value);
 	var name = "";
-	if (val == 0)
+	if (radiosPlayerSelect[0].checked)
 		name = "Col. Mustard";
-	else if (val == 1)
+	else if (radiosPlayerSelect[1].checked)
 		name = "Miss Scarlet";
-	else if (val == 2)
+	else if (radiosPlayerSelect[2].checked)
 		name = "Professor Plum";
-	else if (val == 3)
+	else if (radiosPlayerSelect[3].checked)
 		name = "Mr. Green";
-	else if (val == 4)
+	else if (radiosPlayerSelect[4].checked)
 		name = "Mrs. White";
-	else if (val == 5)
+	else if (radiosPlayerSelect[5].checked)
 		name = "Mrs. Peacock";
 	return name;
 }
 
+/* No longer needed?
 function updatePlayerSuspectValue(val) {
 	document.getElementById('playerSuspectValue').value = val;
 	//console.log("playerSuspectValue = ", document.getElementById('playerSuspectValue').value);
@@ -394,7 +396,7 @@ function updatePlayerSuspectValue(val) {
 		name = suspectsTokens_to_links["PEACOCK"];
 
 	document.getElementById('playerSuspectName').innerHTML = "<img src='"+ name.src + "' title='" + name.alt +"'/>";
-}
+}*/
 
 function suggestion_popup() {
 	
