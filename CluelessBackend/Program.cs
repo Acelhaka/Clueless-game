@@ -37,7 +37,6 @@ namespace CluelessBackend
             // TODO: Load server configuration file
             // TODO: Start logging
 
-            BackendInitializer.InitializeBackend();
             CreateHostBuilder(args).Build().Run();
         }
 

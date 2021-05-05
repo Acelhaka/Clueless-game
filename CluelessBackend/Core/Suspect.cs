@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CluelessNetwork.TransmittedTypes;
 
 namespace CluelessBackend.Core
 {
@@ -12,16 +13,6 @@ namespace CluelessBackend.Core
         string suspectName_;
         string suspectColor_ = "";
         SUSPECT suspectType_;
-        public enum SUSPECT
-        {
-            COLONEL_MUSTARD,
-            MISS_SCARLET,
-            PROFESSOR_PLUM,
-            MR_GREEN,
-            MRS_WHITE,
-            MRS_PEACOCK
-        }
-
         public Suspect()
         {
 

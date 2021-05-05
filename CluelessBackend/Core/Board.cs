@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CluelessNetwork.TransmittedTypes;
 
 namespace CluelessBackend.Core
 {
@@ -72,37 +73,37 @@ namespace CluelessBackend.Core
         {
             for (int i = 0; i < players.Count; i++)
             {
-                if (players[i].GetSuspectType() == Suspect.SUSPECT.MISS_SCARLET)
+                if (players[i].GetSuspectType() == SUSPECT.MISS_SCARLET)
                 {
                     rooms_[0, 3].SetPlayerInRoom(players[i]);
                     players[i].SetPlayerStartingPosition(0, 3);
                     Console.WriteLine("MISS_SCARLET - Starting position in cell [0,3], Hallway-2");
                 }
-                else if (players[i].GetSuspectType() == Suspect.SUSPECT.MR_GREEN)
+                else if (players[i].GetSuspectType() == SUSPECT.MR_GREEN)
                 {
                     rooms_[4, 1].SetPlayerInRoom(players[i]);
                     players[i].SetPlayerStartingPosition(4, 1);
                     Console.WriteLine("MR_GREEN - Starting position in cell [4,1], Hallway-11");
                 }
-                else if (players[i].GetSuspectType() == Suspect.SUSPECT.COLONEL_MUSTARD)
+                else if (players[i].GetSuspectType() == SUSPECT.COLONEL_MUSTARD)
                 {
                     rooms_[1, 4].SetPlayerInRoom(players[i]);
                     players[i].SetPlayerStartingPosition(1, 4);
                     Console.WriteLine("COLONEL_MUSTARD - Starting position in cell [1,4], Hallway-5");
                 }
-                else if (players[i].GetSuspectType() == Suspect.SUSPECT.MRS_PEACOCK)
+                else if (players[i].GetSuspectType() == SUSPECT.MRS_PEACOCK)
                 {
                     rooms_[3, 0].SetPlayerInRoom(players[i]);
                     players[i].SetPlayerStartingPosition(3, 0);
                     Console.WriteLine("MRS_PEACOCK - Starting position in cell [3,0], Hallway-8");
                 }
-                else if (players[i].GetSuspectType() == Suspect.SUSPECT.PROFESSOR_PLUM)
+                else if (players[i].GetSuspectType() == SUSPECT.PROFESSOR_PLUM)
                 {
                     rooms_[1, 0].SetPlayerInRoom(players[i]);
                     players[i].SetPlayerStartingPosition(1, 0);
                     Console.WriteLine("PROFESSOR_PLUM - Starting position in cell [1,0], Hallway-3");
                 }
-                else if (players[i].GetSuspectType() == Suspect.SUSPECT.MRS_WHITE)
+                else if (players[i].GetSuspectType() == SUSPECT.MRS_WHITE)
                 {
                     rooms_[4, 3].SetPlayerInRoom(players[i]);
                     players[i].SetPlayerStartingPosition(4, 3);

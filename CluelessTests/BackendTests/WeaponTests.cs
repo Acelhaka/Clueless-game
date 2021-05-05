@@ -22,7 +22,7 @@ namespace CluelessTests.BackEndTests
         public void TestWeaponSetters()
         {
             // load the weapon with values
-            Weapon weapon = new Weapon(0, "Knife");
+            Weapon weapon = new Weapon(Weapon.WEAPON.KNIFE);
 
             // change the values via the setters
             weapon.weaponName = "Pipe";
@@ -38,7 +38,7 @@ namespace CluelessTests.BackEndTests
         public void TestWeaponGetters()
         {
             // load the weapon with values
-            Weapon weapon = new Weapon(0, "Knife");
+            Weapon weapon = new Weapon(Weapon.WEAPON.KNIFE);
 
             // test the getters work as expected
             Assert.True(weapon.weaponName.Equals("Knife"));

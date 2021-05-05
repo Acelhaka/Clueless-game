@@ -10,7 +10,7 @@ using Xunit;
 using System.IO;
 using CluelessNetwork;
 using CluelessNetwork.NetworkSerialization;
-
+using CluelessNetwork.TransmittedTypes;
 
 
 namespace CluelessTests.BackEndTests
@@ -99,12 +99,12 @@ namespace CluelessTests.BackEndTests
         [Fact]
         public void TestSpreadCardsToPlayer()
         {
-            Player p1 = new Player(Suspect.SUSPECT.MISS_SCARLET);
-            Player p2 = new Player(Suspect.SUSPECT.COLONEL_MUSTARD);
-            Player p3 = new Player(Suspect.SUSPECT.MRS_PEACOCK);
-            Player p4 = new Player(Suspect.SUSPECT.MRS_WHITE);
-            Player p5 = new Player(Suspect.SUSPECT.MR_GREEN);
-            Player p6 = new Player(Suspect.SUSPECT.PROFESSOR_PLUM);
+            Player p1 = new Player(SUSPECT.MISS_SCARLET);
+            Player p2 = new Player(SUSPECT.COLONEL_MUSTARD);
+            Player p3 = new Player(SUSPECT.MRS_PEACOCK);
+            Player p4 = new Player(SUSPECT.MRS_WHITE);
+            Player p5 = new Player(SUSPECT.MR_GREEN);
+            Player p6 = new Player(SUSPECT.PROFESSOR_PLUM);
 
             List<Player> players = new List<Player>();
             players.Add(p1);
@@ -140,10 +140,10 @@ namespace CluelessTests.BackEndTests
             Assert.True(3.Equals(p6.GetPlayersCards().Count), "player's card count was expected to be 3, but it is not");
 
             // now test again, but an odd number of players where one player gets more than the rest.
-            p1 = new Player(Suspect.SUSPECT.MISS_SCARLET);
-            p2 = new Player(Suspect.SUSPECT.COLONEL_MUSTARD);
-            p3 = new Player(Suspect.SUSPECT.MRS_PEACOCK);
-            p4 = new Player(Suspect.SUSPECT.MRS_WHITE);
+            p1 = new Player(SUSPECT.MISS_SCARLET);
+            p2 = new Player(SUSPECT.COLONEL_MUSTARD);
+            p3 = new Player(SUSPECT.MRS_PEACOCK);
+            p4 = new Player(SUSPECT.MRS_WHITE);
 
             players = new List<Player>();
             players.Add(p1);

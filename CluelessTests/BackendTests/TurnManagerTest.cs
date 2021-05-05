@@ -10,6 +10,7 @@ using Xunit;
 using System.IO;
 using CluelessNetwork;
 using CluelessNetwork.NetworkSerialization;
+using CluelessNetwork.TransmittedTypes;
 
 
 namespace CluelessTests.BackEndTests
@@ -20,12 +21,12 @@ namespace CluelessTests.BackEndTests
         [Fact]
         public void TestAllPlayersActive()
         {
-            Player p1 = new Player(Suspect.SUSPECT.MISS_SCARLET);
-            Player p2 = new Player(Suspect.SUSPECT.COLONEL_MUSTARD);
-            Player p3 = new Player(Suspect.SUSPECT.MRS_PEACOCK);
-            Player p4 = new Player(Suspect.SUSPECT.MRS_WHITE);
-            Player p5 = new Player(Suspect.SUSPECT.MR_GREEN);
-            Player p6 = new Player(Suspect.SUSPECT.PROFESSOR_PLUM);
+            Player p1 = new Player(SUSPECT.MISS_SCARLET);
+            Player p2 = new Player(SUSPECT.COLONEL_MUSTARD);
+            Player p3 = new Player(SUSPECT.MRS_PEACOCK);
+            Player p4 = new Player(SUSPECT.MRS_WHITE);
+            Player p5 = new Player(SUSPECT.MR_GREEN);
+            Player p6 = new Player(SUSPECT.PROFESSOR_PLUM);
 
             List<Player> players = new List<Player>();
             players.Add(p1);
@@ -73,12 +74,12 @@ namespace CluelessTests.BackEndTests
         [Fact]
         public void TestSomePlayersActive()
         {
-            Player p1 = new Player(Suspect.SUSPECT.MISS_SCARLET);
-            Player p2 = new Player(Suspect.SUSPECT.COLONEL_MUSTARD);
-            Player p3 = new Player(Suspect.SUSPECT.MRS_PEACOCK);
-            Player p4 = new Player(Suspect.SUSPECT.MRS_WHITE);
-            Player p5 = new Player(Suspect.SUSPECT.MR_GREEN);
-            Player p6 = new Player(Suspect.SUSPECT.PROFESSOR_PLUM);
+            Player p1 = new Player(SUSPECT.MISS_SCARLET);
+            Player p2 = new Player(SUSPECT.COLONEL_MUSTARD);
+            Player p3 = new Player(SUSPECT.MRS_PEACOCK);
+            Player p4 = new Player(SUSPECT.MRS_WHITE);
+            Player p5 = new Player(SUSPECT.MR_GREEN);
+            Player p6 = new Player(SUSPECT.PROFESSOR_PLUM);
 
             List<Player> players = new List<Player>();
             players.Add(p1);
@@ -120,12 +121,12 @@ namespace CluelessTests.BackEndTests
         public void TestNoPlayersActive()
         {
             // this would be a case where all players made a wrong accusation and the game ends
-            Player p1 = new Player(Suspect.SUSPECT.MISS_SCARLET);
-            Player p2 = new Player(Suspect.SUSPECT.COLONEL_MUSTARD);
-            Player p3 = new Player(Suspect.SUSPECT.MRS_PEACOCK);
-            Player p4 = new Player(Suspect.SUSPECT.MRS_WHITE);
-            Player p5 = new Player(Suspect.SUSPECT.MR_GREEN);
-            Player p6 = new Player(Suspect.SUSPECT.PROFESSOR_PLUM);
+            Player p1 = new Player(SUSPECT.MISS_SCARLET);
+            Player p2 = new Player(SUSPECT.COLONEL_MUSTARD);
+            Player p3 = new Player(SUSPECT.MRS_PEACOCK);
+            Player p4 = new Player(SUSPECT.MRS_WHITE);
+            Player p5 = new Player(SUSPECT.MR_GREEN);
+            Player p6 = new Player(SUSPECT.PROFESSOR_PLUM);
 
             List<Player> players = new List<Player>();
             players.Add(p1);
