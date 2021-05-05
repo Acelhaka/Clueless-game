@@ -11,6 +11,19 @@
     <!--Loading Screen Styles-->
     <style>
 
+        /* this is for the card zoom for player cards */
+        .zoom {
+            /*padding: 50px;*/
+            transition: transform .2s; /* Animation */
+            /*width: 200px;
+            height: 200px;*/
+            margin: 0 auto;
+        }
+
+        .zoom:hover {
+            transform: scale(3); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+
         *, ::after, ::before {
             box-sizing: unset;
         }
@@ -275,9 +288,12 @@
                                 <br><br><br>
                                 <span class="display-4" style="color:red;font-size:3rem">Miss Scarlet's Turn</span><br>
                                 <div id="playerCards">
+                                        <p>Player Cards(<i>game must start first</i>)</p>
+                                    <!--
                                     <img src="img/characters/MrsPeacock.png" alt="Mrs Peacock" style="max-width:143px" /> 
                                     <img src="img/rooms/Kitchen.png" alt="Kitchen" style="max-width:143px" /> 
                                     <img src="img/weapons/Dagger.png" alt="Dagger" style="max-width:143px" />
+                                        -->
                                 </div>
 
                                 <div>
@@ -451,7 +467,7 @@
             else {
                 if (isHost) {
                     // TODO add function1 somewhere
-                    document.getElementById('startButton').innerHTML = "<center><span class='btn btn-success' onclick='startGame();'>Start Game</span></center>";
+                    document.getElementById('startButton').innerHTML = "<center><p id='startGameButtonId'><span class='btn btn-success' onclick='startGame();'>Start Game</span></p></center>";
                 }
                 if (playerName != '') {
 

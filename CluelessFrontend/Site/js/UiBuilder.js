@@ -78,7 +78,7 @@ function generateCards(cards) {
 	console.log("cards = ", cards);
 	for (var c in cards) {
 		console.log("c = ", c);
-		html += "<img src='" + cards_to_links[cards[c]].src + "' title='" + cards_to_links[cards[c]].alt + "' alt='" + cards_to_links[cards[c]].alt + "' style='max-width:143px;'/>";
+		html += "<img class='zoom' src='" + cards_to_links[cards[c]].src + "' title='" + cards_to_links[cards[c]].alt + "' height=100px; width:100px; alt='" + cards_to_links[cards[c]].alt + "'/>";
 	}
 	html += "</p>";
 	document.getElementById("playerCards").innerHTML = html;
