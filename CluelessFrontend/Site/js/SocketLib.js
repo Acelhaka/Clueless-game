@@ -57,7 +57,7 @@
 	};
 
 	this.sendSuspectSelection = function () {
-		val = document.getElementById('playerSuspectValue').value;
+		val = getSuspectValueName();
 		doSend(JSON.stringify({ "UpdateType": 6, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.SuspectSelectionUpdate", "UpdateObject": { "SuspectSelected": val, "PlayerName": null } }));
 		//
 	}
