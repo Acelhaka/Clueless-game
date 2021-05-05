@@ -502,8 +502,8 @@
             controlArrows: false
         });
         //Menu button actions
-        $("#host").on("click", function () { fullpage_api.silentMoveTo('game', 1); isHost = true;  });
-        $("#join").on("click", function () { fullpage_api.silentMoveTo('game', 1); });
+        $("#host").on("click", function () { fullpage_api.moveTo(1, 1); isHost = true;  });
+        $("#join").on("click", function () { fullpage_api.moveTo(1, 1); });
         $("#instructions").on("click", function () { fullpage_api.silentMoveTo('game', 3); });
         $("#instruct").on("click", function () { fullpage_api.silentMoveTo('game', 0); });
         $("#credits").on("click", function () { credit('in') });
@@ -542,7 +542,7 @@
 
 
                     //TODO add the websocket query back to the server/network
-                    fullpage_api.silentMoveTo('game', 2); audioMenu.pause(); audioMenu = new Audio('game.mp3'); audioMenu.play(); audioMenu.loop = true;
+                    fullpage_api.moveTo(1, 2); audioMenu.pause(); audioMenu = new Audio('game.mp3'); audioMenu.play(); audioMenu.loop = true;
                     connectToServer(isHost, playerName);
                     $('#fly-in').css('display', 'none');
                     $('#menuToggle').css('display', '');
