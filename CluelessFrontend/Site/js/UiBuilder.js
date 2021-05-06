@@ -69,16 +69,41 @@ var room_to_links = {
 	"STUDY": { "src": "img/rooms/Study.png", "alt": "Study" }
 };
 
+var enum_mapping_cards = {
+	0: { "src": "img/weapons/Rope.PNG", "alt": "Rope" },
+	1: { "src": "img/weapons/LeadPipe.PNG", "alt": "Pipe" },
+	2: { "src": "img/weapons/Dagger.PNG", "alt": "Dagger" },
+	// really the wrench...
+	3: { "src": "img/weapons/Spanner.PNG", "alt": "Spanner" },
+	4: { "src": "img/weapons/Candlestick.PNG", "alt": "Candlestick" },
+	5: { "src": "img/weapons/Revolver.PNG", "alt": "Revolver" },
+	6: { "src": "img/characters/ProfessorPlum.png", "alt": "Professor Plum" },
+	7: { "src": "img/characters/MissScarlet.png", "alt": "Miss Scarlet" },
+	8: { "src": "img/characters/ProfessorPlum.png", "alt": "Professor Plum" },
+	9: { "src": "img/characters/ReverendGreen.png", "alt": "Mr Green" },
+	10: { "src": "img/characters/MrsWhite.png", "alt": "Mrs White" },
+	11: { "src": "img/characters/MrsPeacock.png", "alt": "Mrs Peacock" },
+	12: { "src": "img/rooms/Study.png", "alt": "Study" },
+	13: { "src": "img/rooms/Hall.png", "alt": "Hall" },
+	14: { "src": "img/rooms/Lounge.png", "alt": "Lounge" },
+	15: { "src": "img/rooms/Library.png", "alt": "Library" },
+	16: { "src": "img/rooms/BillardRoom.png", "alt": "Billard Room" },
+	17: { "src": "img/rooms/DiningRoom.png", "alt": "Dinning Room" },
+	18: { "src": "img/rooms/Conservatory.png", "alt": "Conservatory" },
+	19: { "src": "img/rooms/Ballroom.png", "alt": "Ballroom" },
+	20: { "src": "img/rooms/Kitchen.png", "alt": "Kitchen" }
+}
+
 var cards_to_links = Object.assign({}, room_to_links, suspects_to_links, weapons_to_links);
 
 
 function generateCards(cards) {
 	var html = "<p>";
-	console.log("cards_to_links = ", cards_to_links);
+	//console.log("cards_to_links = ", cards_to_links);
 	console.log("cards = ", cards);
 	for (var c in cards) {
 		console.log("c = ", c);
-		html += "<img class='zoom' src='" + cards_to_links[cards[c]].src + "' title='" + cards_to_links[cards[c]].alt + "' height=100px; width:100px; alt='" + cards_to_links[cards[c]].alt + "'/>";
+		html += "<img class='zoom' src='" + enum_mapping_cards[cards[c]].src + "' title='" + enum_mapping_cards[cards[c]].alt + "' height=100px; width:100px; alt='" + enum_mapping_cards[cards[c]].alt + "'/>";
 	}
 	html += "</p>";
 	document.getElementById("playerCards").innerHTML = html;
@@ -129,21 +154,21 @@ function generateBoard() {
 					'</div>' +
 					// ROW 2 of the board
 					'<div class="row">' +
-						'<div id="location_r5" class="card vertHall" title="Hallway" background-image:url(img/board-images/hallway-tile.png);">' +
+						'<div id="location_r5" class="card vertHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
 							'<div class="card-body">' +
-							'<h5 class="card-title"><center></center></h5>' +
-							'<center><span id="r5" title="Professor Plum"><img src="img/characterIcons/ProfessorPlum.PNG"></span></center>' +
+								'<h5 class="card-title"><center></center></h5>' +
+								'<center><span id="r5" title="Professor Plum"><img src="img/characterIcons/ProfessorPlum.PNG"></span></center>' +
+							'</div>' +
 						'</div>' +
-					'</div>' +
 					'<div  id="location_r6" class="fillHall" style="">&nbsp;</div>' +
-					'<div class="card vertHall" title="Hallway" background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div class="card vertHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r6"></span></center>' +
 						'</div>' +
 					'</div>' +
 					'<div  class="fillHall">&nbsp;</div>' +
-					'<div id="location_r7" class="card vertHall" title="Hallway" background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div id="location_r7" class="card vertHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r7" title="Col. Mustard"><img src="img/characterIcons/ColonelMustard.PNG"></span></center>' +

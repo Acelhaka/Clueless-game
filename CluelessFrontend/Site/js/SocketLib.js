@@ -21,11 +21,13 @@
 		// this means ChatMessage and thus, append the message to the chat log in the interface
 		if (data["UpdateType"] == 8) {
 			appendMessage(data["UpdateObject"]["SenderName"], "img/327779.svg", "left", data["UpdateObject"]["Content"]);
-			
+
 		} else if (data["UpdateType"] == 7) {
-			console.log("Game Start!....need to update the player cards....and set the weapon to room mapping");
-			//generateCards(["SCARLET", "KNIFE", "STUDY"]);
-			
+			console.log("Game Start!....need to update the player cards....and set the weapon to room mapping: ", data);
+			generateCards(data["UpdateObject"]["Cards"]);
+
+		} else if (data["UpdateType"] < 7) {
+			console.log("..... response ", data);
         }
 		
 		return e.data;
@@ -43,14 +45,15 @@
 	this.connectToServer = function(host, name) {
 		//console.log(JSON.stringify({ 'IsHost': host, 'Name': name }));
 		doSend(JSON.stringify({ 'IsHost': host, 'Name': name }));
-		sendSuspectSelection();
+		sendSuspectSelection(name);
 		
 	};
 
 	this.startGame = function() {
 		//websocket.send();
 		doSend(JSON.stringify({ "UpdateType": 7, "UpdateObjectType": null, "UpdateObject": null }));
-		generateCards(["SCARLET", "KNIFE", "STUDY", "BILLARD", "WHITE", "PLUM"]);
+		//generateCards(["SCARLET", "KNIFE", "STUDY", "BILLARD", "WHITE", "PLUM"]);
+		//generateCards()
 		// TOOD add this from the server similar to the cards provided
 		generateWeaponTokens("");
 		// erase the start game button since it was already pressed
@@ -58,9 +61,22 @@
 
 	};
 
-	this.sendSuspectSelection = function () {
+	this.sendSuspectSelection = function (name) {
 		//val = document.getElementById('playerSuspectValue').value;
-    val = getSuspectValueName();
+		val = getSuspectValueName();
+		radiosPlayerSelect = document.getElementsByName('playerSelect');
+		if (radiosPlayerSelect[0].checked)
+			val = 0
+		else if (radiosPlayerSelect[1].checked)
+			val = 1
+		else if (radiosPlayerSelect[2].checked)
+			val = 2
+		else if (radiosPlayerSelect[3].checked)
+			val = 3
+		else if (radiosPlayerSelect[4].checked)
+			val = 4
+		else if (radiosPlayerSelect[5].checked)
+			val = 5
 		doSend(JSON.stringify({ "UpdateType": 6, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.SuspectSelectionUpdate", "UpdateObject": { "SuspectSelected": val, "PlayerName": null } }));
 		//
 	}
