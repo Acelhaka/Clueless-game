@@ -451,11 +451,52 @@
 
         <center>
          <br><br>
-         <span class="display-4" style="color:#ffc107">Suggestion</span>
-         <br><br><br><a href="javascript:fullpage_api.moveTo(1, 2);"><i class="bi bi-arrow-left-circle" style="font-size:2.5rem"></i></a>
+         <span class="display-4" style="color:#ffc107">Suggestion</span><br><br>
+
+         <span class="display-4" style="font-size:18px">Pick Your Suggestion Character</span><br><br><br><br>
+                            <!--<span class="display-4" style="font-size:20px;">Player Options</span><br><br>-->
+                            <label class="radio-img">
+    <input type="radio" name="playerSelectSuggest" value="ColonelMustard" />
+    <div class="pSelect" style="background-image: url(img/characters/ColonelMustard.png)"></div>
+  </label>
+
+  <label class="radio-img">
+    <input type="radio" name="playerSelectSuggest" value="MissScarlet" />
+    <div class="pSelect" style="background-image: url(img/characters/MissScarlet.png)"></div>
+  </label>
+
+  <label class="radio-img">
+    <input type="radio" name="playerSelectSuggest" value="ProfessorPlum" />
+    <div class="pSelect" style="background-image: url(img/characters/ProfessorPlum.png)"></div>
+  </label>
+
+  <label class="radio-img">
+    <input type="radio" name="playerSelectSuggest" value="ReverendGreen" />
+    <div class="pSelect" style="background-image: url(img/characters/ReverendGreen.png)"></div>
+  </label>
+
+  <label class="radio-img">
+  <input type="radio" name="playerSelectSuggest" value="MrsWhite" />
+    <div class="pSelect" style="background-image: url(img/characters/MrsWhite.png)"></div>
+  </label>
+
+  <label class="radio-img">
+    <input type="radio" name="playerSelectSuggest" value="MrsPeacock" />
+    <div class="pSelect" style="background-image: url(img/characters/MrsPeacock.png)"></div>
+  </label>
+  <br><br><br>
+
+         <a href="javascript:fullpage_api.moveTo(1, 2);"><i class="bi bi-arrow-left-circle" style="font-size:2.5rem"></i></a>
 
         </center></div>
-	    <div class="slide"> Slide 2 </div>
+	    <div class="slide">
+        <center>
+         <br><br>
+         <span class="display-4" style="color:#ffc107">Suggestion</span><br><br>
+
+        <br><br><br><a href="javascript:fullpage_api.moveTo(2, 0);"><i class="bi bi-arrow-left-circle" style="font-size:2.5rem"></i></a>
+        </center>
+        </div>
 	    <div class="slide"> Slide 3 </div>
 
        </div>
@@ -464,11 +505,50 @@
 
         <div class="slide"><center>
          <br><br>
-         <span class="display-4" style="color:#dc3545">Accusation</span>
-         <br><br><br><a href="javascript:fullpage_api.moveTo(1, 2);"><i class="bi bi-arrow-left-circle" style="font-size:2.5rem"></i></a>
+         <span class="display-4" style="color:#dc3545">Accusation</span><br><br>
+
+         <span class="display-4" style="font-size:18px">Pick Your Accusation Character</span><br><br><br><br>
+                            <!--<span class="display-4" style="font-size:20px;">Player Options</span><br><br>-->
+                            <label class="radio-img">
+    <input type="radio" name="playerSelectAccuse" value="ColonelMustard" />
+    <div class="pSelect" style="background-image: url(img/characters/ColonelMustard.png)"></div>
+  </label>
+
+  <label class="radio-img">
+    <input type="radio" name="playerSelectAccuse" value="MissScarlet" />
+    <div class="pSelect" style="background-image: url(img/characters/MissScarlet.png)"></div>
+  </label>
+
+  <label class="radio-img">
+    <input type="radio" name="playerSelectAccuse" value="ProfessorPlum" />
+    <div class="pSelect" style="background-image: url(img/characters/ProfessorPlum.png)"></div>
+  </label>
+
+  <label class="radio-img">
+    <input type="radio" name="playerSelectAccuse" value="ReverendGreen" />
+    <div class="pSelect" style="background-image: url(img/characters/ReverendGreen.png)"></div>
+  </label>
+
+  <label class="radio-img">
+  <input type="radio" name="playerSelectAccuse" value="MrsWhite" />
+    <div class="pSelect" style="background-image: url(img/characters/MrsWhite.png)"></div>
+  </label>
+
+  <label class="radio-img">
+    <input type="radio" name="playerSelectAccuse" value="MrsPeacock" />
+    <div class="pSelect" style="background-image: url(img/characters/MrsPeacock.png)"></div>
+  </label>
+  <br><br><br>
+
+         <a href="javascript:fullpage_api.moveTo(1, 2);"><i class="bi bi-arrow-left-circle" style="font-size:2.5rem"></i></a>
 
         </center></div>
-	    <div class="slide"> Slide 2 </div>
+	    <div class="slide"><center>
+         <br><br>
+         <span class="display-4" style="color:#dc3545">Accusation</span>
+
+         <br><br><br><a href="javascript:fullpage_api.moveTo(3, 0);"><i class="bi bi-arrow-left-circle" style="font-size:2.5rem"></i></a>
+         </div>
 	    <div class="slide"> Slide 3 </div>
 
        </div>
@@ -521,6 +601,22 @@
         $('input[type=radio][name=playerSelect]').on('change', function () {
             suspectName = getSuspectValueName();
             console.log("suspectname: " + suspectName)
+            })
+
+        var suggestName
+
+        $('input[type=radio][name=playerSelectSuggest]').on('change', function () {
+            suggestName = '';
+            console.log("suggestname: " + suggestName);
+            fullpage_api.moveTo(2, 1);
+            })
+
+        var accuseName
+
+        $('input[type=radio][name=playerSelectAccuse]').on('change', function () {
+            accuseName = '';
+            console.log("accusename: " + accuseName);
+            fullpage_api.moveTo(3, 1);
             })
 
 
