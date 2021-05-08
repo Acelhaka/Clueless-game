@@ -326,16 +326,45 @@ namespace CluelessBackend.Core
             return randomList;
         }
 
-        public void PlayerMovementOptions(Player player)
+        public void GetPlayerMovementOptions(Player player)
         {
 
             List<int> playerMovementOptions = new List<int>();
-            int rowMovement = player.GetPlayerPositionRow() + 1;
-            int ColMovement = player.GetPlayerPositionCol() + 1;
+
+            // Move 1 row down
+            int rowMovement = player.GetPlayerPositionRow() - 1;
+            int ColMovement = player.GetPlayerPositionCol();
 
             if(rowMovement < 5 || ColMovement < 5)
             {
-                
+                playerMovementOptions.Add(GetRoomTypeBasedOnCoordinates(rowMovement, ColMovement));
+            }
+
+            // Move 1 row up
+            rowMovement = player.GetPlayerPositionRow() + 1;
+            ColMovement = player.GetPlayerPositionCol();
+
+            if (rowMovement < 5 || ColMovement < 5)
+            {
+                playerMovementOptions.Add(GetRoomTypeBasedOnCoordinates(rowMovement, ColMovement));
+            }
+
+            // Move to the left
+            rowMovement = player.GetPlayerPositionRow();
+            ColMovement = player.GetPlayerPositionCol() - 1;
+
+            if (rowMovement < 5 || ColMovement < 5)
+            {
+                playerMovementOptions.Add(GetRoomTypeBasedOnCoordinates(rowMovement, ColMovement));
+            }
+
+            // Move to the right
+            rowMovement = player.GetPlayerPositionRow();
+            ColMovement = player.GetPlayerPositionCol() + 1;
+
+            if (rowMovement < 5 || ColMovement < 5)
+            {
+                playerMovementOptions.Add(GetRoomTypeBasedOnCoordinates(rowMovement, ColMovement));
             }
         }
 

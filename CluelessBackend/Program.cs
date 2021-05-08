@@ -38,6 +38,7 @@ namespace CluelessBackend
             // TODO: Start logging
 
             CreateHostBuilder(args).Build().Run();
+
         }
 
         public static IDisposable InitializeForWebsocketTests()
