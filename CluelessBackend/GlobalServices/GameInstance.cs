@@ -56,6 +56,11 @@ namespace CluelessBackend
                 playerNetworkModel.SendSuspectSelectionUpdate(suspectSelectionUpdate.GetWithPlayerName(player.Name));
         }
 
+        private void SendPlayerMovingPosition(
+            )
+        {
+
+        }
         public List<IBackendPlayerNetworkModel> GetPlayerModels()
         {
             return _playerModels;

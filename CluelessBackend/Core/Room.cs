@@ -10,7 +10,7 @@ namespace CluelessBackend.Core
     {
         public enum ROOM
         {
-            STUDY,
+            STUDY = 0,
             HALL,
             LOUNGE,
             LIBRARY,

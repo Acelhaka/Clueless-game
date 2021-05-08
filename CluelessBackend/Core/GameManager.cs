@@ -326,6 +326,62 @@ namespace CluelessBackend.Core
             return randomList;
         }
 
+        public void PlayerMovementOptions(Player player)
+        {
+
+            List<int> playerMovementOptions = new List<int>();
+            int rowMovement = player.GetPlayerPositionRow() + 1;
+            int ColMovement = player.GetPlayerPositionCol() + 1;
+
+            if(rowMovement < 5 || ColMovement < 5)
+            {
+                
+            }
+        }
+
+        int GetRoomTypeBasedOnCoordinates(int row, int column)
+        {
+            int roomEnumValue = -1;
+            if (row == 0 && column == 0)
+            {
+                roomEnumValue = (int)Room.ROOM.STUDY;
+            }
+            else if(row == 0 && column == 2)
+            {
+                roomEnumValue = (int)Room.ROOM.HALL;
+            }
+            else if(row == 0 && column == 4)
+            {
+                roomEnumValue = (int)Room.ROOM.LOUNGE;
+            }
+            else if (row == 2 && column == 0)
+            {
+                roomEnumValue = (int)Room.ROOM.LIBRARY;
+            }
+            else if (row == 2 && column == 2)
+            {
+                roomEnumValue = (int)Room.ROOM.BILLIARD_ROOM;
+            }
+            else if (row == 2 && column == 4)
+            {
+                roomEnumValue = (int)Room.ROOM.DINNING_ROOM;
+            }
+            else if (row == 4 && column == 0)
+            {
+                roomEnumValue = (int)Room.ROOM.CONSERVATORY;
+            }
+            else if (row == 4 && column == 2)
+            {
+                roomEnumValue = (int)Room.ROOM.BALLROOM;
+            }
+            else if (row == 4 && column == 4)
+            {
+                roomEnumValue = (int)Room.ROOM.KITCHEN;
+            }
+
+            return roomEnumValue;
+            
+        }
         public Board GetBoard()
         {
             return board_;
