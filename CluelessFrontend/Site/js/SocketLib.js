@@ -1,4 +1,4 @@
-	wsUri = "ws://127.0.0.1:32123/ws";
+	wsUri = "ws://127.0.0.1:80/ws";
 	websocket = new WebSocket(wsUri);
 
 	websocket.onopen = function (e) {
