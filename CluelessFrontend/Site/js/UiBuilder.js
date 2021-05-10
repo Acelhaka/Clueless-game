@@ -19,7 +19,33 @@ var location_to_ids = { "Study":"location_r0",
 						"Ballroom": "location_r18",
 						"Hallway-19": "location_r19",
 						"Kitchen": "location_r20"};
-						
+
+
+
+var location_to_weapon_and_suspect_ids = {
+	"Study": { "weapon": "r0_weapons", "suspect": "r0_suspects" },
+	"Hallway-r1": { "weapon": null, "suspect": "r1" },
+	"Hall": { "weapon": "r2_weapons", "suspect": "r2_suspects" },
+	"Hallway-r3": { "weapon": null, "suspect": "r3" },
+	"Lounge": { "weapon": "r4_weapons", "suspect": "r4_suspects" },
+	"Hallway-r5": { "weapon": null, "suspect": "r5" },
+	"Hallway-r6": { "weapon": null, "suspect": "r6" },
+	"Hallway-r7": { "weapon": null, "suspect": "r7" },
+	"Library": { "weapon": "r8_weapons", "suspect": "r8_suspects" },
+	"Hallway-r9": { "weapon": null, "suspect": "r9" },
+	"Billards": { "weapon": "r10_weapons", "suspect": "r10_suspects" },
+	"Hallway-11": { "weapon": null, "suspect": "r11" },
+	"Dinning": { "weapon": "r12_weapons", "suspect": "r12_suspects" },
+	"Hallway-13": { "weapon": null, "suspect": "r13" },
+	"Hallway-14": { "weapon": null, "suspect": "r14" },
+	"Hallway-15": { "weapon": null, "suspect": "r15" },
+	"Conservatory": { "weapon": "r16_weapons", "suspect": "r16_suspects" },
+	"Hallway-17": { "weapon": null, "suspect": "r17" },
+	"Ballroom": { "weapon": "r18_weapons", "suspect": "r18_suspects" },
+	"Hallway-19": { "weapon": null, "suspect": "r19" },
+	"Kitchen": { "weapon": "r20_weapons", "suspect": "r20_suspects" }
+};
+
 var suspect_enum_playerToken_link = {
 	"0": { "src": "img/characterIcons/MissScarlet.PNG", "alt": "Miss Scarlet" },
 	"1": { "src": "img/characterIcons/ColonelMustard.PNG", "alt": "Colonel Mustard" },
@@ -166,7 +192,7 @@ function generateBoard() {
 						'<div id="location_r2" class="card room" title="Hall" style="background-image:url(img/board-images/hall.png);">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>'+
-								'<center><div style="float:top;" id="r2_suspects">&nbsp;</div>' +
+								'<center><p style="float:top;" id="r2_suspects"></p>' +
 								'<p style="float:bottom;" id="r2_weapons"></p>' +
 								'</center>' +
 							'</div>' +
@@ -356,12 +382,20 @@ function generateChecklist() {
 }
 
 // TODO eventually pass in the locations that player can move to
-function generateMovePad() {
+function generateMovePad(moves) {
 	// TODO add ENUM mapping so the client passes back an ENUM Type that the server can process
-	html = '<a class="up" href="#" id="upPad" title="N/A"></a>' +
-		   '<a class="right" href="#" id="rightPad" title="Lounge" onclick="moveRoom(1);" onmouseover=highlightRoom(\'Lounge\'); onmouseout=unhighlightRoom(\'Lounge\');></a>' +
-		   '<a class="down" href="#" id="downPad" title="N/A"></a>' +
-		   '<a class="left" href="#" id="leftPad" title="Hall" onclick="moveRoom(2);" onmouseover=highlightRoom(\'Hall\'); onmouseout=unhighlightRoom(\'Hall\');></a>';
+	if (moves == "TEST") {
+		html = '<a class="up" href="#" id="upPad" title="N/A"></a>' +
+			'<a class="right" href="#" id="rightPad" title="N/A"></a>' +
+			'<a class="down" href="#" id="downPad" title="N/A"></a>' +
+			'<a class="left" href="#" id="leftPad" title="N/A"></a>';
+	} else {
+		html = '<a class="up" href="#" id="upPad" title="N/A"></a>' +
+			'<a class="right" href="#" id="rightPad" title="Lounge" onclick="moveRoom(2);" onmouseover=highlightRoom(\'Lounge\'); onmouseout=unhighlightRoom(\'Lounge\');></a>' +
+			'<a class="down" href="#" id="downPad" title="N/A"></a>' +
+			'<a class="left" href="#" id="leftPad" title="Hall" onclick="moveRoom(1);" onmouseover=highlightRoom(\'Hall\'); onmouseout=unhighlightRoom(\'Hall\');></a>';
+    }
+	
 	document.getElementById('dpad').innerHTML = html;
 }
 
@@ -471,14 +505,15 @@ function generateWeaponTokens(rooms) {
 		"Billards": "KNIFE",
 		"Conservatory": "PIPE",
 		"Dinning": "REVOLVER",
-		"Hall": "ROPE",
+		"Study": "ROPE",
 		"Kitchen": "SPANNER"
 	}
 	//console.log("inside generate weapon tokens..");
 	for (var r in rooms_to_weapons) {
 		//console.log("r = ", r);
-		if (r in location_to_ids) {
-			document.getElementById(location_to_ids[r]).innerHTML = "<span title='" + weapons_token_to_links[rooms_to_weapons[r]].alt +
+		if (r in location_to_weapon_and_suspect_ids) {
+			//console.log("location_to_ids[r] = ", location_to_weapon_and_suspect_ids[r]);
+			document.getElementById(location_to_weapon_and_suspect_ids[r]['weapon']).innerHTML = "<span title='" + weapons_token_to_links[rooms_to_weapons[r]].alt +
 																	"'><img height='25px' width=25px' src = '" + weapons_token_to_links[rooms_to_weapons[r]].src + "'></span > ";
         }
 
@@ -507,8 +542,6 @@ function movePlayer(suspect, to, from) {
 		document.getElementById(enum_location_to_ids[to]).innerHTML += matchingText;
     }
 	
-
-
 }
 
 
