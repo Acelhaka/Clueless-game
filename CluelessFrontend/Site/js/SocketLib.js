@@ -1,8 +1,4 @@
-
-	var fqdn = "127.0.0.1";
-
-	//console.log("serverId val = ", document.getElementById('serverId').value);
-	wsUri = "ws://"+fqdn+":32123/ws";
+	wsUri = "ws://127.0.0.1:80/ws";
 	websocket = new WebSocket(wsUri);
 
 	websocket.onopen = function (e) {

@@ -1,4 +1,4 @@
-var location_to_ids = { "Study":"location_r0", 
+var location_to_ids = { "Study":"location_r0",
 						"Hallway-r1": "location_r1",
 						"Hall": "location_r2",
 						"Hallway-r3": "location_r3",
@@ -382,10 +382,18 @@ function suspectSelectionDropdown() {
 }
 */
 
-function getSuspectValueName() {
-	//val = document.getElementById('playerSuspectValue').value;
-  radiosPlayerSelect = document.getElementsByName('playerSelect');
+function getSuspectValueName(type) {
+    if (type == "start"){
+    //val = document.getElementById('playerSuspectValue').value;
+    radiosPlayerSelect = document.getElementsByName('playerSelect');
 	//console.log("playerSuspectValue = ", document.getElementById('playerSuspectValue').value);
+    } else if (type == "suggest"){
+    radiosPlayerSelect = document.getElementsByName('playerSelectSuggest');
+    } else if (type == "accuse"){
+    radiosPlayerSelect = document.getElementsByName('playerSelectAccuse');
+    } else {
+        console.log("function getSuspectValueName requires type.")
+    }
 	var name = "";
 	if (radiosPlayerSelect[0].checked)
 		name = "Col. Mustard";
@@ -401,6 +409,61 @@ function getSuspectValueName() {
 		name = "Mrs. Peacock";
 	return name;
 }
+
+function getWeaponValueName(type) {
+    if (type == "suggest"){
+    radiosWeaponSelect = document.getElementsByName('weaponSelectSuggest');
+    } else if (type == "accuse"){
+    radiosWeaponSelect = document.getElementsByName('weaponSelectAccuse');
+    } else {
+        console.log("function getWeaponValueName requires type.")
+    }
+	var name = "";
+	if (radiosWeaponSelect[0].checked)
+		name = "Candlestick";
+	else if (radiosWeaponSelect[1].checked)
+		name = "Dagger";
+	else if (radiosWeaponSelect[2].checked)
+		name = "LeadPipe";
+	else if (radiosWeaponSelect[3].checked)
+		name = "Revolver";
+	else if (radiosWeaponSelect[4].checked)
+		name = "Rope";
+	else if (radiosWeaponSelect[5].checked)
+		name = "Spanner";
+	return name;
+}
+
+function getRoomValueName(type) {
+    if (type == "suggest"){
+    radiosRoomSelect = document.getElementsByName('roomSelectSuggest');
+    } else if (type == "accuse"){
+    radiosRoomSelect = document.getElementsByName('roomSelectAccuse');
+    } else {
+        console.log("function getWeaponValueName requires type.")
+    }
+	var name = "";
+	if (radiosRoomSelect[0].checked)
+		name = "Ballroom";
+	else if (radiosRoomSelect[1].checked)
+		name = "Billiard";
+	else if (radiosRoomSelect[2].checked)
+		name = "Conservatory";
+	else if (radiosRoomSelect[3].checked)
+		name = "Dining";
+	else if (radiosRoomSelect[4].checked)
+		name = "Hall";
+	else if (radiosRoomSelect[5].checked)
+		name = "Kitchen";
+    else if (radiosRoomSelect[6].checked)
+		name = "Library";
+    else if (radiosRoomSelect[7].checked)
+		name = "Lounge";
+    else if (radiosRoomSelect[8].checked)
+		name = "Study";
+	return name;
+}
+
 
 /* No longer needed?
 function updatePlayerSuspectValue(val) {

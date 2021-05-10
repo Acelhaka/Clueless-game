@@ -35,9 +35,9 @@ If no one disproves the suggestions, may have the opportunity to make an __Accus
 If a player thinks that he knows all the clue cards, he can on his turn make an "Accusation" He states the names of the three CLUE cards. If the accusation is correct, he wins the game, if not he continues the game with no rights to make another accusation. He cannot win the game anymore, but remains in the game as a player to contradict Suggestions made by other players. <br/>
 A player can make only one accusation during one of the games. 
 
-## Running the server
+## Running the server locally
 
-To run the server, the .NET Runtime (version 5) is required. It can be downloaded here: https://dotnet.microsoft.com/download/dotnet/5.0
+To run the server, the .NET SDK is required. It can be downloaded here: https://dotnet.microsoft.com/download/dotnet/5.0
 
 After installing the runtime, the server can be run by executing the following command from the solution's root directory:
 
@@ -47,7 +47,7 @@ dotnet run --project CluelessBackend
 
 ## Running the client
 
-To run the client, the .NET Runtime (version 5) is required. It can be downloaded here: https://dotnet.microsoft.com/download/dotnet/5.0
+To run the client, the .NET SDK is required. It can be downloaded here: https://dotnet.microsoft.com/download/dotnet/5.0
 
 After installing the runtime, the game can run as by executing the following command from the solution's root directory:
 
