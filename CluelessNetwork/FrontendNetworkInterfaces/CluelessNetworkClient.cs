@@ -106,6 +106,14 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
             PushUpdate(accusation, UpdateType.Accusation);
         }
 
+        // TODO:: we need a function here to send players position to  backend
+        //public void SendPlayerPosition( )
+        //{
+        //    if (Settings.PrintNetworkDebugMessagesToConsole)
+        //        Console.WriteLine("Sending player option to server");
+        //    PushUpdate(position, UpdateType.Accusation);
+        //}
+
         /// <summary>
         /// Subscribe to run code when an accusation result is received
         /// </summary>

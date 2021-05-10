@@ -102,7 +102,7 @@ function generateCards(cards) {
 	//console.log("cards_to_links = ", cards_to_links);
 	console.log("cards = ", cards);
 	for (var c in cards) {
-		console.log("c = ", c);
+		//console.log("c = ", c);
 		html += "<img class='zoom' src='" + enum_mapping_cards[cards[c]].src + "' title='" + enum_mapping_cards[cards[c]].alt + "' height=100px; width:100px; alt='" + enum_mapping_cards[cards[c]].alt + "'/>";
 	}
 	html += "</p>";
