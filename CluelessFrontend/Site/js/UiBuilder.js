@@ -384,7 +384,10 @@ function generateChecklist() {
 // TODO eventually pass in the locations that player can move to
 function generateMovePad(moves) {
 	// TODO add ENUM mapping so the client passes back an ENUM Type that the server can process
-	if (moves == "TEST") {
+	if (moves == null) {
+		// need to unhighlight all the prior rooms so a room is not stuck on highlighted 
+		unhighlightRoom('Lounge');
+		unhighlightRoom('Hall');
 		html = '<a class="up" href="#" id="upPad" title="N/A"></a>' +
 			'<a class="right" href="#" id="rightPad" title="N/A"></a>' +
 			'<a class="down" href="#" id="downPad" title="N/A"></a>' +
