@@ -1,4 +1,8 @@
-	wsUri = "ws://127.0.0.1:32123/ws";
+
+	var fqdn = "127.0.0.1";
+
+	//console.log("serverId val = ", document.getElementById('serverId').value);
+	wsUri = "ws://"+fqdn+":32123/ws";
 	websocket = new WebSocket(wsUri);
 
 	websocket.onopen = function (e) {
@@ -8,6 +12,7 @@
 	websocket.onclose = function (e) {
 		return "DISCONNECTED";
 	};
+
 
 	websocket.onmessage = function (e) {
 		console.log(e.data);

@@ -224,55 +224,67 @@
 
                     <center>
                         <div class="col" style="text-align:left;">
-                            <center><span class="display-4">Select Your Character</span><br><br><br><br>
-                            <!--<span class="display-4" style="font-size:20px;">Player Options</span><br><br>-->
-                            <label class="radio-img">
-    <input type="radio" name="playerSelect" value="ColonelMustard" />
-    <div class="pSelect" style="background-image: url(img/characters/ColonelMustard.png)"></div>
-  </label>
+                            <center>
+                                <span class="display-4">Select Your Character</span><br><br><br><br>
+                                <!--<span class="display-4" style="font-size:20px;">Player Options</span><br><br>-->
+                                <label class="radio-img">
+                                    <input type="radio" name="playerSelect" value="ColonelMustard" />
+                                    <div class="pSelect" style="background-image: url(img/characters/ColonelMustard.png)"></div>
+                                </label>
 
-  <label class="radio-img">
-    <input type="radio" name="playerSelect" value="MissScarlet" />
-    <div class="pSelect" style="background-image: url(img/characters/MissScarlet.png)"></div>
-  </label>
+                                <label class="radio-img">
+                                    <input type="radio" name="playerSelect" value="MissScarlet" />
+                                    <div class="pSelect" style="background-image: url(img/characters/MissScarlet.png)"></div>
+                                </label>
 
-  <label class="radio-img">
-    <input type="radio" name="playerSelect" value="ProfessorPlum" />
-    <div class="pSelect" style="background-image: url(img/characters/ProfessorPlum.png)"></div>
-  </label>
+                                <label class="radio-img">
+                                    <input type="radio" name="playerSelect" value="ProfessorPlum" />
+                                    <div class="pSelect" style="background-image: url(img/characters/ProfessorPlum.png)"></div>
+                                </label>
 
-  <label class="radio-img">
-    <input type="radio" name="playerSelect" value="ReverendGreen" />
-    <div class="pSelect" style="background-image: url(img/characters/ReverendGreen.png)"></div>
-  </label>
+                                <label class="radio-img">
+                                    <input type="radio" name="playerSelect" value="ReverendGreen" />
+                                    <div class="pSelect" style="background-image: url(img/characters/ReverendGreen.png)"></div>
+                                </label>
 
-  <label class="radio-img">
-  <input type="radio" name="playerSelect" value="MrsWhite" />
-    <div class="pSelect" style="background-image: url(img/characters/MrsWhite.png)"></div>
-  </label>
+                                <label class="radio-img">
+                                    <input type="radio" name="playerSelect" value="MrsWhite" />
+                                    <div class="pSelect" style="background-image: url(img/characters/MrsWhite.png)"></div>
+                                </label>
 
-  <label class="radio-img">
-    <input type="radio" name="playerSelect" value="MrsPeacock" />
-    <div class="pSelect" style="background-image: url(img/characters/MrsPeacock.png)"></div>
-  </label>
-  <br><br><br>
-                           <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Player Name:</span>
+                                <label class="radio-img">
+                                    <input type="radio" name="playerSelect" value="MrsPeacock" />
+                                    <div class="pSelect" style="background-image: url(img/characters/MrsPeacock.png)"></div>
+                                </label>
+                                
+                                
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+
+                                        <div class="input-group-prepend">
+
+                                            <span class="input-group-text" id="basic-addon1">Player Name:</span>
+                                        </div>
+                                        <input id="playerName" type="text" class="form-control" placeholder="Choose A Player Name" aria-label="Choose A Player Name" aria-describedby="basic-addon1">
+                                        <div class="input-group-append">
+                                            <a class="btn btn btn-success" type="button" href="javascript:loadGame()">Start Game</a>
+                                        </div>
+                                        <div id="pickSuspectDropdown"></div>
+                                        <input id="playerSuspectValue" hidden /><span id="playerSuspectName"></span>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="bacsic-addon2">Server:</span>
+                                        <select id="serverId" class="selectpicker show-tick">
+                                            <option value="">Sever-01</option>
+                                            <option value="127.0.0.1">Server-Beta</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <br>
+                                    <div id="optionsError" class="alert alert-danger" role="alert" style="display:none;"></div>
+                                    <br><br><a href="javascript:fullpage_api.silentMoveTo('game', 0);"><i class="bi bi-arrow-left-circle" style="font-size:2.5rem"></i></a>
                                 </div>
-                                <input id="playerName" type="text" class="form-control" placeholder="Choose A Player Name" aria-label="Choose A Player Name" aria-describedby="basic-addon1">
-                                <div class="input-group-append">
-                                    <a class="btn btn btn-success" type="button" href="javascript:loadGame()">Start Game</a>
-                                </div>
-                                <div id="pickSuspectDropdown"></div>
-                                <input id="playerSuspectValue" hidden/><span id="playerSuspectName"></span>
-                            </div>
-                            <br>
-                            <div id="optionsError" class="alert alert-danger" role="alert" style="display:none;"></div>
-                            <br><br><a href="javascript:fullpage_api.silentMoveTo('game', 0);"><i class="bi bi-arrow-left-circle" style="font-size:2.5rem"></i></a>
-                            </div>
-                         </center>
+                            </center>
                         </div>
                     </center>
 
