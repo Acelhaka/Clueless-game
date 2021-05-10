@@ -20,6 +20,40 @@ var location_to_ids = { "Study":"location_r0",
 						"Hallway-19": "location_r19",
 						"Kitchen": "location_r20"};
 						
+var suspect_enum_playerToken_link = {
+	"0": { "src": "img/characterIcons/MissScarlet.PNG", "alt": "Miss Scarlet" },
+	"1": { "src": "img/characterIcons/ColonelMustard.PNG", "alt": "Colonel Mustard" },
+	"2": { "src": "img/characterIcons/MrsPeacock.PNG", "alt": "Mrs Peacock" },
+	"3": { "src": "img/characterIcons/MrsWhite.PNG", "alt": "Mrs White" },
+	"4": { "src": "img/characterIcons/ProfessorPlum.PNG", "alt": "Professor Plum" },
+	"5": { "src": "img/characterIcons/ReverendGreen.PNG", "alt": "Mr Green" }
+};
+
+
+var enum_location_to_ids = {
+	"0": "r0_suspects", // the study
+	"Hallway-r1": "r1",
+	"1": "r2_suspects", // the hall
+	"Hallway-r3": "r3",
+	"2": "r4_suspects", // the lounge
+	"Hallway-r5": "r5",
+	"Hallway-r6": "r6",
+	"Hallway-r7": "r7",
+	"3": "r8_suspects", // the library
+	"Hallway-r9": "r9",
+	"4": "r10_suspects", // the billard room
+	"Hallway-11": "r11",
+	"5": "r12_suspects", // the dinning room
+	"Hallway-13": "r13",
+	"Hallway-14": "r14",
+	"Hallway-15": "r15",
+	"6": "r16_suspects", // the conservatory
+	"Hallway-17": "r17",
+	"7": "r18_suspects", // the ball room
+	"Hallway-19": "r19",
+	"8": "r20_suspects" // kitchen
+};
+
 
 var weapons_token_to_links = {
 		"CANDLESTICK": { "src": "img/weaponIcons/Candlestick.PNG", "alt": "Candlestick" },
@@ -132,7 +166,7 @@ function generateBoard() {
 						'<div id="location_r2" class="card room" title="Hall" style="background-image:url(img/board-images/hall.png);">' +
 							'<div class="card-body">' +
 								'<h5 class="card-title"><center></center></h5>'+
-								'<center><p style="float:top;" id="r2_suspects"></p>' +
+								'<center><div style="float:top;" id="r2_suspects">&nbsp;</div>' +
 								'<p style="float:bottom;" id="r2_weapons"></p>' +
 								'</center>' +
 							'</div>' +
@@ -323,10 +357,11 @@ function generateChecklist() {
 
 // TODO eventually pass in the locations that player can move to
 function generateMovePad() {
+	// TODO add ENUM mapping so the client passes back an ENUM Type that the server can process
 	html = '<a class="up" href="#" id="upPad" title="N/A"></a>' +
-		   '<a class="right" href="#" id="rightPad" title="Lounge" onmouseover=highlightRoom(\'Lounge\'); onmouseout=unhighlightRoom(\'Lounge\');></a>' +
+		   '<a class="right" href="#" id="rightPad" title="Lounge" onclick="moveRoom(1);" onmouseover=highlightRoom(\'Lounge\'); onmouseout=unhighlightRoom(\'Lounge\');></a>' +
 		   '<a class="down" href="#" id="downPad" title="N/A"></a>' +
-		   '<a class="left" href="#" id="leftPad" title="Hall" onmouseover=highlightRoom(\'Hall\'); onmouseout=unhighlightRoom(\'Hall\');></a>';
+		   '<a class="left" href="#" id="leftPad" title="Hall" onclick="moveRoom(2);" onmouseover=highlightRoom(\'Hall\'); onmouseout=unhighlightRoom(\'Hall\');></a>';
 	document.getElementById('dpad').innerHTML = html;
 }
 
@@ -335,10 +370,6 @@ function highlightRoom(room) {
 	
 	if (room in location_to_ids) {
 		document.getElementById(location_to_ids[room]).style.cssText += "opacity: 0.4;filter: alpha(opacity=40);";
-		
-		// testing out how the suspects and weapons look on the location
-		//document.getElementById('r0_weapons').innerHTML = "<img width=30 height=30 src='img/weaponIcons/Candlestick.PNG' title='Candlestick'>";
-		//document.getElementById('r0_suspects').innerHTML = "<img width=30 height=30 src='img/weaponIcons/Candlestick.PNG' title='Candlestick'><img width=30 height=30 src='img/weaponIcons/Candlestick.PNG' title='Candlestick'>";
 	}
 }
 
@@ -350,37 +381,6 @@ function unhighlightRoom(room) {
 	}
 	
 }
-
-/* No longer needed?
-function suspectSelectionDropdown() {
-	/* the backend stores this os an enum so use the value as numbers
-	 * COLNEL_MUSTARD	= 0
-	   MISS_SCARLET	= 1
-	   PROFESSOR_PLUM	= 2
-	   MR_GREEN	= 3
-	   MRS_WHITE	= 4
-	   MRS_PEACOCK	= 5
-	
-	// send updateType: 6, UpdateObjectType: SuspectSelectionUpdate PlayerName, no scope needed
-	//playerSuspectValue
-	// include a dropdown in the host / lobby to allow them to select which suspect they want to run // send gameType of 6 (SuspectSelection) 
-	var html = "<div class='btn-group'>" +
-					"<button type='button' class='btn btn-info'>Select Suspect</button>" +
-					"<button type='button' class='btn btn-info dropdown-toggle dropdown-toggle-split' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
-					"<span class='sr-only'>Toggle Dropdown</span></button>" + 
-					"<div class='dropdown-menu'>" +
-						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(0);'>Colnel Mustard</a>" +
-						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(1);'>Miss Scarlet</a>" +
-						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(2);'>Professor Plum</a>" +
-						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(3);'>Mr Green</a>" +
-						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(4);'>Mrs White</a>" +
-						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(5);'>Mrs Peacock</a>" +
-					"</div>" +
-				"</div>"
-
-	document.getElementById('pickSuspectDropdown').innerHTML = html;
-}
-*/
 
 function getSuspectValueName(type) {
     if (type == "start"){
@@ -464,33 +464,6 @@ function getRoomValueName(type) {
 	return name;
 }
 
-
-/* No longer needed?
-function updatePlayerSuspectValue(val) {
-	document.getElementById('playerSuspectValue').value = val;
-	//console.log("playerSuspectValue = ", document.getElementById('playerSuspectValue').value);
-	var name = "";
-	if (val == 0)
-		name = suspectsTokens_to_links["MUSTARD"];
-	else if (val == 1)
-		name = suspectsTokens_to_links["SCARLET"]; 
-	else if (val == 2)
-		name = suspectsTokens_to_links["PLUM"]; 
-	else if (val == 3)
-		name = suspectsTokens_to_links["GREEN"]; 
-	else if (val == 4)
-		name = suspectsTokens_to_links["WHITE"]; 
-	else if (val == 5)
-		name = suspectsTokens_to_links["PEACOCK"];
-
-	document.getElementById('playerSuspectName').innerHTML = "<img src='"+ name.src + "' title='" + name.alt +"'/>";
-}*/
-
-function suggestion_popup() {
-	
-	
-}
-
 function generateWeaponTokens(rooms) {
 	// TODO once we get the server response, we can loop through what the server responds with...
 	rooms_to_weapons = {
@@ -512,4 +485,31 @@ function generateWeaponTokens(rooms) {
     }
 	
 }
+
+function movePlayer(suspect, to, from) {
+
+	var s = suspect_enum_playerToken_link[suspect];
+
+	// remove the player token icon from the existing DOM element (i.e. from)
+	var originalHTML = document.getElementById(enum_location_to_ids[from]).innerHTML;
+	var matchingText = '<span title="' + s.alt + '"><img src="' + s.src + '"></span>';
+	var n = originalHTML.replace(matchingText, '');
+	document.getElementById(enum_location_to_ids[from]).innerHTML = n;
+
+	// add the player token icon to the existing DOM element (i.e. to)
+	console.log("to = ", enum_location_to_ids[to]);
+	console.log("to param = ", to);
+	console.log("element by id = ", document.getElementById(enum_location_to_ids[to]));
+	if (document.getElementById(enum_location_to_ids[to]) == null) {
+		document.getElementById(enum_location_to_ids[to]).innerHTML = matchingText;
+	}
+	else {
+		document.getElementById(enum_location_to_ids[to]).innerHTML += matchingText;
+    }
+	
+
+
+}
+
+
 	

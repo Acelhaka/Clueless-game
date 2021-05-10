@@ -26,6 +26,7 @@
 		} else if (data["UpdateType"] == 7) {
 			console.log("Game Start!....need to update the player cards....and set the weapon to room mapping: ", data);
 			generateCards(data["UpdateObject"]["Cards"]);
+			generateWeaponTokens();
 
 		} else if (data["UpdateType"] < 7) {
 			console.log("..... response ", data);
@@ -86,7 +87,14 @@
 		//console.log("sending endTurn request to the server....");
 		//generateWeaponTokens();
 		doSend(JSON.stringify({ "UpdateType": 9, "UpdateObjectType": null, "UpdateObject": null }));
-};
+	};
+
+	this.moveRoom = function (room) {
+		console.log("moveRoom, ", room);
+		doSend(JSON.stringify({ "UpdateType": 0, "UpdateObjectType": null, "UpdateObject": { "room": room } }));
+		//TODO figure out the hallway-r3 and other hallway id values dont seem to have an ENUM type...
+		movePlayer(0, room, "Hallway-r3");
+	};
 
 
 this.sendMessage = function () {
