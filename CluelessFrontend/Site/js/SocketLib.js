@@ -25,11 +25,9 @@
 		} else if (data["UpdateType"] == 7) {
 			console.log("Game Start!....need to update the player cards....and set the weapon to room mapping: ", data);
 			generateCards(data["UpdateObject"]["Cards"]);
-
-		} else if (data["UpdateType"] == 10) {
+		} else if (data["UpdateType"] == 1) {
 			console.log("Send players options to move data: ", data);
-			generateMovePad();  
-
+			// TODO:: call generate pad
 		} else if (data["UpdateType"] < 7) {
 			console.log("..... response ", data);
         }
@@ -105,8 +103,7 @@ this.sendMessage = function () {
 
 this.getPossibleMoves = function() {
 	console.log("inside send message, m = ", document.getElementById("msg").value);
-	doSend(JSON.stringify({ "UpdateType": 10, "UpdateObjectType": null, "UpdateObject": { "Content": document.getElementById("msg").value, "SenderName": null, "Scope": 0 } }));
-
+	
 }
 
 	
