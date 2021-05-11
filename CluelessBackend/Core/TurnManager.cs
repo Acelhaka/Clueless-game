@@ -10,10 +10,10 @@ namespace CluelessBackend.Core
     {
         public List<Player> players_;
         private int index_ = 0;
-        public TurnManager(List<Player> players) 
+        public TurnManager(List<Player> players, int firstPlayerIndex = 0) 
         {
             players_ = players;
-            index_ = 0;
+            index_ = firstPlayerIndex;
         }
 
         // TODO thoughts on refactoring this method to GetCurrentPlayer() and GetNextPlayer()?
@@ -37,6 +37,7 @@ namespace CluelessBackend.Core
                 {
                     return players_.ElementAt(index_);
                 }
+
                 attempts++;
             }
 

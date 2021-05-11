@@ -34,10 +34,19 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// </summary>
         public string Name { get; init; } = string.Empty;
 
+        public void SendNewTurn(NewTurnMessage newTurnMessage)
+        {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending turn message to client");
+            PushUpdate(newTurnMessage, UpdateType.NewTurn);
+        }
+
         /// <summary>
         /// Indicates if this player has selected to host a game. If false, the player must join an existing instance.
         /// </summary>
         public bool IsHost { get; init; }
+
+        public event Action? TurnEndReceived;
 
         /// <summary>
         /// Push a player option update to the client
@@ -188,6 +197,9 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
                     break;
                 case UpdateType.ChatMessage:
                     ChatMessageReceived?.Invoke((ChatMessage) updateWrapper.UpdateObject!);
+                    break;
+                case UpdateType.TurnEnd:
+                    TurnEndReceived?.Invoke();
                     break;
                 // The following aren't implemented on the backend
                 case UpdateType.PlayerOptionsUpdate:

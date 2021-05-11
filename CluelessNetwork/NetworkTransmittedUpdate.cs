@@ -14,7 +14,9 @@
         SuspectSelection,
         GameStart,
         ChatMessage,
-        MoveActionInformation
+        MoveActionInformation,
+        NewTurn,
+        TurnEnd
     }
 
     /// <summary>

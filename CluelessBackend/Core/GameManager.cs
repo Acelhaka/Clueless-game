@@ -16,6 +16,8 @@ namespace CluelessBackend.Core
         List<Suspect> suspects_ = new List<Suspect>(6);
         Board board_;
 
+        private TurnManager? _turnManager;
+
         // Create deck of cards
         CardDeck deck_ = new CardDeck();
 
@@ -139,6 +141,21 @@ namespace CluelessBackend.Core
             }
 
             var msScarletPlayer = suspectSelections.Single(player => player.Value == SUSPECT.MISS_SCARLET).Key;
+            
+            _turnManager = new TurnManager(players, firstPlayerIndex: players.IndexOf(players.Single(x => x.GetSuspectType() == SUSPECT.MISS_SCARLET)));
+
+            // Send first turn
+            foreach (var client in networkPlayerModels)
+            {
+                bool isMyTurn = client == msScarletPlayer;
+                client.SendNewTurn(
+                    new NewTurnMessage
+                    {
+                        IsMyTurn = isMyTurn,
+                        NewTurnPlayer = SUSPECT.MISS_SCARLET
+                    }
+                    );
+            }
         }
 
         private static int GetNumberFromCard(Card card)
@@ -177,7 +194,13 @@ namespace CluelessBackend.Core
             room.SetPlayerInRoom(player);
         }
 
-        /// <summary>
+        public SUSPECT GetNextTurn()
+        {
+            _turnManager!.NextTurn();
+            return _turnManager.CurrentTurn().GetSuspectType();
+        }
+            
+            /// <summary>
         /// Hands the cards to the players in the game
         /// </summary>
         /// <param name="players"> All players in the game </param>
