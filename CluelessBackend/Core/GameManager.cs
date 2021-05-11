@@ -137,6 +137,8 @@ namespace CluelessBackend.Core
                 };
                 client.SendGameStartInfo(gameStartInfo);
             }
+
+            var msScarletPlayer = suspectSelections.Single(player => player.Value == SUSPECT.MISS_SCARLET).Key;
         }
 
         private static int GetNumberFromCard(Card card)
