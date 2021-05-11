@@ -381,11 +381,17 @@
                                                 </nav>
                                             </td>
 
-                                            <td style="padding-left: 40px;"><span class="btn btn-warning suggestion" id="one">Suggestion</span><br><br>
-                                                                            <span class="btn btn-danger accusation" id="seven">Accusation</span><br><br>
-                                                                            <span class="btn btn-primary" onclick='endTurn(); test();'>End Turn</span>
+                                            <td style="padding-left: 40px;">
+                                                <span class="btn btn-warning suggestion" id="one">Suggestion</span><br><br>
+                                                <span class="btn btn-danger accusation" id="seven">Accusation</span><br><br>
+                                                <span class="btn btn-primary" onclick='endTurn(); test();'>End Turn</span>
+                                                <p id="acceptdenybuttons" style="display:none">
+                                                    <span class="btn btn-warning" onclick='refute();'>Refute</span>
+                                                    <span class="btn btn-warning" onclick='pass();'>Pass</span>
+                                                </p>
+                                                
 
-                                                                            </td>
+                                            </td>
                                         </tr>
                                     </table>
 
@@ -825,7 +831,8 @@
             suggestRoom = getRoomValueName("suggest");
             console.log("roomname: " + suggestRoom);
             fullpage_api.moveTo(1, 2);
-            suggestResult = "<h2>Your Suggestion Has Been Made!</h2><br>You suggest a murder by <b>" + suggestName + "</b> using a <b>" + suggestWeapon + "</b> in the <b>" + suggestRoom  + "</b>.";
+            suggestResult = "<h2>Your Suggestion Has Been Made!</h2><br>You suggest a murder by <b>" + suggestName + "</b> using a <b>" + suggestWeapon + "</b> in the <b>" + suggestRoom + "</b>.";
+            sendSuggestion(suggestRoom, suggestName, suggestWeapon);
             $('#modalMsg').html(suggestResult);
             modal("suggest");
             console.log(suggestResult);

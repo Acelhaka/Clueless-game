@@ -1,4 +1,5 @@
 	wsUri = "ws://127.0.0.1:80/ws";
+	wsUri = "ws://thomaswoltjer.com:80/ws";
 	websocket = new WebSocket(wsUri);
 
 	websocket.onopen = function (e) {
@@ -35,12 +36,46 @@
 			// TODO make this function 
 			updatePlayerTurn(data["UpdateObject"]["NewTurnPlayer"], data["UpdateObject"]["IsMyTurn"])
 
-		}else if (data["UpdateType"] < 7) {
+		} else if (data["UpdateType"] == 3) {
+
+			if (data["UpdateObject"]["HasResponse"]) {
+				console.log("player can refute it!!");
+				console.log("data = ", data);
+				var card_ndx = data["UpdateObject"]["ResponseCardNumber"];
+				console.log("card ndx = ", card_ndx);
+				var card_name = enum_mapping_cards[card_ndx];
+				console.log("card name = ", card_name);
+				appendMessage('server', "img/327779.svg", "left", "player was able to refute with " + card_name.alt);
+			// TODO make this function
+            }
+			
+			
+
+		} else if (data["UpdateType"] == 12) {
+			console.log("player needs to refute the suggestion if they can");
+			console.log("data = ", data);
+			var c = [];
+			c.push(data["UpdateObject"]["Weapon"]);
+			c.push(data["UpdateObject"]["Room"]);
+			c.push(data["UpdateObject"]["Suspect"]);
+			console.log("c = ", c);
+			setSuggestedCards(c);
+
+			//doSend(JSON.stringify({ "UpdateType": 8, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.ChatMessage", "UpdateObject": { "Content": "hi", "SenderName": null, "Scope": 0 } }));
+			var x = document.getElementById('acceptdenybuttons')
+			if (x.style.display == "none") {
+				x.style.display = "block";
+			} else {
+				x.style.display = "none";
+            }
+		} else if (data["UpdateType"] < 7) {
 			console.log("..... response ", data);
 		}
 		
 		return e.data;
 	};
+
+	
 
 	websocket.onerror = function (e) {
 		return e.data;
@@ -56,6 +91,35 @@
 		doSend(JSON.stringify({ 'IsHost': host, 'Name': name }));
 		sendSuspectSelection(name);
 		
+	};
+
+	this.refute = function () {
+		console.log("inside refute...");
+		console.log("player cards = ", player_cards);
+		var message = "I can disprove the suggestion";
+		var card_value;
+		for (var p in player_cards) {
+			console.log("p = ", p);
+			console.log("player[card] = ", player_cards[p]);
+			for (var x in suggested_cards) {
+				if (player_cards[p] == suggested_cards[x]) {
+					card_value = player_cards[p];
+				}
+            }
+        }
+		
+		console.log("card value = ", card_value);
+		card_value = player_cards[0];
+		
+		doSend(JSON.stringify({ "UpdateType": 8, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.ChatMessage", "UpdateObject": { "Content": message, "SenderName": null, "Scope": 0 } }));
+		doSend(JSON.stringify({ "UpdateType": 3, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.PlayerSuggestionResponse", "UpdateObject": { "HasResponse": true, "ResponseCardNumber": card_value } }));
+	};
+
+	this.pass = function () {
+		//console.log("inside pass...");
+		var message = "I cannot disprove the suggestion";
+		doSend(JSON.stringify({ "UpdateType": 8, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.ChatMessage", "UpdateObject": { "Content": message, "SenderName": null, "Scope": 0 } }));
+		doSend(JSON.stringify({ "UpdateType": 3, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.PlayerSuggestionResponse", "UpdateObject": { "HasResponse": false, "ResponseCardNumber": 0 } }));
 	};
 
 	this.startGame = function() {
@@ -75,6 +139,34 @@
 		console.log("sending endTurn request to the server....");
 		//generateWeaponTokens();
 		doSend(JSON.stringify({ "UpdateType": 11, "UpdateObjectType": null, "UpdateObject": null }));
+	};
+
+this.sendSuggestion = function (suggestRoom, suggestName, suggestWeapon) {
+		room_id = 0;
+		name_id = 0;
+		weapon_id = 0;
+		if (suggestRoom.toLowerCase() in enum_suggestion_mapping) {
+			console.log(enum_suggestion_mapping[suggestRoom.toLowerCase()], " was found for: " + suggestRoom);
+			room_id = enum_suggestion_mapping[suggestRoom.toLowerCase()];
+		}
+
+		if (suggestName.toLowerCase() in enum_suggestion_mapping) {
+			console.log(enum_suggestion_mapping[suggestName.toLowerCase()], " was found for: " + suggestName);
+			name_id = enum_suggestion_mapping[suggestName.toLowerCase()];
+		}
+
+		if (suggestWeapon.toLowerCase() in enum_suggestion_mapping) {
+			console.log(enum_suggestion_mapping[suggestWeapon.toLowerCase()], " was found for: " + suggestWeapon);
+			weapon_id = enum_suggestion_mapping[suggestWeapon.toLowerCase()];
+		}
+		console.log("wid = ", weapon_id);
+		console.log("nid = ", name_id);
+		console.log("rid = ", room_id);
+		var message = "I suggest a murder by <b>" + suggestName + "</b> using a <b> " + suggestWeapon + "</b > in the <b> " + suggestRoom + "</b>";
+		doSend(JSON.stringify({ "UpdateType": 8, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.ChatMessage", "UpdateObject": { "Content": message, "SenderName": null, "Scope": 0 } }));
+		doSend(JSON.stringify({ "UpdateType": 2, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.PlayerSuggestion", "UpdateObject": { "Weapon": weapon_id, "Room": room_id, "Suspect": name_id } }));
+
+		console.log("from inside sendSuggestion, ", suggestRoom, suggestName, suggestWeapon);
 	};
 
 	this.sendSuspectSelection = function (name) {

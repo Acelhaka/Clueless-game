@@ -22,6 +22,8 @@ var location_to_ids = { "Study":"location_r0",
 
 var current_location = "";
 var suspect_val = "";
+var player_cards = [];
+var suggested_cards = [];
 
 var location_to_weapon_and_suspect_ids = {
 	"Study": { "weapon": "r0_weapons", "suspect": "r0_suspects" },
@@ -99,6 +101,11 @@ function setPlayerLocation(newLocation) {
 
 	current_location = newLocation;
 
+}
+
+function setSuggestedCards(c) {
+	suggested_cards = c;
+	console.log("suggested_cards now = ", suggested_cards);
 }
 
 function setSuspectVal(val) {
@@ -227,6 +234,30 @@ var enum_mapping_cards = {
 	20: { "src": "img/rooms/Kitchen.png", "alt": "Kitchen" }
 }
 
+var enum_suggestion_mapping = {
+	"rope": 0,
+	"pipe": 1,
+	"dagger": 2,
+	"wrench": 3,
+	"candlestick": 4,
+	"revolver": 5,
+	"col. mustard": 6,
+	"miss scarlet": 7,
+	"professor plum": 8,
+	"mr green": 9,
+	"mrs white": 10,
+	"mrs peacock": 11,
+	"study": 12,
+	"hall": 13,
+	"lounge": 14,
+	"library": 15,
+	"billard room": 16,
+	"dining room": 17,
+	"conservatory": 18,
+	"ballroom": 19,
+	"kitchen": 20
+};
+
 var cards_to_links = Object.assign({}, room_to_links, suspects_to_links, weapons_to_links);
 
 
@@ -236,6 +267,7 @@ function generateCards(cards) {
 	console.log("cards = ", cards);
 	for (var c in cards) {
 		console.log("c = ", c);
+		player_cards.push(cards[c]);
 		html += "<img class='zoom' src='" + enum_mapping_cards[cards[c]].src + "' title='" + enum_mapping_cards[cards[c]].alt + "' height=100px; width:100px; alt='" + enum_mapping_cards[cards[c]].alt + "'/>";
 	}
 	html += "</p>";
