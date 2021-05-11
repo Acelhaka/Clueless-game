@@ -2,7 +2,8 @@
 {
     public class PlayerSuggestion
     {
-        // When adding information to be transmitted, use public get/init properties to store the information
-        // Do not add a constructor that takes arguments, as this is a serialized class
+        public int Weapon { get; init; }
+        public int Room { get; init; }
+        public int Suspect { get; init; }
     }
 }
