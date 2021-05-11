@@ -35,7 +35,7 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// <summary>
         /// Subscribe to run code when a move action is received from the frontend for this player
         /// </summary>
-        public event Action<MoveAction>? MoveActionReceived;
+        public event Action<MoveActionInformation>? MoveActionReceived;
 
         public void SendMoveActionInformation(MoveActionInformation moveActionInformation);
 

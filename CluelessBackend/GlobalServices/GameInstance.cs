@@ -34,6 +34,7 @@ namespace CluelessBackend
         private readonly GameManager _gameManager;
         private readonly Dictionary<IBackendPlayerNetworkModel, SUSPECT> _suspectSelections = new();
 
+        private readonly Dictionary<IBackendPlayerNetworkModel, int> _moveSelection = new();
         private bool CanStartGame()
         {
             return _playerModels.Count == _suspectSelections.Count;
@@ -46,6 +47,7 @@ namespace CluelessBackend
             _playerModels.Add(playerNetworkModel);
             playerNetworkModel.SuspectSelectionReceived += update => OnSuspectSelection(playerNetworkModel, update);
             playerNetworkModel.TurnEndReceived += () => OnPlayerEndsTurn(playerNetworkModel);
+            playerNetworkModel.MoveActionReceived += update => OnMoveActionSelection(playerNetworkModel, update);
         }
 
         private void OnPlayerEndsTurn(IBackendPlayerNetworkModel playerNetworkModel)
@@ -70,6 +72,18 @@ namespace CluelessBackend
             _suspectSelections[player] = suspectSelectionUpdate.SuspectSelected;
             foreach (var playerNetworkModel in _playerModels)
                 playerNetworkModel.SendSuspectSelectionUpdate(suspectSelectionUpdate.GetWithPlayerName(player.Name));
+        }
+
+        private void OnMoveActionSelection(
+       IBackendPlayerNetworkModel player,
+       MoveActionInformation moveActionUpdate)
+        {
+            _moveSelection[player] = moveActionUpdate.LocationID;
+            foreach (var playerNetworkModel in _playerModels)
+                playerNetworkModel.SendMoveActionInformation(moveActionUpdate.GePlayerPosition());
+
+          // _gameManager.MovePlayerToRoom(player, roomID);
+      
         }
 
         public List<IBackendPlayerNetworkModel> GetPlayerModels()

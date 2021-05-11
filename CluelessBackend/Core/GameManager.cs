@@ -177,6 +177,93 @@ namespace CluelessBackend.Core
             room.SetPlayerInRoom(player);
         }
 
+        public void MovePlayerToRoomWithID(Player player, int ID)
+        {
+            if(ID == 0)
+            {
+                MovePlayerToRoom(player, Room.ROOM.STUDY);
+            }
+            else if (ID == 1)
+            {
+                MovePlayerToRoom(player, Room.ROOM.HALL);
+            }
+            else if (ID == 2)
+            {
+                MovePlayerToRoom(player, Room.ROOM.STUDY);
+            }
+            else if (ID == 3)
+            {
+                MovePlayerToRoom(player, Room.ROOM.LIBRARY);
+            }
+            else if (ID == 4)
+            {
+                MovePlayerToRoom(player, Room.ROOM.BILLIARD_ROOM);
+            }
+            else if (ID == 5)
+            {
+                MovePlayerToRoom(player, Room.ROOM.DINNING_ROOM);
+            }
+            else if (ID == 6)
+            {
+                MovePlayerToRoom(player, Room.ROOM.CONSERVATORY);
+            }
+            else if (ID == 7)
+            {
+                MovePlayerToRoom(player, Room.ROOM.BALLROOM);
+            }
+            else if (ID == 8)
+            {
+                MovePlayerToRoom(player, Room.ROOM.KITCHEN);
+            }
+            else if (ID == 9)
+            {
+                MovePlayerToRoom(player, 0, 1);
+            }
+            else if (ID == 10)
+            {
+                MovePlayerToRoom(player, 0, 3);
+            }
+            else if (ID == 11)
+            {
+                MovePlayerToRoom(player, 1, 0);
+            }
+            else if (ID == 12)
+            {
+                MovePlayerToRoom(player, 1, 2);
+            }
+            else if (ID == 13)
+            {
+                MovePlayerToRoom(player, 1, 4);
+            }
+            else if (ID == 14)
+            {
+                MovePlayerToRoom(player, 2, 1);
+            }
+            else if (ID == 15)
+            {
+                MovePlayerToRoom(player, 2, 3); ;
+            }
+            else if (ID == 16)
+            {
+                MovePlayerToRoom(player, 3, 0);
+            }
+            else if (ID == 17)
+            {
+                MovePlayerToRoom(player, 3, 2);
+            }
+            else if (ID == 18)
+            {
+                MovePlayerToRoom(player, 3, 4);
+            }
+            else if (ID == 19)
+            {
+                MovePlayerToRoom(player, 4, 1);
+            }
+            else if (ID == 20)
+            {
+                MovePlayerToRoom(player, 4, 3);
+            }
+        }
         public SUSPECT GetNextTurn()
         {
             _turnManager!.NextTurn();
@@ -302,13 +389,13 @@ namespace CluelessBackend.Core
             }
         }
 
-        /// <summary>
-        /// Move player to a room or hallway given the next cell coordinates
-        /// </summary>
-        /// <param name="player"> player that will be moved </param>
-        /// <param name="row"> The row that the player will be positioned on the board </param>
-        /// <param name="column"> The column that the player will be positioned on the board </param>
-        public void MovePlayerToRoom(Player player, int row, int column)
+            /// <summary>
+            /// Move player to a room or hallway given the next cell coordinates
+            /// </summary>
+            /// <param name="player"> player that will be moved </param>
+            /// <param name="row"> The row that the player will be positioned on the board </param>
+            /// <param name="column"> The column that the player will be positioned on the board </param>
+            public void MovePlayerToRoom(Player player, int row, int column)
         {
             rooms_[row, column].SetPlayerInRoom(player);
             player.SetPlayerPosition(row, column);

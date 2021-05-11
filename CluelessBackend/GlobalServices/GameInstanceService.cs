@@ -23,6 +23,7 @@ namespace CluelessBackend
 
             latestGameAcceptingPlayers.AddPlayer(playerNetworkModel);
             PlayerAdded?.Invoke((latestGameAcceptingPlayers, playerNetworkModel));
+            
         }
 
         public void CreateGameInstance(IBackendPlayerNetworkModel hostPlayerNetworkModel)

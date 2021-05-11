@@ -81,7 +81,7 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// <summary>
         /// Subscribe to run code when a move action is received from the frontend for this player
         /// </summary>
-        public event Action<MoveAction>? MoveActionReceived;
+        public event Action<MoveActionInformation>? MoveActionReceived;
 
         /// <summary>
         /// Subscribe to run code when an accusation is received from the frontend for this player
@@ -178,7 +178,7 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
             switch (updateWrapper.UpdateType)
             {
                 case UpdateType.MoveActionInformation:
-                    MoveActionReceived?.Invoke((MoveAction)updateWrapper.UpdateObject!);
+                    MoveActionReceived?.Invoke((MoveActionInformation)updateWrapper.UpdateObject!);
                     break;
                 case UpdateType.PlayerSuggestion:
                     PlayerSuggestionReceived?.Invoke((PlayerSuggestion) updateWrapper.UpdateObject!);
