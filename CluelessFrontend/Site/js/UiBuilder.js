@@ -61,7 +61,7 @@ var move_options = {
 	'Hallway-r1': { 'left': 'Study', 'down': null, 'right': 'Hall', 'up': null },
 	'Hall': { 'left': 'Hallway-r1', 'down': 'Hallway-r6', 'right': 'Hallway-r6', 'up': null },
 	'Hallway-r3': { 'left': 'Hall', 'down': null, 'right': 'Lounge', 'up': null },
-	'Hallway-r5': { 'left': null, 'down': 'Library', 'right': 'Hallway-r6', 'up': 'Study' },
+	'Hallway-r5': { 'left': null, 'down': 'Library', 'right': null, 'up': 'Study' },
 	'Hallway-r6': { 'left': 'Hallway-r5', 'down': 'Billards', 'right': 'Hallway-r7', 'up': 'Hall' },
 	'Hallway-r7': { 'left': null, 'down': 'Dinning', 'right': null, 'up': 'Lounge' },
 	'Library': { 'left': null, 'down': 'Hallway-r9', 'right': 'Hallway-r8', 'up': 'Hallway-r5' },
