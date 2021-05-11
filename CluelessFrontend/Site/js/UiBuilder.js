@@ -106,6 +106,26 @@ function setSuspectVal(val) {
 	suspect_val = val;
 }
 
+function updatePlayerTurn(suspectEnum, isTurn) {
+	console.log("suspect Enum = ", suspectEnum);
+	console.log("isTurn = ", isTurn);
+	var name = "";
+	if (suspectEnum == 0)
+		name = "Col. Mustard";
+	else if (suspectEnum == 1)
+		name = "Miss Scarlet";
+	else if (suspectEnum == 2)
+		name = "Professor Plum";
+	else if (suspectEnum == 3)
+		name = "Mr. Green";
+	else if (suspectEnum == 4)
+		name = "Mrs. White";
+	else if (suspectEnum == 5)
+		name = "Mrs. Peacock";
+	console.log(name + " Turn");
+	document.getElementById('turnDisplay').innerHTML = name + " Turn";
+}
+
 
 
 
@@ -532,6 +552,10 @@ function unhighlightRoom(room) {
 		document.getElementById(location_to_ids[room]).style.cssText = originalCss.replace("opacity: 0.4;","");
 	}
 	
+}
+
+function test() {
+	console.log("inside of test...");
 }
 
 function getSuspectValueName(type) {

@@ -27,10 +27,17 @@
 			console.log("Game Start!....need to update the player cards....and set the weapon to room mapping: ", data);
 			generateCards(data["UpdateObject"]["Cards"]);
 			generateWeaponTokens();
+			generateMovePad("nextMove");
 
-		} else if (data["UpdateType"] < 7) {
+		} else if (data["UpdateType"] == 10) {
+			console.log("turn information sent!");
+			console.log("data = ", data);
+			// TODO make this function 
+			updatePlayerTurn(data["UpdateObject"]["NewTurnPlayer"], data["UpdateObject"]["IsMyTurn"])
+
+		}else if (data["UpdateType"] < 7) {
 			console.log("..... response ", data);
-        }
+		}
 		
 		return e.data;
 	};
@@ -62,6 +69,12 @@
 		document.getElementById('startGameButtonId').innerHTML = "";
 		generateMovePad("nextMove");
 
+	};
+
+	this.endTurn = function () {
+		console.log("sending endTurn request to the server....");
+		//generateWeaponTokens();
+		doSend(JSON.stringify({ "UpdateType": 11, "UpdateObjectType": null, "UpdateObject": null }));
 	};
 
 	this.sendSuspectSelection = function (name) {
@@ -101,11 +114,7 @@
 		setSuspectVal(suspect_value);
 	}
 
-	this.endTurn = function () {
-		//console.log("sending endTurn request to the server....");
-		//generateWeaponTokens();
-		doSend(JSON.stringify({ "UpdateType": 9, "UpdateObjectType": null, "UpdateObject": null }));
-	};
+	
 
 this.moveRoom = function (room, currentRoom, suspectVal) {
 	var idMap = {
@@ -134,7 +143,7 @@ this.moveRoom = function (room, currentRoom, suspectVal) {
 	}
 	if (room in idMap) {
 		console.log("moveRoom, ", room);
-		doSend(JSON.stringify({ "UpdateType": 1, "UpdateObjectType": null, "UpdateObject": { "room": idMap[room] } }));
+		//doSend(JSON.stringify({ "UpdateType": 1, "UpdateObjectType": null, "UpdateObject": { "room": idMap[room] } }));
 		//TODO figure out the hallway-r3 and other hallway id values dont seem to have an ENUM type...
 		movePlayer(suspectVal, idMap[room], currentRoom);
 		generateMovePad(null);
