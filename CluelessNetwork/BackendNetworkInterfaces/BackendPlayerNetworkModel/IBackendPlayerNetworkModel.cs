@@ -57,8 +57,9 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// <summary>
         /// Send a request to the front end so it can prompt the user for a response to another player's suggestion
         /// </summary>
+        /// <param name="playerSuggestion"></param>
         /// <param name="suggestion">The suggestion requiring a response</param>
-        public void PromptResponseToSuggestion(PlayerSuggestion suggestion);
+        public void PromptResponseToSuggestion(PlayerSuggestion playerSuggestion);
 
         /// <summary>
         /// Send an accusation result to this player
@@ -100,5 +101,7 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// Disconnects the player from the server
         /// </summary>
         void Disconnect();
+
+        void SendPlayerSuggestion(PlayerSuggestion playerSuggestion);
     }
 }

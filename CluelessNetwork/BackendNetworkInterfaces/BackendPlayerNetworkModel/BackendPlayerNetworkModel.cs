@@ -62,6 +62,12 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         // TODO: Implement disconnect logic
         public void Disconnect() { }
 
+        public void SendPlayerSuggestion(PlayerSuggestion playerSuggestion)
+        {
+            Console.WriteLine("Sending player suggestion to client");
+            PushUpdate(playerSuggestion, UpdateType.PlayerSuggestion);
+        }
+
         /// <summary>
         /// Send a chat message to the connected front end
         /// </summary>
@@ -155,12 +161,13 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// <summary>
         /// Send a request to the front end so it can prompt the user for a response to another player's suggestion
         /// </summary>
+        /// <param name="playerSuggestion"></param>
         /// <param name="suggestion">The suggestion requiring a response</param>
-        public void PromptResponseToSuggestion(PlayerSuggestion suggestion)
+        public void PromptResponseToSuggestion(PlayerSuggestion playerSuggestion)
         {
             if (Settings.PrintNetworkDebugMessagesToConsole)
-                Console.WriteLine("Sending player suggestion to client");
-            PushUpdate(suggestion, UpdateType.PlayerSuggestion);
+                Console.WriteLine("Sending player suggestion prompt to client");
+            PushUpdate(playerSuggestion, UpdateType.PromptForPlayerSuggestionResponse);
         }
 
         /// <summary>

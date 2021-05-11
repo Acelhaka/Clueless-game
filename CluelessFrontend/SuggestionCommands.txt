@@ -1,0 +1,39 @@
+Add host player P1:
+{"IsHost":true,"Name":"P1"}
+
+Add player P2:
+{"IsHost":false,"Name":"P2"}
+
+Add player P3:
+{"IsHost":false,"Name":"P3"}
+
+Select Miss Scarlet:
+{"UpdateType":6,"UpdateObjectType":"CluelessNetwork.TransmittedTypes.SuspectSelectionUpdate","UpdateObject":{"SuspectSelected":1,"PlayerName":null}}
+
+Select Prof Plum:
+{"UpdateType":6,"UpdateObjectType":"CluelessNetwork.TransmittedTypes.SuspectSelectionUpdate","UpdateObject":{"SuspectSelected":2,"PlayerName":null}}
+
+Select Mr Green:
+{"UpdateType":6,"UpdateObjectType":"CluelessNetwork.TransmittedTypes.SuspectSelectionUpdate","UpdateObject":{"SuspectSelected":3,"PlayerName":null}}
+
+Start game:
+{"UpdateType":7,"UpdateObjectType":null,"UpdateObject":null}
+
+End Turn:
+{"UpdateType":11,"UpdateObjectType":null,"UpdateObject":null}
+
+When making a suggestion, initially the suggestion is broadcast to everyone (update type 2). 
+Then, the server asks each player to respond to the suggestion (update type 12). 
+When the player responds, the server sends the asker/suggester a response message (update type 3).
+If a player has a response, or all players have been prompted, the server will stop asking. 
+Otherwise, the server will prompt another player.
+
+Send suggestion (Prof. Plum in the Hall with the Knife):
+{"UpdateType":2,"UpdateObjectType":"CluelessNetwork.TransmittedTypes.PlayerSuggestion","UpdateObject":{"Weapon":2,"Room":13,"Suspect":8}}
+
+Send suggestion response (player can respond with a Hall card):
+{"UpdateType":3,"UpdateObjectType":"CluelessNetwork.TransmittedTypes.PlayerSuggestionResponse","UpdateObject":{"HasResponse":true,"ResponseCardNumber":13}}
+
+Send suggestion response (player can not disprove suggestion): 
+{"UpdateType":3,"UpdateObjectType":"CluelessNetwork.TransmittedTypes.PlayerSuggestionResponse","UpdateObject":{"HasResponse":false,"ResponseCardNumber":0}}
+Note: ResponseCardNumber can be ignored if HasResponse is false
