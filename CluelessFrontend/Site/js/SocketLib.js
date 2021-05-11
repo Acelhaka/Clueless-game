@@ -24,7 +24,14 @@
 		if (data["UpdateType"] == 8) {
 			appendMessage(data["UpdateObject"]["SenderName"], "img/327779.svg", "left", data["UpdateObject"]["Content"]);
 
-		} else if (data["UpdateType"] == 7) {
+		} else if (data["UpdateType"] == 1) {
+			console.log("update player move....", data);
+
+			//moveRoom(room, currentRoom, suspectVal);
+
+
+
+		}else if (data["UpdateType"] == 7) {
 			console.log("Game Start!....need to update the player cards....and set the weapon to room mapping: ", data);
 			generateCards(data["UpdateObject"]["Cards"]);
 			generateWeaponTokens();
@@ -235,7 +242,7 @@ this.moveRoom = function (room, currentRoom, suspectVal) {
 	}
 	if (room in idMap) {
 		console.log("moveRoom, ", room);
-		//doSend(JSON.stringify({ "UpdateType": 1, "UpdateObjectType": null, "UpdateObject": { "room": idMap[room] } }));
+		doSend(JSON.stringify({ "UpdateType": 1, "UpdateObjectType": null, "UpdateObject": { "roomNumber": idMap[room] } }));
 		//TODO figure out the hallway-r3 and other hallway id values dont seem to have an ENUM type...
 		movePlayer(suspectVal, idMap[room], currentRoom);
 		generateMovePad(null);
