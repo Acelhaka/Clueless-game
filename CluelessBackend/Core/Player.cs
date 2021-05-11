@@ -33,7 +33,7 @@ namespace CluelessBackend.Core
         bool hasMoved_;
 
         // Player status
-        bool isActive_;
+        bool isActive_ = true;
 
         // Player Suggestions
         int numberOfSuggestions_ = 0;

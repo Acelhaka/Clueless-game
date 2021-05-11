@@ -13,7 +13,10 @@
         AccusationResult,
         SuspectSelection,
         GameStart,
-        ChatMessage
+        ChatMessage,
+        MoveActionInformation,
+        NewTurn,
+        TurnEnd
     }
 
     /// <summary>

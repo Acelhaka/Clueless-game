@@ -34,10 +34,19 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// </summary>
         public string Name { get; init; } = string.Empty;
 
+        public void SendNewTurn(NewTurnMessage newTurnMessage)
+        {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending turn message to client");
+            PushUpdate(newTurnMessage, UpdateType.NewTurn);
+        }
+
         /// <summary>
         /// Indicates if this player has selected to host a game. If false, the player must join an existing instance.
         /// </summary>
         public bool IsHost { get; init; }
+
+        public event Action? TurnEndReceived;
 
         /// <summary>
         /// Push a player option update to the client
@@ -51,10 +60,7 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         }
 
         // TODO: Implement disconnect logic
-        public void Disconnect()
-        {
-            throw new NotImplementedException();
-        }
+        public void Disconnect() { }
 
         /// <summary>
         /// Send a chat message to the connected front end
@@ -75,12 +81,19 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// <summary>
         /// Subscribe to run code when a move action is received from the frontend for this player
         /// </summary>
-        public event Action<MoveActionInformation>? MoveActionReceived;
+        public event Action<MoveAction>? MoveActionReceived;
 
         /// <summary>
         /// Subscribe to run code when an accusation is received from the frontend for this player
         /// </summary>
         public event Action<Accusation>? AccusationReceived;
+
+        public void SendMoveActionInformation(MoveActionInformation moveActionInformation)
+        {
+            if (Settings.PrintNetworkDebugMessagesToConsole)
+                Console.WriteLine("Sending move action information to client");
+            PushUpdate(moveActionInformation, UpdateType.MoveActionInformation);
+        }
 
         /// <summary>
         /// Send an accusation result to this player
@@ -164,8 +177,8 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
             // Choose a handler for the update, based on update type
             switch (updateWrapper.UpdateType)
             {
-                case UpdateType.MoveAction:
-                    MoveActionReceived?.Invoke((MoveActionInformation) updateWrapper.UpdateObject!);
+                case UpdateType.MoveActionInformation:
+                    MoveActionReceived?.Invoke((MoveAction)updateWrapper.UpdateObject!);
                     break;
                 case UpdateType.PlayerSuggestion:
                     PlayerSuggestionReceived?.Invoke((PlayerSuggestion) updateWrapper.UpdateObject!);
@@ -184,6 +197,9 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
                     break;
                 case UpdateType.ChatMessage:
                     ChatMessageReceived?.Invoke((ChatMessage) updateWrapper.UpdateObject!);
+                    break;
+                case UpdateType.TurnEnd:
+                    TurnEndReceived?.Invoke();
                     break;
                 // The following aren't implemented on the backend
                 case UpdateType.PlayerOptionsUpdate:
