@@ -51,6 +51,15 @@ namespace CluelessBackend
             playerNetworkModel.PlayerSuggestionReceived += update => OnPlayerSuggestion(playerNetworkModel, update);
             playerNetworkModel.PlayerSuggestionResponseReceived +=
                 update => OnPlayerSuggestionResponse(playerNetworkModel, update);
+            playerNetworkModel.MoveActionReceived += update => OnPlayerMove(playerNetworkModel, update);
+        }
+
+        private void OnPlayerMove(IBackendPlayerNetworkModel playerNetworkModel, MoveAction update)
+        {
+            foreach (var client in _playerModels)
+            {
+                client.SendMoveAction(update.WithSuspect(_suspectSelections[playerNetworkModel]));
+            }
         }
 
         private void OnPlayerSuggestionResponse(IBackendPlayerNetworkModel playerNetworkModel, PlayerSuggestionResponse update)
