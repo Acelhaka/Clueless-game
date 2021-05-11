@@ -103,5 +103,6 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         void Disconnect();
 
         void SendPlayerSuggestion(PlayerSuggestion playerSuggestion);
+        void SendMoveAction(MoveAction withSuspect);
     }
 }

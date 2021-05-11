@@ -153,6 +153,12 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
             PushUpdate(playerSuggestionResponse, UpdateType.PlayerSuggestionResponse);
         }
 
+        public void SendMoveAction(MoveAction moveAction)
+        {
+            Console.WriteLine("Sending move action to client");
+            PushUpdate(moveAction, UpdateType.MoveAction);
+        }
+
         /// <summary>
         /// Subscribe to run code when a player suggestion is received from the frontend for this player
         /// </summary>
@@ -185,6 +191,7 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
             switch (updateWrapper.UpdateType)
             {
                 case UpdateType.MoveActionInformation:
+                case UpdateType.MoveAction:
                     MoveActionReceived?.Invoke((MoveAction)updateWrapper.UpdateObject!);
                     break;
                 case UpdateType.PlayerSuggestion:

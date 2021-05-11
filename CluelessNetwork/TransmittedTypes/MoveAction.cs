@@ -1,15 +1,18 @@
 ﻿namespace CluelessNetwork.TransmittedTypes
 {
-    public enum Direction
-    {
-        Up,
-        Down,
-        Left,
-        Right
-    }
-
     public class MoveAction
     {
-        public Direction Direction { get; init; }
+        // Does not need to be set by the client. Set by the server.
+        public SUSPECT? Suspect { get; init; }
+        public int RoomNumber { get; init; }
+
+        public MoveAction WithSuspect(SUSPECT suspectSelection)
+        {
+            return new MoveAction()
+            {
+                RoomNumber = RoomNumber,
+                Suspect = suspectSelection
+            };
+        }
     }
 }
