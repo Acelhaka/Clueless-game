@@ -45,6 +45,22 @@ namespace CluelessBackend
         {
             _playerModels.Add(playerNetworkModel);
             playerNetworkModel.SuspectSelectionReceived += update => OnSuspectSelection(playerNetworkModel, update);
+            playerNetworkModel.TurnEndReceived += () => OnPlayerEndsTurn(playerNetworkModel);
+        }
+
+        private void OnPlayerEndsTurn(IBackendPlayerNetworkModel playerNetworkModel)
+        {
+            var suspect = _gameManager.GetNextTurn();
+            foreach (var client in _playerModels)
+            {
+                client.SendNewTurn(
+                    new NewTurnMessage
+                    {
+                        IsMyTurn = suspect == _suspectSelections[client],
+                        NewTurnPlayer = suspect
+                    }
+                    );
+            }
         }
 
         private void OnSuspectSelection(

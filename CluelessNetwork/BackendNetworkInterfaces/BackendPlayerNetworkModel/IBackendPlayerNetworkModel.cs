@@ -28,10 +28,16 @@ namespace CluelessNetwork.BackendNetworkInterfaces.BackendPlayerNetworkModel
         /// </summary>
         public event Action? GameStartReceived;
 
+        public event Action? TurnEndReceived;
+
+        public void SendNewTurn(NewTurnMessage newTurnMessage);
+
         /// <summary>
         /// Subscribe to run code when a move action is received from the frontend for this player
         /// </summary>
-        public event Action<MoveActionInformation>? MoveActionReceived;
+        public event Action<MoveAction>? MoveActionReceived;
+
+        public void SendMoveActionInformation(MoveActionInformation moveActionInformation);
 
         /// <summary>
         /// Subscribe to run code when a player suggestion is received from the frontend for this player

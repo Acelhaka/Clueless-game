@@ -16,6 +16,8 @@ namespace CluelessBackend.Core
         List<Suspect> suspects_ = new List<Suspect>(6);
         Board board_;
 
+        private TurnManager? _turnManager;
+
         // Create deck of cards
         CardDeck deck_ = new CardDeck();
 
@@ -137,7 +139,6 @@ namespace CluelessBackend.Core
                 };
                 client.SendGameStartInfo(gameStartInfo);
             }
-
         }
 
         private static int GetNumberFromCard(Card card)
@@ -176,7 +177,13 @@ namespace CluelessBackend.Core
             room.SetPlayerInRoom(player);
         }
 
-        /// <summary>
+        public SUSPECT GetNextTurn()
+        {
+            _turnManager!.NextTurn();
+            return _turnManager.CurrentTurn().GetSuspectType();
+        }
+            
+            /// <summary>
         /// Hands the cards to the players in the game
         /// </summary>
         /// <param name="players"> All players in the game </param>

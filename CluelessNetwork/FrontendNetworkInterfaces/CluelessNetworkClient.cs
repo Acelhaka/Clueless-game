@@ -196,7 +196,9 @@ namespace CluelessNetwork.FrontendNetworkInterfaces
                 case UpdateType.Accusation:
                     throw new InvalidOperationException(
                         $"The frontend has no implementation for update type: {updateWrapper}");
-                default: throw new ArgumentOutOfRangeException();
+                default: 
+                    Console.WriteLine($"There handler connection for update type {updateWrapper.UpdateType}");
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }
