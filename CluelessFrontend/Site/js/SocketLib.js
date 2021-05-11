@@ -67,23 +67,38 @@
 	this.sendSuspectSelection = function (name) {
 		//val = document.getElementById('playerSuspectValue').value;
 		val = getSuspectValueName();
+		suspect_value = "";
 		radiosPlayerSelect = document.getElementsByName('playerSelect');
-		if (radiosPlayerSelect[0].checked)
+		if (radiosPlayerSelect[0].checked) {
 			val = 0
-		else if (radiosPlayerSelect[1].checked)
-			val = 1
-		else if (radiosPlayerSelect[2].checked)
-			val = 2
-		else if (radiosPlayerSelect[3].checked)
-			val = 3
-		else if (radiosPlayerSelect[4].checked)
-			val = 4
-		else if (radiosPlayerSelect[5].checked)
-			val = 5
+			suspect_value = 1;
+		}
+		else if (radiosPlayerSelect[1].checked) {
+			val = 1;
+			suspect_value = 0;
+		}
+		else if (radiosPlayerSelect[2].checked) {
+			val = 2;
+			suspect_value = 4;
+		}
+		else if (radiosPlayerSelect[3].checked) {
+			val = 3;
+			suspect_value = 5;
+		}
+		else if (radiosPlayerSelect[4].checked) {
+			val = 4;
+			suspect_value = 3;
+		}
+		else if (radiosPlayerSelect[5].checked) {
+			val = 5;
+			suspect_value = 2;
+        }
+			
 		doSend(JSON.stringify({ "UpdateType": 6, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.SuspectSelectionUpdate", "UpdateObject": { "SuspectSelected": val, "PlayerName": null } }));
 
 		// so the client knows it's location
 		updatePlayerLocation(val);
+		setSuspectVal(suspect_value);
 	}
 
 	this.endTurn = function () {
@@ -92,12 +107,41 @@
 		doSend(JSON.stringify({ "UpdateType": 9, "UpdateObjectType": null, "UpdateObject": null }));
 	};
 
-	this.moveRoom = function (room) {
+this.moveRoom = function (room, currentRoom, suspectVal) {
+	var idMap = {
+		'Study': 0,
+		'Hallway-r1': 9,
+		'Hall': 1,
+		'Hallway-r3': 10,
+		'Lounge': 2,
+		'Hallway-r5': 11,
+		'Hallway-r6': 12,
+		'Hallway-r7': 13,
+		'Library': 3,
+		'Hallway-r8': 14,
+		'Billiards': 4,
+		'Hallway-r9': 15,
+		'Dinning': 5,
+		'Hallway-r10': 16,
+		'Hallway-r11': 17,
+		'Hallway-r12': 18,
+		'Conservatory': 6,
+		'Hallway-r14': 19,
+		'Ballroom': 7,
+		'Hallway-r19': 20,
+		'Kitchen': 8
+
+	}
+	if (room in idMap) {
 		console.log("moveRoom, ", room);
-		doSend(JSON.stringify({ "UpdateType": 1, "UpdateObjectType": null, "UpdateObject": { "room": room } }));
+		doSend(JSON.stringify({ "UpdateType": 1, "UpdateObjectType": null, "UpdateObject": { "room": idMap[room] } }));
 		//TODO figure out the hallway-r3 and other hallway id values dont seem to have an ENUM type...
-		movePlayer(0, room, "Hallway-r3");
+		movePlayer(suspectVal, idMap[room], currentRoom);
 		generateMovePad(null);
+	} else {
+		console.log("room " + room + ", not found in isMap....");
+    }
+		
 	};
 
 
