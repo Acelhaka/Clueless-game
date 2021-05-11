@@ -16,7 +16,8 @@
         ChatMessage,
         MoveActionInformation,
         NewTurn,
-        TurnEnd
+        TurnEnd,
+        PromptForPlayerSuggestionResponse
     }
 
     /// <summary>
