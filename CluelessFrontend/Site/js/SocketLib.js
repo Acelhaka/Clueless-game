@@ -1,4 +1,4 @@
-	wsUri = "ws://127.0.0.1:32123/ws";
+	wsUri = "ws://127.0.0.1:80/ws";
 	websocket = new WebSocket(wsUri);
 
 	websocket.onopen = function (e) {
@@ -8,6 +8,7 @@
 	websocket.onclose = function (e) {
 		return "DISCONNECTED";
 	};
+
 
 	websocket.onmessage = function (e) {
 		console.log(e.data);
@@ -25,9 +26,8 @@
 		} else if (data["UpdateType"] == 7) {
 			console.log("Game Start!....need to update the player cards....and set the weapon to room mapping: ", data);
 			generateCards(data["UpdateObject"]["Cards"]);
-		} else if (data["UpdateType"] == 1) {
-			console.log("Send players options to move data: ", data);
-			// TODO:: call generate pad
+			generateWeaponTokens();
+
 		} else if (data["UpdateType"] < 7) {
 			console.log("..... response ", data);
         }
@@ -60,7 +60,7 @@
 		generateWeaponTokens("");
 		// erase the start game button since it was already pressed
 		document.getElementById('startGameButtonId').innerHTML = "";
-		getPossibleMoves()
+
 	};
 
 	this.sendSuspectSelection = function (name) {
@@ -79,8 +79,7 @@
 			val = 4
 		else if (radiosPlayerSelect[5].checked)
 			val = 5
-		doSend(JSON.stringify({ "UpdateType": 6, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.
-			SelectionUpdate", "UpdateObject": { "SuspectSelected": val, "PlayerName": null } }));
+		doSend(JSON.stringify({ "UpdateType": 6, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.SuspectSelectionUpdate", "UpdateObject": { "SuspectSelected": val, "PlayerName": null } }));
 		//
 	}
 
@@ -88,72 +87,18 @@
 		//console.log("sending endTurn request to the server....");
 		//generateWeaponTokens();
 		doSend(JSON.stringify({ "UpdateType": 9, "UpdateObjectType": null, "UpdateObject": null }));
-};
+	};
+
+	this.moveRoom = function (room) {
+		console.log("moveRoom, ", room);
+		doSend(JSON.stringify({ "UpdateType": 0, "UpdateObjectType": null, "UpdateObject": { "room": room } }));
+		//TODO figure out the hallway-r3 and other hallway id values dont seem to have an ENUM type...
+		movePlayer(0, room, "Hallway-r3");
+		generateMovePad(null);
+	};
 
 
 this.sendMessage = function () {
 	console.log("inside send message, m = ", document.getElementById("msg").value);
 	doSend(JSON.stringify({ "UpdateType": 8, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.ChatMessage", "UpdateObject": { "Content": document.getElementById("msg").value, "SenderName": null, "Scope": 0 } }));
-	//get(".msger-inputarea").submit();
-	//document.getElementById("msg").value = m; //"3.14159";
-	//get(".msger-inputarea").submit();
-	//console.log("msgr-input = ", get(".msger-inputarea"));
-
 }
-
-this.getPossibleMoves = function() {
-	console.log("inside send message, m = ", document.getElementById("msg").value);
-	
-}
-
-	
-
-
-
-
-
-
-
-/*
-
-
-
-
-
-
-function makeMove(room) {
-	console.log('moving to: ', room);
-}
-
-
-function makeAccusation() {
-	
-}
-
-function endTurn() {
-	
-	
-}
-
-
-function makeSuggestion() {
-	
-	
-}
-
-
-function disproveSuggestion() {
-
-	
-}
-
-
-function init() {
-	
-	// this should give the player their cards
-	
-	// assign the weapons to the room
-	cards = ['', '', ''];
-	
-}
-*/

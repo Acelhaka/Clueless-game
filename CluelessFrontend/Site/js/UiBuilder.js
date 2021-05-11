@@ -1,4 +1,4 @@
-var location_to_ids = { "Study":"location_r0", 
+var location_to_ids = { "Study":"location_r0",
 						"Hallway-r1": "location_r1",
 						"Hall": "location_r2",
 						"Hallway-r3": "location_r3",
@@ -19,7 +19,67 @@ var location_to_ids = { "Study":"location_r0",
 						"Ballroom": "location_r18",
 						"Hallway-19": "location_r19",
 						"Kitchen": "location_r20"};
-						
+
+
+
+var location_to_weapon_and_suspect_ids = {
+	"Study": { "weapon": "r0_weapons", "suspect": "r0_suspects" },
+	"Hallway-r1": { "weapon": null, "suspect": "r1" },
+	"Hall": { "weapon": "r2_weapons", "suspect": "r2_suspects" },
+	"Hallway-r3": { "weapon": null, "suspect": "r3" },
+	"Lounge": { "weapon": "r4_weapons", "suspect": "r4_suspects" },
+	"Hallway-r5": { "weapon": null, "suspect": "r5" },
+	"Hallway-r6": { "weapon": null, "suspect": "r6" },
+	"Hallway-r7": { "weapon": null, "suspect": "r7" },
+	"Library": { "weapon": "r8_weapons", "suspect": "r8_suspects" },
+	"Hallway-r9": { "weapon": null, "suspect": "r9" },
+	"Billards": { "weapon": "r10_weapons", "suspect": "r10_suspects" },
+	"Hallway-11": { "weapon": null, "suspect": "r11" },
+	"Dinning": { "weapon": "r12_weapons", "suspect": "r12_suspects" },
+	"Hallway-13": { "weapon": null, "suspect": "r13" },
+	"Hallway-14": { "weapon": null, "suspect": "r14" },
+	"Hallway-15": { "weapon": null, "suspect": "r15" },
+	"Conservatory": { "weapon": "r16_weapons", "suspect": "r16_suspects" },
+	"Hallway-17": { "weapon": null, "suspect": "r17" },
+	"Ballroom": { "weapon": "r18_weapons", "suspect": "r18_suspects" },
+	"Hallway-19": { "weapon": null, "suspect": "r19" },
+	"Kitchen": { "weapon": "r20_weapons", "suspect": "r20_suspects" }
+};
+
+var suspect_enum_playerToken_link = {
+	"0": { "src": "img/characterIcons/MissScarlet.PNG", "alt": "Miss Scarlet" },
+	"1": { "src": "img/characterIcons/ColonelMustard.PNG", "alt": "Colonel Mustard" },
+	"2": { "src": "img/characterIcons/MrsPeacock.PNG", "alt": "Mrs Peacock" },
+	"3": { "src": "img/characterIcons/MrsWhite.PNG", "alt": "Mrs White" },
+	"4": { "src": "img/characterIcons/ProfessorPlum.PNG", "alt": "Professor Plum" },
+	"5": { "src": "img/characterIcons/ReverendGreen.PNG", "alt": "Mr Green" }
+};
+
+
+var enum_location_to_ids = {
+	"0": "r0_suspects", // the study
+	"Hallway-r1": "r1",
+	"1": "r2_suspects", // the hall
+	"Hallway-r3": "r3",
+	"2": "r4_suspects", // the lounge
+	"Hallway-r5": "r5",
+	"Hallway-r6": "r6",
+	"Hallway-r7": "r7",
+	"3": "r8_suspects", // the library
+	"Hallway-r9": "r9",
+	"4": "r10_suspects", // the billard room
+	"Hallway-11": "r11",
+	"5": "r12_suspects", // the dinning room
+	"Hallway-13": "r13",
+	"Hallway-14": "r14",
+	"Hallway-15": "r15",
+	"6": "r16_suspects", // the conservatory
+	"Hallway-17": "r17",
+	"7": "r18_suspects", // the ball room
+	"Hallway-19": "r19",
+	"8": "r20_suspects" // kitchen
+};
+
 
 var weapons_token_to_links = {
 		"CANDLESTICK": { "src": "img/weaponIcons/Candlestick.PNG", "alt": "Candlestick" },
@@ -102,7 +162,7 @@ function generateCards(cards) {
 	//console.log("cards_to_links = ", cards_to_links);
 	console.log("cards = ", cards);
 	for (var c in cards) {
-		//console.log("c = ", c);
+		console.log("c = ", c);
 		html += "<img class='zoom' src='" + enum_mapping_cards[cards[c]].src + "' title='" + enum_mapping_cards[cards[c]].alt + "' height=100px; width:100px; alt='" + enum_mapping_cards[cards[c]].alt + "'/>";
 	}
 	html += "</p>";
@@ -322,11 +382,23 @@ function generateChecklist() {
 }
 
 // TODO eventually pass in the locations that player can move to
-function generateMovePad() {
-	html = '<a class="up" href="#" id="upPad" title="N/A"></a>' +
-		   '<a class="right" href="#" id="rightPad" title="Lounge" onmouseover=highlightRoom(\'Lounge\'); onmouseout=unhighlightRoom(\'Lounge\');></a>' +
-		   '<a class="down" href="#" id="downPad" title="N/A"></a>' +
-		   '<a class="left" href="#" id="leftPad" title="Hall" onmouseover=highlightRoom(\'Hall\'); onmouseout=unhighlightRoom(\'Hall\');></a>';
+function generateMovePad(moves) {
+	// TODO add ENUM mapping so the client passes back an ENUM Type that the server can process
+	if (moves == null) {
+		// need to unhighlight all the prior rooms so a room is not stuck on highlighted 
+		unhighlightRoom('Lounge');
+		unhighlightRoom('Hall');
+		html = '<a class="up" href="#" id="upPad" title="N/A"></a>' +
+			'<a class="right" href="#" id="rightPad" title="N/A"></a>' +
+			'<a class="down" href="#" id="downPad" title="N/A"></a>' +
+			'<a class="left" href="#" id="leftPad" title="N/A"></a>';
+	} else {
+		html = '<a class="up" href="#" id="upPad" title="N/A"></a>' +
+			'<a class="right" href="#" id="rightPad" title="Lounge" onclick="moveRoom(2);" onmouseover=highlightRoom(\'Lounge\'); onmouseout=unhighlightRoom(\'Lounge\');></a>' +
+			'<a class="down" href="#" id="downPad" title="N/A"></a>' +
+			'<a class="left" href="#" id="leftPad" title="Hall" onclick="moveRoom(1);" onmouseover=highlightRoom(\'Hall\'); onmouseout=unhighlightRoom(\'Hall\');></a>';
+    }
+	
 	document.getElementById('dpad').innerHTML = html;
 }
 
@@ -335,10 +407,6 @@ function highlightRoom(room) {
 	
 	if (room in location_to_ids) {
 		document.getElementById(location_to_ids[room]).style.cssText += "opacity: 0.4;filter: alpha(opacity=40);";
-		
-		// testing out how the suspects and weapons look on the location
-		//document.getElementById('r0_weapons').innerHTML = "<img width=30 height=30 src='img/weaponIcons/Candlestick.PNG' title='Candlestick'>";
-		//document.getElementById('r0_suspects').innerHTML = "<img width=30 height=30 src='img/weaponIcons/Candlestick.PNG' title='Candlestick'><img width=30 height=30 src='img/weaponIcons/Candlestick.PNG' title='Candlestick'>";
 	}
 }
 
@@ -351,41 +419,18 @@ function unhighlightRoom(room) {
 	
 }
 
-/* No longer needed?
-function suspectSelectionDropdown() {
-	/* the backend stores this os an enum so use the value as numbers
-	 * COLNEL_MUSTARD	= 0
-	   MISS_SCARLET	= 1
-	   PROFESSOR_PLUM	= 2
-	   MR_GREEN	= 3
-	   MRS_WHITE	= 4
-	   MRS_PEACOCK	= 5
-	
-	// send updateType: 6, UpdateObjectType: SuspectSelectionUpdate PlayerName, no scope needed
-	//playerSuspectValue
-	// include a dropdown in the host / lobby to allow them to select which suspect they want to run // send gameType of 6 (SuspectSelection) 
-	var html = "<div class='btn-group'>" +
-					"<button type='button' class='btn btn-info'>Select Suspect</button>" +
-					"<button type='button' class='btn btn-info dropdown-toggle dropdown-toggle-split' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
-					"<span class='sr-only'>Toggle Dropdown</span></button>" + 
-					"<div class='dropdown-menu'>" +
-						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(0);'>Colnel Mustard</a>" +
-						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(1);'>Miss Scarlet</a>" +
-						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(2);'>Professor Plum</a>" +
-						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(3);'>Mr Green</a>" +
-						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(4);'>Mrs White</a>" +
-						"<a class='dropdown-item' onclick='updatePlayerSuspectValue(5);'>Mrs Peacock</a>" +
-					"</div>" +
-				"</div>"
-
-	document.getElementById('pickSuspectDropdown').innerHTML = html;
-}
-*/
-
-function getSuspectValueName() {
-	//val = document.getElementById('playerSuspectValue').value;
-  radiosPlayerSelect = document.getElementsByName('playerSelect');
+function getSuspectValueName(type) {
+    if (type == "start"){
+    //val = document.getElementById('playerSuspectValue').value;
+    radiosPlayerSelect = document.getElementsByName('playerSelect');
 	//console.log("playerSuspectValue = ", document.getElementById('playerSuspectValue').value);
+    } else if (type == "suggest"){
+    radiosPlayerSelect = document.getElementsByName('playerSelectSuggest');
+    } else if (type == "accuse"){
+    radiosPlayerSelect = document.getElementsByName('playerSelectAccuse');
+    } else {
+        console.log("function getSuspectValueName requires type.")
+    }
 	var name = "";
 	if (radiosPlayerSelect[0].checked)
 		name = "Col. Mustard";
@@ -402,30 +447,58 @@ function getSuspectValueName() {
 	return name;
 }
 
-/* No longer needed?
-function updatePlayerSuspectValue(val) {
-	document.getElementById('playerSuspectValue').value = val;
-	//console.log("playerSuspectValue = ", document.getElementById('playerSuspectValue').value);
+function getWeaponValueName(type) {
+    if (type == "suggest"){
+    radiosWeaponSelect = document.getElementsByName('weaponSelectSuggest');
+    } else if (type == "accuse"){
+    radiosWeaponSelect = document.getElementsByName('weaponSelectAccuse');
+    } else {
+        console.log("function getWeaponValueName requires type.")
+    }
 	var name = "";
-	if (val == 0)
-		name = suspectsTokens_to_links["MUSTARD"];
-	else if (val == 1)
-		name = suspectsTokens_to_links["SCARLET"]; 
-	else if (val == 2)
-		name = suspectsTokens_to_links["PLUM"]; 
-	else if (val == 3)
-		name = suspectsTokens_to_links["GREEN"]; 
-	else if (val == 4)
-		name = suspectsTokens_to_links["WHITE"]; 
-	else if (val == 5)
-		name = suspectsTokens_to_links["PEACOCK"];
+	if (radiosWeaponSelect[0].checked)
+		name = "Candlestick";
+	else if (radiosWeaponSelect[1].checked)
+		name = "Dagger";
+	else if (radiosWeaponSelect[2].checked)
+		name = "LeadPipe";
+	else if (radiosWeaponSelect[3].checked)
+		name = "Revolver";
+	else if (radiosWeaponSelect[4].checked)
+		name = "Rope";
+	else if (radiosWeaponSelect[5].checked)
+		name = "Spanner";
+	return name;
+}
 
-	document.getElementById('playerSuspectName').innerHTML = "<img src='"+ name.src + "' title='" + name.alt +"'/>";
-}*/
-
-function suggestion_popup() {
-	
-	
+function getRoomValueName(type) {
+    if (type == "suggest"){
+    radiosRoomSelect = document.getElementsByName('roomSelectSuggest');
+    } else if (type == "accuse"){
+    radiosRoomSelect = document.getElementsByName('roomSelectAccuse');
+    } else {
+        console.log("function getWeaponValueName requires type.")
+    }
+	var name = "";
+	if (radiosRoomSelect[0].checked)
+		name = "Ballroom";
+	else if (radiosRoomSelect[1].checked)
+		name = "Billiard";
+	else if (radiosRoomSelect[2].checked)
+		name = "Conservatory";
+	else if (radiosRoomSelect[3].checked)
+		name = "Dining";
+	else if (radiosRoomSelect[4].checked)
+		name = "Hall";
+	else if (radiosRoomSelect[5].checked)
+		name = "Kitchen";
+    else if (radiosRoomSelect[6].checked)
+		name = "Library";
+    else if (radiosRoomSelect[7].checked)
+		name = "Lounge";
+    else if (radiosRoomSelect[8].checked)
+		name = "Study";
+	return name;
 }
 
 function generateWeaponTokens(rooms) {
@@ -435,18 +508,44 @@ function generateWeaponTokens(rooms) {
 		"Billards": "KNIFE",
 		"Conservatory": "PIPE",
 		"Dinning": "REVOLVER",
-		"Hall": "ROPE",
+		"Study": "ROPE",
 		"Kitchen": "SPANNER"
 	}
 	//console.log("inside generate weapon tokens..");
 	for (var r in rooms_to_weapons) {
 		//console.log("r = ", r);
-		if (r in location_to_ids) {
-			document.getElementById(location_to_ids[r]).innerHTML = "<span title='" + weapons_token_to_links[rooms_to_weapons[r]].alt +
+		if (r in location_to_weapon_and_suspect_ids) {
+			//console.log("location_to_ids[r] = ", location_to_weapon_and_suspect_ids[r]);
+			document.getElementById(location_to_weapon_and_suspect_ids[r]['weapon']).innerHTML = "<span title='" + weapons_token_to_links[rooms_to_weapons[r]].alt +
 																	"'><img height='25px' width=25px' src = '" + weapons_token_to_links[rooms_to_weapons[r]].src + "'></span > ";
         }
 
     }
 	
 }
+
+function movePlayer(suspect, to, from) {
+
+	var s = suspect_enum_playerToken_link[suspect];
+
+	// remove the player token icon from the existing DOM element (i.e. from)
+	var originalHTML = document.getElementById(enum_location_to_ids[from]).innerHTML;
+	var matchingText = '<span title="' + s.alt + '"><img src="' + s.src + '"></span>';
+	var n = originalHTML.replace(matchingText, '');
+	document.getElementById(enum_location_to_ids[from]).innerHTML = n;
+
+	// add the player token icon to the existing DOM element (i.e. to)
+	console.log("to = ", enum_location_to_ids[to]);
+	console.log("to param = ", to);
+	console.log("element by id = ", document.getElementById(enum_location_to_ids[to]));
+	if (document.getElementById(enum_location_to_ids[to]) == null) {
+		document.getElementById(enum_location_to_ids[to]).innerHTML = matchingText;
+	}
+	else {
+		document.getElementById(enum_location_to_ids[to]).innerHTML += matchingText;
+    }
+	
+}
+
+
 	
