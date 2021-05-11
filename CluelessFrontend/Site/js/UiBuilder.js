@@ -20,7 +20,7 @@ var location_to_ids = { "Study":"location_r0",
 						"Hallway-19": "location_r19",
 						"Kitchen": "location_r20"};
 
-
+var current_location = "";
 
 var location_to_weapon_and_suspect_ids = {
 	"Study": { "weapon": "r0_weapons", "suspect": "r0_suspects" },
@@ -54,6 +54,46 @@ var suspect_enum_playerToken_link = {
 	"4": { "src": "img/characterIcons/ProfessorPlum.PNG", "alt": "Professor Plum" },
 	"5": { "src": "img/characterIcons/ReverendGreen.PNG", "alt": "Mr Green" }
 };
+
+var move_options = {
+	'Study': { 'left': null, 'down': 'Hallway-r5', 'right': 'Hallway-r1', 'up': 'Kitchen' },
+	'Hallway-r1': { 'left': 'Study', 'down': null, 'right': 'Hall', 'up': null },
+	'Hall': { 'left': 'Hallway-r1', 'down': 'Hallway-r6', 'right': 'Hallway-r6', 'up': null },
+	'Hallway-r3': { 'left': 'Hall', 'down': null, 'right': 'Lounge', 'up': null },
+	'Hallway-r5': { 'left': null, 'down': 'Library', 'right': 'Hallway-r6', 'up': 'Study' },
+	'Hallway-r6': { 'left': 'Hallway-r5', 'down': 'Billards', 'right': 'Hallway-r7', 'up': 'Hall' },
+	'Hallway-r7': { 'left': 'Hallway-r6', 'down': 'Dinning', 'right': null, 'up': 'Lounge' },
+	'Library': { 'left': null, 'down': 'Hallway-r9', 'right': 'Hallway-r8', 'up': 'Hallway-r5' },
+	'Hallway-r8': { 'left': null, 'down': null, 'right': null, 'up': null },
+	'Billiards': { 'left': null, 'down': null, 'right': null, 'up': null },
+	'Dinning': { 'left': null, 'down': null, 'right': null, 'up': null },
+	'Hallway-r9': { 'left': null, 'down': "Conservatory", 'right': null, 'up': null },
+};											
+
+function updatePlayerLocation(val) {
+	if (val == 0)
+		current_location = "Hallway-r7";
+	else if (val == 1)
+		current_location = "Hallway-r3";
+	else if (val == 2)
+		current_location = "Hallway-r5";
+	else if (val == 3)
+		current_location = "Hallway-17";
+	else if (val == 4)
+		current_location = "Hallway-19";
+	else if (val == 5)
+		current_location = "Hallway-r9";
+
+	console.log("player location = ", current_location);
+};
+
+function setPlayerLocation(newLocation) {
+
+	current_location = newLocation;
+
+}
+
+
 
 
 var enum_location_to_ids = {
@@ -220,8 +260,8 @@ function generateBoard() {
 								'<center><span id="r5" title="Professor Plum"><img src="img/characterIcons/ProfessorPlum.PNG"></span></center>' +
 							'</div>' +
 						'</div>' +
-					'<div  id="location_r6" class="fillHall" style="">&nbsp;</div>' +
-					'<div class="card vertHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
+					'<div  class="fillHall" style="">&nbsp;</div>' +
+					'<div  id="location_r6" class="card vertHall" title="Hallway" style="background-image:url(img/board-images/hallway-tile.png);">' +
 						'<div class="card-body">' +
 							'<h5 class="card-title"><center></center></h5>' +
 							'<center><span id="r6"></span></center>' +
@@ -393,10 +433,47 @@ function generateMovePad(moves) {
 			'<a class="down" href="#" id="downPad" title="N/A"></a>' +
 			'<a class="left" href="#" id="leftPad" title="N/A"></a>';
 	} else {
+
+		options = move_options[current_location];
+		console.log("options = ", options);
+
+		html = "";
+		if (options !== undefined && options['up'] != null) {
+			html += '<a class="up" href="#" id="upPad" title="' + options['up'] + '" onclick="moveRoom(2);" onmouseover=highlightRoom("' + options['up'] + '"); onmouseout=unhighlightRoom("' + options['up'] + '");></a>';
+		}
+		else {
+			html += '<a class="up" href="#" id="upPad" title="N/A"></a>'
+		}
+
+		if (options !== undefined && options['right'] != null) {
+			html += '<a class="right" href="#" id="rightPad" title="' + options['right'] + '" onclick="moveRoom(2);" onmouseover=highlightRoom("' + options['right'] + '"); onmouseout=unhighlightRoom("' + options['right'] + '");></a>';
+		} else {
+			html += '<a class="right" href="#" id="rightPad" title="N/A"></a>'
+		}
+
+		if (options !== undefined && options['left'] != null) {
+			html += '<a class="left" href="#" id="leftPad" title="' + options['left'] + '" onclick="moveRoom(2);" onmouseover=highlightRoom("' + options['left'] + '"); onmouseout=unhighlightRoom("' + options['left'] + '");></a>';
+		} else {
+			html += '<a class="left" href="#" id="leftPad" title="N/A"></a>'
+		}
+
+		if (options !== undefined && options['down'] != null) {
+			html += '<a class="down" href="#" id="downPad" title="' + options['down'] + '" onclick="moveRoom(2);" onmouseover=highlightRoom("' + options['down'] + '"); onmouseout=unhighlightRoom("' + options['down'] + '");></a>';
+		} else {
+			html += '<a class="down" href="#" id="downPad" title="N/A"></a>'
+        }
+
+		/*
 		html = '<a class="up" href="#" id="upPad" title="N/A"></a>' +
 			'<a class="right" href="#" id="rightPad" title="Lounge" onclick="moveRoom(2);" onmouseover=highlightRoom(\'Lounge\'); onmouseout=unhighlightRoom(\'Lounge\');></a>' +
 			'<a class="down" href="#" id="downPad" title="N/A"></a>' +
 			'<a class="left" href="#" id="leftPad" title="Hall" onclick="moveRoom(1);" onmouseover=highlightRoom(\'Hall\'); onmouseout=unhighlightRoom(\'Hall\');></a>';
+			*/
+		/*
+		html = '<a class="up" href="#" id="upPad" title="N/A"></a>' +
+			'<a class="right" href="#" id="rightPad" title="Lounge" onclick="moveRoom(2);" onmouseover=highlightRoom(\'Lounge\'); onmouseout=unhighlightRoom(\'Lounge\');></a>' +
+			'<a class="down" href="#" id="downPad" title="N/A"></a>' +
+			'<a class="left" href="#" id="leftPad" title="Hall" onclick="moveRoom(1);" onmouseover=highlightRoom(\'Hall\'); onmouseout=unhighlightRoom(\'Hall\');></a>';*/
     }
 	
 	document.getElementById('dpad').innerHTML = html;

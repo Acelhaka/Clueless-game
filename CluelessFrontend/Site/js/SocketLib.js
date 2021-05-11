@@ -60,6 +60,7 @@
 		generateWeaponTokens("");
 		// erase the start game button since it was already pressed
 		document.getElementById('startGameButtonId').innerHTML = "";
+		generateMovePad("nextMove");
 
 	};
 
@@ -80,7 +81,9 @@
 		else if (radiosPlayerSelect[5].checked)
 			val = 5
 		doSend(JSON.stringify({ "UpdateType": 6, "UpdateObjectType": "CluelessNetwork.TransmittedTypes.SuspectSelectionUpdate", "UpdateObject": { "SuspectSelected": val, "PlayerName": null } }));
-		//
+
+		// so the client knows it's location
+		updatePlayerLocation(val);
 	}
 
 	this.endTurn = function () {
@@ -91,7 +94,7 @@
 
 	this.moveRoom = function (room) {
 		console.log("moveRoom, ", room);
-		doSend(JSON.stringify({ "UpdateType": 0, "UpdateObjectType": null, "UpdateObject": { "room": room } }));
+		doSend(JSON.stringify({ "UpdateType": 1, "UpdateObjectType": null, "UpdateObject": { "room": room } }));
 		//TODO figure out the hallway-r3 and other hallway id values dont seem to have an ENUM type...
 		movePlayer(0, room, "Hallway-r3");
 		generateMovePad(null);
