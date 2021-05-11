@@ -138,7 +138,6 @@ namespace CluelessBackend.Core
                 client.SendGameStartInfo(gameStartInfo);
             }
 
-            suspectSelections.Single(Player =>)
         }
 
         private static int GetNumberFromCard(Card card)
@@ -220,10 +219,25 @@ namespace CluelessBackend.Core
         /// </summary>
         /// <param name="player"> player that makes the accusation </param>
         /// <param name="proposedCards">Proposed card for the accusation </param>
-        public void MakeAccusation(Player player, List<Card> proposedCards)
+        public bool MakeAccusation(Player player, List<Card> proposedCards)
         {
             Console.WriteLine("Player {playerName_} has made an accusation");
             player.HasAccused();
+            player.SetIsActive(false);
+
+            if ((proposedCards[0] == scenarioFile_.GetEnvelopeCards()[0])
+                 && (proposedCards[1] == scenarioFile_.GetEnvelopeCards()[1])
+                 && (proposedCards[2] == scenarioFile_.GetEnvelopeCards()[2])
+                 )
+            {
+                Console.WriteLine("Win");
+                return true;
+            }
+            else
+            {
+                return false;
+           
+            }
         }
 
         /// <summary>

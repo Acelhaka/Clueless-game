@@ -23,19 +23,19 @@ namespace CluelessBackend.Core
 
         //_______________________________**Board Setup**______________________________
         //               |             |                |            |               |
-        //    Study      |  Hallway-1  |      Hall      |  Hallway-2 |   Lounge      |
+        //    Study      |  Hallway-9  |      Hall      |  Hallway-10|   Lounge      |
         //_______________|_____________|________________|____________|_______________|
         //               |             |                |            |               |   
-        //    Hallway-3  |             |   Hallway-4    |            |   Hallway-5   |
+        //    Hallway-11 |             |   Hallway-12   |            |   Hallway-13  |
         //_______________|_____________|________________|____________|_______________|
         //               |             |                |            |               |   
-        //     Library   | Hallway-6   | Billiard Room  |  Hallway-7 |  Dining Room  |
+        //     Library   | Hallway-14  | Billiard Room  |  Hallway-15|  Dining Room  |
         //_______________|_____________|________________|____________|_______________|
         //               |             |                |            |               |   
-        //    Hallway-8  |             |   Hallway-9    |            |   Hallway-10  |
+        //    Hallway-16 |             |   Hallway-17   |            |   Hallway-18  |
         //_______________|_____________|________________|____________|_______________|
         //               |             |                |            |               |   
-        //  Conservatory | Hallway-11  |   BallRoom     | Hallway-12 |   Kitchen     |
+        //  Conservatory | Hallway-19 |   BallRoom     | Hallway-20 |   Kitchen     |
         //_______________|_____________|________________|____________|_______________|                                  
 
         public Board()
@@ -43,14 +43,14 @@ namespace CluelessBackend.Core
             // Creating board with rooms and hallways
             rooms_ = new Room[5, 5]
            {
-            {new Room(Room.ROOM.STUDY, true), new Hallway(1), new Room(Room.ROOM.HALL, false),
-                    new Hallway(2), new Room(Room.ROOM.LOUNGE, true)},
-            {new Hallway(3), new Hallway(), new Hallway(4), new Hallway(), new Hallway(5)},
-            {new Room(Room.ROOM.LIBRARY, false), new Hallway(6), new Room(Room.ROOM.BILLIARD_ROOM, false),
-                    new Hallway(7), new Room(Room.ROOM.DINNING_ROOM, false)},
-             {new Hallway(8), new Hallway(), new Hallway(9), new Hallway(), new Hallway(10)},
-            {new Room(Room.ROOM.CONSERVATORY, true), new Hallway(11),new Room(Room.ROOM.BALLROOM, false),
-                    new Hallway(12), new Room(Room.ROOM.KITCHEN, true) }
+            {new Room(Room.ROOM.STUDY, true), new Hallway(9), new Room(Room.ROOM.HALL, false),
+                    new Hallway(10), new Room(Room.ROOM.LOUNGE, true)},
+            {new Hallway(11), new Hallway(), new Hallway(12), new Hallway(), new Hallway(13)},
+            {new Room(Room.ROOM.LIBRARY, false), new Hallway(13), new Room(Room.ROOM.BILLIARD_ROOM, false),
+                    new Hallway(15), new Room(Room.ROOM.DINNING_ROOM, false)},
+             {new Hallway(16), new Hallway(), new Hallway(17), new Hallway(), new Hallway(18)},
+            {new Room(Room.ROOM.CONSERVATORY, true), new Hallway(19),new Room(Room.ROOM.BALLROOM, false),
+                    new Hallway(20), new Room(Room.ROOM.KITCHEN, true) }
             };
         }
 

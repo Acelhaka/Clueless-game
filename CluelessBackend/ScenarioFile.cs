@@ -61,5 +61,10 @@ namespace CluelessBackend.Core
         {
             envelopeCards_ = envelopeCards;
         }
+
+        public Card[] GetEnvelopeCards()
+        {
+            return envelopeCards_;
+        }
     }
 }
